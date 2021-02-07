@@ -2,8 +2,8 @@
 <a href="https://dscvit.com">
 	<img src="https://user-images.githubusercontent.com/30529572/92081025-fabe6f00-edb1-11ea-9169-4a8a61a5dd45.png" alt="DSC VIT"/>
 </a>
-	<h2 align="center"> < Insert Project Title Here > </h2>
-	<h4 align="center"> < Insert Project Description Here > <h4>
+	<h2 align="center"> Songified | Uncovering Song Info </h2>
+	<h4 align="center"> An app to explore and contribute song info and keep track of it. <h4>
 </p>
 
 ---
@@ -15,10 +15,14 @@
 
 
 ## Features
-- [ ]  < feature >
-- [ ]  < feature >
-- [ ]  < feature >
-- [ ]  < feature >
+- [ ]  < Search a song and get details(key,tempo) from backend >
+- [ ]  < Upload a song and get details from backend >
+- [ ]  < Login/Signup Screen >
+- [ ]  < Personal Songbook for each user >
+- [ ]  < Adding song (text only details) to a songbook manually >
+- [ ]  < Adding song to a songbook from search>
+- [ ]  < User profile >
+- [ ]  < Manage songbooks >
 
 <br>
 
