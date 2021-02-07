@@ -15,14 +15,15 @@
 
 
 ## Features
-- [ ]  < Search a song and get details(key,tempo) from backend >
-- [ ]  < Upload a song and get details from backend >
-- [ ]  < Login/Signup Screen >
-- [ ]  < Personal Songbook for each user >
-- [ ]  < Adding song (text only details) to a songbook manually >
-- [ ]  < Adding song to a songbook from search>
-- [ ]  < User profile >
-- [ ]  < Manage songbooks >
+- [ ] Search a song and get details(key,tempo) from backend
+- [ ] Upload a song and get details from backend
+- [ ] Login/Signup Screen
+- [ ] Add info to a song
+- [ ] Personal Songbook for each user
+- [ ] Adding song (text only details) to a songbook manually
+- [ ] Adding song to a songbook from search
+- [ ] User profile/settings
+- [ ] Manage songbooks
 
 <br>
 
@@ -50,15 +51,15 @@
 <table>
 	<tr align="center">
 		<td>
-		John Doe
+		Jeevan Yohan Varghese
 		<p align="center">
-			<img src = "https://dscvit.com/images/dsc-logo-square.svg" width="150" height="150" alt="Your Name Here (Insert Your Image Link In Src">
+			<img src = "https://avatars.githubusercontent.com/u/51222118?s=400&u=7c55628e5d313be9527bdd4f902025b8e02376bc&v=4" width="150" height="150" alt="Jeevan Yohan Varghese">
 		</p>
 			<p align="center">
-				<a href = "https://github.com/person1">
+				<a href = "https://github.com/jeevan-yohan-varghese">
 					<img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/>
 				</a>
-				<a href = "https://www.linkedin.com/in/person1">
+				<a href = "https://www.linkedin.com/in/jeevan-yohan-varghese/">
 					<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
 				</a>
 			</p>
