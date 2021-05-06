@@ -5,16 +5,16 @@ import com.google.gson.annotations.SerializedName
 data class AddToSongbookRequest(
 
     @SerializedName("songbookId")
-    val songbookId:String,
+    val songbookId: String,
     @SerializedName("title")
-    val songTitle:String,
+    val songTitle: String,
     @SerializedName("body")
-    val songBody:String,
+    val songBody: String,
     @SerializedName("scale")
-    val scale:String,
+    val scale: String,
     @SerializedName("tempo")
-    val tempo:Int,
+    val tempo: Int,
     @SerializedName("artist")
-    val artist:String
+    val artist: String
 
 )

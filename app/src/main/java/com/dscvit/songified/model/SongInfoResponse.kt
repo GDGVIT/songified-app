@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class SongInfoResponse(
     @SerializedName("userComments")
-    val songComments:ArrayList<SongComment>
+    val songComments: ArrayList<SongComment>
 )

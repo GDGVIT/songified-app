@@ -6,15 +6,15 @@ data class AudioAnalysis(
 
 
     @SerializedName("moodTags")
-    val moodTags:ArrayList<String>,
+    val moodTags: ArrayList<String>,
     @SerializedName("genreTags")
-    val genreTags:ArrayList<String>,
+    val genreTags: ArrayList<String>,
     @SerializedName("emotionalProfile")
-    val emotionalProfile:String,
+    val emotionalProfile: String,
     @SerializedName("musicalEraTag")
-    val musicalEraTag:String,
+    val musicalEraTag: String,
     @SerializedName("data")
-    val analysisData:String,
+    val analysisData: String,
     @SerializedName("energyLevel")
-    val energy:String,
+    val energy: String,
 )

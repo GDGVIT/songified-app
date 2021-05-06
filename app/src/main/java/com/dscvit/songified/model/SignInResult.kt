@@ -2,10 +2,10 @@ package com.dscvit.songified.model
 
 import com.google.gson.annotations.SerializedName
 
-data class SignInResult (
+data class SignInResult(
 
     @SerializedName("success")
-    val success:String,
+    val success: String,
     @SerializedName("authToken")
-    val token:String
-        )
+    val token: String
+)

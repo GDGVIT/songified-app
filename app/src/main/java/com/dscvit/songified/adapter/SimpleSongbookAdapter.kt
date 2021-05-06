@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 import com.dscvit.songified.R
+import com.dscvit.songified.databinding.ListItemSimpleSongbooksBinding
 import com.dscvit.songified.model.Songbook
 
 
@@ -25,8 +26,8 @@ class SimpleSongbookAdapter : RecyclerView.Adapter<SimpleSongbookAdapter.Songboo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SongbookViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.list_item_simple_songbooks,
+        ListItemSimpleSongbooksBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
             false
         )
@@ -38,12 +39,12 @@ class SimpleSongbookAdapter : RecyclerView.Adapter<SimpleSongbookAdapter.Songboo
 
     override fun getItemCount() = songbookList.size
 
-    class SongbookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvSongbookName = view.findViewById<TextView>(R.id.tv_list_item_simple_songbook_name);
+    class SongbookViewHolder(val binding: ListItemSimpleSongbooksBinding) : RecyclerView.ViewHolder(binding.root) {
+
 
 
         fun bind(songbook: Songbook) {
-            tvSongbookName.text = songbook.name
+            binding.tvListItemSimpleSongbookName.text = songbook.name
 
         }
     }

@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_upload_fragment"
-        android:name="com.dscvit.songified.ui.AudioAnalysis.UploadSongFragment"
+        android:name="com.dscvit.songified.ui.audioanalysis.UploadSongFragment"
         android:label="Upload Song"
         tools:layout="@layout/fragment_upload_song">
         <action
@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/navigation_audio_analysis_result"
-        android:name="com.dscvit.songified.ui.AudioAnalysis.AudioAnalysisResultFragment"
+        android:name="com.dscvit.songified.ui.audioanalysis.AudioAnalysisResultFragment"
         android:label="Audio Analysis"
         tools:layout="@layout/fragment_audio_analysis">
 

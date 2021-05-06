@@ -34,6 +34,10 @@
         <item name="strokeColor">#8CFFFFFF</item>
     </style>
 
+    <style name="FilledButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="colorPrimary">@color/songified_primary</item>
+    </style>
+
     <style name="MyAlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="android:background">@color/songified_card_color</item>
         <item name="android:textColor">#ffffff</item>

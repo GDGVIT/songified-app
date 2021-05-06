@@ -64,7 +64,7 @@ interface ApiInterfaceSongified {
     suspend fun deleteSongbook(@Body songbookDeleteRequest: SongbookDeleteRequest): Response<GeneralPostResponse>
 
     @HTTP(method = "PATCH", path = "songbook/songbookName", hasBody = true)
-    suspend fun updateSongbookName(@Body updateSongbookNameReqeust: UpdateSongbookNameReqeust): Response<GeneralPostResponse>
+    suspend fun updateSongbookName(@Body updateSongbookNameRequest: UpdateSongbookNameReqeust): Response<GeneralPostResponse>
 
     @GET("upload/getAllUploads")
     suspend fun getPreviousUploads(): Response<PreviousUploadsResponse>

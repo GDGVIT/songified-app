@@ -8,7 +8,7 @@
     app:cardBackgroundColor="@color/songified_black"
     app:cardCornerRadius="12dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,25 +17,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Songbook to Save"
+            android:text="@string/select_songbook_to_save"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <ProgressBar
+            android:id="@+id/pb_save_song"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:id="@+id/pb_save_song"
-            />
+            android:layout_marginTop="12dp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_dialog_songbooks_save_song"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/rv_dialog_songbooks_save_song"
-            />
-
-
+            android:layout_marginTop="16dp" />
 
 
     </LinearLayout>

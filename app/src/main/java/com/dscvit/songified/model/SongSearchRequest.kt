@@ -6,9 +6,9 @@ data class SongSearchRequest(
 
 //    @SerializedName("song_name")
 //    val songName: String
-@SerializedName("type ")
-val type:String,
-@SerializedName("lookup")
-val lookup:String,
+    @SerializedName("type ")
+    val type: String,
+    @SerializedName("lookup")
+    val lookup: String,
 
-)
+    )

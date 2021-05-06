@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dscvit.songified.R
+import com.dscvit.songified.databinding.ListItemSimpleSongbooksBinding
+import com.dscvit.songified.databinding.ListItemSimpleTagBinding
 
 class SimpleTagAdapter: RecyclerView.Adapter<SimpleTagAdapter.SimpleTageViewHolder>() {
 
@@ -22,8 +24,8 @@ class SimpleTagAdapter: RecyclerView.Adapter<SimpleTagAdapter.SimpleTageViewHold
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SimpleTageViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.list_item_simple_tag,
+        ListItemSimpleTagBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
             false
         )
@@ -35,12 +37,12 @@ class SimpleTagAdapter: RecyclerView.Adapter<SimpleTagAdapter.SimpleTageViewHold
 
     override fun getItemCount() = tagList.size
 
-    class SimpleTageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvTagName = view.findViewById<TextView>(R.id.text_simple_tag);
+    class SimpleTageViewHolder(val binding: ListItemSimpleTagBinding) : RecyclerView.ViewHolder(binding.root) {
+
         //val bgArray= arrayOf(R.drawable.simple_tag_bg_3,R.drawable.simple_tag_bg_1,R.drawable.simple_tag_bg_2)
 
         fun bind(tag: String) {
-            tvTagName.text = tag
+            binding.textSimpleTag.text = tag
            // tvTagName.setBackgroundResource(bgArray.random())
 
         }

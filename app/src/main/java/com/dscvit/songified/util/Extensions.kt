@@ -57,7 +57,7 @@ fun View.show() {
 }
 
 fun CharSequence?.isValidEmail() =
-    !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this!!).matches()
+    !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 fun EditText.hideSoftKeyboardOnFocusLostEnabled(enabled: Boolean) {
     val listener = if (enabled)

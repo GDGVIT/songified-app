@@ -8,10 +8,13 @@ import com.dscvit.songified.model.UpdateSongbookNameReqeust
 import com.dscvit.songified.repository.AppRepo
 
 class SongbookViewModel(private val repo: AppRepo) : ViewModel() {
-    fun getSongbooks()=repo.getSongbooks()
-    fun newSongbook(newSongbookRequest: NewSongbookRequest)=repo.newSongbook(newSongbookRequest)
+    fun getSongbooks() = repo.getSongbooks()
+    fun newSongbook(newSongbookRequest: NewSongbookRequest) = repo.newSongbook(newSongbookRequest)
 
-    fun updateSongbookName(updateSongbookNameReqeust: UpdateSongbookNameReqeust)=repo.updateSongbookName(updateSongbookNameReqeust)
-    fun deleteSongbook(songbookDeleteRequest: SongbookDeleteRequest)=repo.deleteSongbook(songbookDeleteRequest)
+    fun updateSongbookName(updateSongbookNameReqeust: UpdateSongbookNameReqeust) =
+        repo.updateSongbookName(updateSongbookNameReqeust)
+
+    fun deleteSongbook(songbookDeleteRequest: SongbookDeleteRequest) =
+        repo.deleteSongbook(songbookDeleteRequest)
 
 }

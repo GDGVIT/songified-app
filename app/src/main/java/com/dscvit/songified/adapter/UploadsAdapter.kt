@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dscvit.songified.R
+import com.dscvit.songified.databinding.ListItemPreviousUploadsBinding
+import com.dscvit.songified.databinding.ListItemSimpleSongbooksBinding
 import com.dscvit.songified.model.Songbook
 import com.dscvit.songified.model.UploadedSong
 
@@ -26,8 +28,8 @@ class UploadsAdapter: RecyclerView.Adapter<UploadsAdapter.UploadsViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = UploadsViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.list_item_previous_uploads,
+        ListItemPreviousUploadsBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
             false
         )
@@ -39,24 +41,21 @@ class UploadsAdapter: RecyclerView.Adapter<UploadsAdapter.UploadsViewHolder>() {
 
     override fun getItemCount() = uploadsList.size
 
-    class UploadsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvSongName = view.findViewById<TextView>(R.id.tv_list_item_previous_upload_song_name);
-        private val tvStatus=view.findViewById(R.id.tv_status_list_item_previous_upload) as TextView
-        private val imgStatus=view.findViewById(R.id.img_list_item_status_previous_upload) as ImageView
-        private val divider=view.findViewById(R.id.divider_previous_uploads) as View
+    class UploadsViewHolder(val binding: ListItemPreviousUploadsBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(uploadedSong: UploadedSong) {
 
-            tvSongName.text = uploadedSong.name
-            tvStatus.text="Status : ${uploadedSong.status}"
+            binding.tvListItemPreviousUploadSongName.text = uploadedSong.name
+            binding.tvStatusListItemPreviousUpload.text="Status : ${uploadedSong.status}"
 
             when(uploadedSong.status){
                 "Finished"->{
 
-                    imgStatus.setImageResource(R.drawable.semi_ring_green)
+                    binding.imgListItemStatusPreviousUpload.setImageResource(R.drawable.semi_ring_green)
                 }
                 "Processing"->{
 
-                    imgStatus.setImageResource(R.drawable.semi_ring_blue)
+                    binding.imgListItemStatusPreviousUpload.setImageResource(R.drawable.semi_ring_blue)
                 }
 
             }

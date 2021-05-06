@@ -8,6 +8,6 @@ import org.koin.dsl.module
 val apiModule = module {
     factory { ApiServiceSongified.createRetrofit(get()) }
     factory { ApiServiceGSB.createRetrofit(get()) }
-    factory { ApiClient(get(),get()) }
+    factory { ApiClient(get(), get()) }
 
 }

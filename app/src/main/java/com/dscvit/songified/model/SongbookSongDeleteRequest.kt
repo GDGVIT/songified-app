@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SongbookSongDeleteRequest(
     @SerializedName("songbookId")
-    val songBookId:String,
+    val songBookId: String,
     @SerializedName("songId")
-    val songId:String
+    val songId: String
 )

@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 import com.dscvit.songified.R
+import com.dscvit.songified.databinding.ListItemSimpleSongbooksBinding
+import com.dscvit.songified.databinding.ListItemSongSearchResultBinding
 import com.dscvit.songified.model.Song
 
 
@@ -25,8 +27,8 @@ class SongListAdapter : RecyclerView.Adapter<SongListAdapter.SongViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SongViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.list_item_song_search_result,
+        ListItemSongSearchResultBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
             false
         )
@@ -38,15 +40,12 @@ class SongListAdapter : RecyclerView.Adapter<SongListAdapter.SongViewHolder>() {
 
     override fun getItemCount() = songsList.size
 
-    class SongViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val songNameText =
-            view.findViewById<TextView>(R.id.tv_list_item_search_result_song_name);
-        private val artistNameText =
-            view.findViewById<TextView>(R.id.tv_list_item_search_result_song_artist_name)
+    class SongViewHolder(val binding: ListItemSongSearchResultBinding) : RecyclerView.ViewHolder(binding.root) {
+
 
         fun bind(song: Song) {
-            songNameText.text = song.song_title
-            artistNameText.text=song.artist.artist_title
+            binding.tvListItemSearchResultSongName.text = song.song_title
+            binding.tvListItemSearchResultSongArtistName.text=song.artist.artist_title
 
         }
     }

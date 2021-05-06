@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class SingleSongbookRequest(
 
     @SerializedName("songbookId")
-    val songbookId:String
+    val songbookId: String
 )

@@ -1,16 +1,15 @@
 package com.dscvit.songified.network
 
 
-import com.dscvit.songified.model.*
+import com.dscvit.songified.model.GetSongBpmResponse
+import com.dscvit.songified.model.SongDetailsResponse
 import retrofit2.Response
-import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Query
 
 
 interface ApiInterfaceGSB {
-//This is for getsongbpm api
+//This is for getSongBPM api
 
     @GET("/search/")
     suspend fun searchSong(

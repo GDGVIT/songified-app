@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName
 data class UpdateSongInSongbookRequest(
 
     @SerializedName("songbookId")
-    val songbookId:String,
+    val songbookId: String,
     @SerializedName("songId")
     val songId: String,
     @SerializedName("title")
-    val songTitle:String,
+    val songTitle: String,
     @SerializedName("body")
-    val songBody:String,
+    val songBody: String,
     @SerializedName("scale")
-    val scale:String,
+    val scale: String,
     @SerializedName("tempo")
-    val tempo:Int,
+    val tempo: Int,
     @SerializedName("artist")
-    val artist:String
+    val artist: String
 )

@@ -1,8 +1,8 @@
-package com.dscvit.handly.di.modules
+package com.dscvit.songified.di.modules
 
 
-import com.dscvit.songified.ui.AudioAnalysis.AudioAnalysisViewModel
-import com.dscvit.songified.ui.AudioAnalysis.UploadSongViewModel
+import com.dscvit.songified.ui.audioanalysis.AudioAnalysisViewModel
+import com.dscvit.songified.ui.audioanalysis.UploadSongViewModel
 import com.dscvit.songified.ui.login.LoginViewModel
 import com.dscvit.songified.ui.search.SearchResultViewModel
 import com.dscvit.songified.ui.search.SearchViewModel

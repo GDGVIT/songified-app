@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class AnalysedDataRequest(
     @SerializedName("songId")
-    val songId:String
+    val songId: String
 )

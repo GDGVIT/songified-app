@@ -2,7 +2,6 @@ package com.dscvit.songified.network
 
 import android.content.Context
 import com.dscvit.songified.util.Constants
-import com.dscvit.songified.util.PrefHelper
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,14 +22,7 @@ object ApiServiceGSB {
 
     private fun getOkHttpClient(context: Context): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
-        val sharedPref = PrefHelper.customPrefs(context, Constants.PREF_NAME)
 
-        val token = sharedPref.getString(Constants.PREF_AUTH_TOKEN, "")
-        val tokenStr = if (token != "") {
-            "Bearer$token"
-        } else {
-            ""
-        }
 
         httpClient.connectTimeout(25, TimeUnit.SECONDS)
         httpClient.readTimeout(25, TimeUnit.SECONDS)

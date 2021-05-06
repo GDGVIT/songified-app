@@ -10,7 +10,7 @@ import okhttp3.RequestBody
 class AppRepo(private val apiClient: ApiClient) : BaseRepo() {
 
 //    fun searchSong(type:String,lookup:String) = makeRequest {
-//        apiClient.serachSong(type,lookup)
+//        apiClient.searchSong(type,lookup)
 //    }
 
     fun login(signInRequest: SignInRequest) = makeRequest {
@@ -52,8 +52,8 @@ class AppRepo(private val apiClient: ApiClient) : BaseRepo() {
     fun deleteSongbook(songbookDeleteRequest: SongbookDeleteRequest) =
         makeRequest { apiClient.deleteSongbook(songbookDeleteRequest) }
 
-    fun updateSongbookName(updateSongbookNameReqeust: UpdateSongbookNameReqeust) =
-        makeRequest { apiClient.updateSongbookName(updateSongbookNameReqeust) }
+    fun updateSongbookName(updateSongbookNameRequest: UpdateSongbookNameReqeust) =
+        makeRequest { apiClient.updateSongbookName(updateSongbookNameRequest) }
 
     fun getPreviousUploads() = makeRequest { apiClient.getPreviousUploads() }
 
@@ -61,7 +61,7 @@ class AppRepo(private val apiClient: ApiClient) : BaseRepo() {
     fun updateSongInSongbook(addToSongbookRequest: UpdateSongInSongbookRequest) =
         makeRequest { apiClient.updateSongInSongbook(addToSongbookRequest) }
 
-    //This is for getsongbpm api
+    //This is for getSongBPM api
     fun searchSong(type: String, lookup: String) = makeRequest {
         apiClient.searchSong(type, lookup)
     }

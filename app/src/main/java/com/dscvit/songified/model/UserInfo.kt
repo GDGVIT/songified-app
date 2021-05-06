@@ -2,21 +2,21 @@ package com.dscvit.songified.model
 
 import com.google.gson.annotations.SerializedName
 
-data class UserInfo (
+data class UserInfo(
 
     @SerializedName("level")
-    val userLevel:String,
+    val userLevel: String,
     @SerializedName("_id")
-    val userId:String,
+    val userId: String,
     @SerializedName("username")
-    val userName:String,
+    val userName: String,
     @SerializedName("thumbnail")
-    val userImg:String,
+    val userImg: String,
     @SerializedName("email")
-    val userEmail:String,
+    val userEmail: String,
     @SerializedName("points")
-    val userPoints:String,
+    val userPoints: String,
     @SerializedName("songbookId")
-    val songbooks:ArrayList<Songbook>
+    val songbooks: ArrayList<Songbook>
 
-        )
+)

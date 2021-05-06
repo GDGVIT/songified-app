@@ -2,8 +2,8 @@ package com.dscvit.songified.model
 
 import com.google.gson.annotations.SerializedName
 
-data class AddToSongbookResponse (
+data class AddToSongbookResponse(
 
     @SerializedName("message")
-    val response:String
-        )
+    val response: String
+)

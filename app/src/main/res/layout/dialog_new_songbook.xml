@@ -8,7 +8,7 @@
     app:cardBackgroundColor="@color/songified_black"
     app:cardCornerRadius="12dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,9 +17,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:text="@string/create_new_songbook"
             android:textSize="18sp"
-            android:text="Create new songbook" />
+            android:textStyle="bold" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Songbook Name"
+            android:hint="@string/songbook_name"
             android:textColorHint="#A6FFFFFF"
             app:hintTextColor="#ffffff"
 
@@ -51,22 +51,22 @@
 
             <Button
                 android:id="@+id/btn_dialog_create_new_songbook"
+                style="@style/FilledButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginEnd="8dp"
-                android:text="Create" />
+                android:text="@string/create" />
 
             <Button
+                android:id="@+id/btn_dialog_cancel_new_songbook"
                 style="@style/OutlinedButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Cancel"
-                android:id="@+id/btn_dialog_cancel_new_songbook"
+                android:text="@string/cancel"
                 android:textColor="#8CFFFFFF" />
         </LinearLayout>
-
 
 
     </LinearLayout>

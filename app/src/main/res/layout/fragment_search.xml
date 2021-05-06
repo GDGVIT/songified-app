@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="20dp"
+
         android:visibility="gone"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="40dp"
+        android:contentDescription="@string/songified_logo"
         android:src="@drawable/songified_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,36 +36,38 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:autofillHints=""
         android:background="@drawable/search_bg"
+        android:hint="@string/search_song"
         android:padding="12dp"
-        android:theme="@style/SearchViewStyle"
         android:textColor="#ffffff"
-        app:layout_constraintTop_toBottomOf="@id/img_logo_search_fragment"
-      android:hint="Search song ..."
         android:textColorHint="#808080"
+        android:theme="@style/SearchViewStyle"
         android:transitionName="search_bar_transition"
-        />
+        app:layout_constraintTop_toBottomOf="@id/img_logo_search_fragment"
+        android:inputType="text" />
 
     <ImageView
+        android:id="@+id/btn_search_fragment"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:background="@drawable/search_button_bg"
+        android:contentDescription="@string/search_icon"
         android:padding="8dp"
         android:src="@drawable/ic_search"
-        android:id="@+id/btn_search_fragment"
         app:layout_constraintBottom_toBottomOf="@id/sv_search_fragment"
         app:layout_constraintEnd_toEndOf="@id/sv_search_fragment"
         app:layout_constraintStart_toEndOf="@id/sv_search_fragment"
         app:layout_constraintTop_toTopOf="@id/sv_search_fragment" />
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/sv_search_fragment"
-    app:layout_constraintStart_toStartOf="@id/sv_search_fragment"
-    app:layout_constraintEnd_toEndOf="@id/btn_search_fragment"
-    android:layout_marginTop="32dp"
-    android:text="Audio Analysis"
-    android:id="@+id/btn_upload_search_fragment"
-    android:background="@drawable/normal_button_bg"
-    />
+
+    <Button
+        android:id="@+id/btn_upload_search_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/normal_button_bg"
+        android:text="@string/audio_analysis"
+        app:layout_constraintEnd_toEndOf="@id/btn_search_fragment"
+        app:layout_constraintStart_toStartOf="@id/sv_search_fragment"
+        app:layout_constraintTop_toBottomOf="@id/sv_search_fragment" />
 </androidx.constraintlayout.widget.ConstraintLayout>

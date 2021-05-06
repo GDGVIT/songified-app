@@ -2,7 +2,7 @@ package com.dscvit.songified.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Artist (
+data class Artist(
 
     @SerializedName("id")
     val artist_id: String,
@@ -11,9 +11,7 @@ data class Artist (
     @SerializedName("uri")
     val artist_uri: String,
     @SerializedName("img")
-    val img:String
+    val img: String
 
 
-
-
-        )
+)

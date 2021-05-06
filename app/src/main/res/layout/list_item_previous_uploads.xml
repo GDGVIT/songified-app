@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -20,10 +21,8 @@
             android:id="@+id/tv_list_item_previous_upload_song_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chayappattu"
             android:textSize="16sp"
-
-            />
+            tools:text="Chayappattu Sithara Krishnakumar" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,17 +42,16 @@
                 android:id="@+id/img_list_item_status_previous_upload"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/semi_ring_blue"
+                android:contentDescription="@string/semi_ring_blue"
 
-                />
+                android:src="@drawable/semi_ring_blue" />
 
             <TextView
                 android:id="@+id/tv_status_list_item_previous_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Status : Processing"
-
+                tools:text="Status : Processing"
 
                 />
         </LinearLayout>
@@ -61,10 +59,9 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/divider_previous_uploads"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="#1AFFFFFF"
-        android:id="@+id/divider_previous_uploads"
-        />
+        android:background="#1AFFFFFF" />
 </LinearLayout>

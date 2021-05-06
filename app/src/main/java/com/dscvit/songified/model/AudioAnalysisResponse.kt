@@ -6,5 +6,5 @@ data class AudioAnalysisResponse(
     @SerializedName("audioAnalysis")
     val audioAnalysisResponseData: AudioAnalysisResponseData,
     @SerializedName("fullScaleAnalysis")
-    val fullScaleAnalysis:ScaleAnalysisResponse
+    val fullScaleAnalysis: ScaleAnalysisResponse
 )

@@ -7,7 +7,6 @@ import com.dscvit.songified.repository.AppRepo
 
 
 class SearchViewModel(private val repo: AppRepo) : ViewModel() {
-    val TAG: String = "SearchViewModel"
 
 
 }

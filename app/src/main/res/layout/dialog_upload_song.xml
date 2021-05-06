@@ -8,7 +8,7 @@
     app:cardBackgroundColor="@color/songified_black"
     app:cardCornerRadius="12dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,9 +17,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:text="@string/upload_song"
             android:textSize="18sp"
-            android:text="Upload Song" />
+            android:textStyle="bold" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Song Name"
+            android:hint="@string/song_name"
             android:textColorHint="#A6FFFFFF"
             app:hintTextColor="#ffffff"
 
@@ -51,22 +51,22 @@
 
             <Button
                 android:id="@+id/btn_upload_song_dialog"
+                style="@style/FilledButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginEnd="8dp"
-                android:text="Upload" />
+                android:text="@string/upload" />
 
             <Button
+                android:id="@+id/btn_cancel_dialog_upload_song"
                 style="@style/OutlinedButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Cancel"
-                android:id="@+id/btn_cancel_dialog_upload_song"
+                android:text="@string/cancel"
                 android:textColor="#8CFFFFFF" />
         </LinearLayout>
-
 
 
     </LinearLayout>

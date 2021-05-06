@@ -6,18 +6,18 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class SingleSongbookSong (
+data class SingleSongbookSong(
 
     @SerializedName("songId")
-    val songId:String,
+    val songId: String,
     @SerializedName("title")
-    val songTitle:String,
+    val songTitle: String,
     @SerializedName("body")
-    val songBody:String,
+    val songBody: String,
     @SerializedName("scale")
-    val scale:String,
+    val scale: String,
     @SerializedName("tempo")
-    val tempo:String,
+    val tempo: String,
     @SerializedName("artist")
-    val artist:String
-        ):Parcelable
+    val artist: String
+) : Parcelable

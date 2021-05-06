@@ -6,9 +6,12 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 
-class ApiClient(private val apiSongified: ApiInterfaceSongified, private val apiGSB: ApiInterfaceGSB) : BaseApiClient() {
+class ApiClient(
+    private val apiSongified: ApiInterfaceSongified,
+    private val apiGSB: ApiInterfaceGSB
+) : BaseApiClient() {
 
-//    suspend fun serachSong(type:String,lookup:String) = getResult {
+//    suspend fun searchSong(type:String,lookup:String) = getResult {
 //        api.searchSong(type,lookup,Constants.API_KEY)
 //    }
 
@@ -52,8 +55,8 @@ class ApiClient(private val apiSongified: ApiInterfaceSongified, private val api
     suspend fun deleteSongbook(songbookDeleteRequest: SongbookDeleteRequest) =
         getResult { apiSongified.deleteSongbook(songbookDeleteRequest) }
 
-    suspend fun updateSongbookName(updateSongbookNameReqeust: UpdateSongbookNameReqeust) =
-        getResult { apiSongified.updateSongbookName(updateSongbookNameReqeust) }
+    suspend fun updateSongbookName(updateSongbookNameRequest: UpdateSongbookNameReqeust) =
+        getResult { apiSongified.updateSongbookName(updateSongbookNameRequest) }
 
     suspend fun getPreviousUploads() = getResult { apiSongified.getPreviousUploads() }
 
@@ -61,7 +64,7 @@ class ApiClient(private val apiSongified: ApiInterfaceSongified, private val api
     suspend fun updateSongInSongbook(addToSongbookRequest: UpdateSongInSongbookRequest) =
         getResult { apiSongified.updateSongInSongbook(addToSongbookRequest) }
 
-    //This is for getsongbpm api
+    //This is for getSongBPM api
     suspend fun searchSong(type: String, lookup: String) = getResult {
         apiGSB.searchSong(type, lookup, Constants.API_KEY)
     }

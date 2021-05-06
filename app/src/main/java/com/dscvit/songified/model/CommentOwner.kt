@@ -4,17 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class CommentOwner(
     @SerializedName("level")
-    val userLevel:String,
+    val userLevel: String,
     @SerializedName("_id")
-    val userId:String,
+    val userId: String,
     @SerializedName("username")
-    val userName:String,
+    val userName: String,
     @SerializedName("thumbnail")
-    val userImg:String,
+    val userImg: String,
     @SerializedName("email")
-    val userEmail:String,
+    val userEmail: String,
     @SerializedName("points")
-    val userPoints:String
+    val userPoints: String
 
 
 )

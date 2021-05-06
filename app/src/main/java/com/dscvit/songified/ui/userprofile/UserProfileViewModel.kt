@@ -5,10 +5,10 @@ import com.dscvit.songified.model.AddToSongbookRequest
 import com.dscvit.songified.model.SingleSongbookRequest
 import com.dscvit.songified.repository.AppRepo
 
-class UserProfileViewModel (private val repo: AppRepo) : ViewModel() {
-    fun getUserInfo()=repo.getUserInfo()
+class UserProfileViewModel(private val repo: AppRepo) : ViewModel() {
+    fun getUserInfo() = repo.getUserInfo()
 
-    fun logout()=repo.logout()
+    fun logout() = repo.logout()
 
 
 }

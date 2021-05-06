@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class SongAnalysisResponse(
 
     @SerializedName("status")
-    val status:String,
+    val status: String,
     @SerializedName("_id")
-    val analysisId:String,
+    val analysisId: String,
     @SerializedName("songId")
-    val songId:String,
+    val songId: String,
     @SerializedName("data")
-    val analysisData:AudioAnalysisResponse,
+    val analysisData: AudioAnalysisResponse,
 
 
-)
+    )
