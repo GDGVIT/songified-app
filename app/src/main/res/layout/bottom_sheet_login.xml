@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/songified_black"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tv_title_bottom_sheet_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Sign in to explore all features"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_bottom_sheet_login"
+        app:layout_constraintStart_toStartOf="@id/tv_title_bottom_sheet_login"
+        app:layout_constraintEnd_toEndOf="@id/tv_title_bottom_sheet_login"
+        android:layout_marginTop="28dp"
+        android:id="@+id/pb_login"
+        android:visibility="gone"
+        android:indeterminate="true"
+        />
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_sign_in_button_bottom_sheet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="@id/tv_title_bottom_sheet_login"
+
+        app:layout_constraintStart_toStartOf="@id/tv_title_bottom_sheet_login"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_bottom_sheet_login"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

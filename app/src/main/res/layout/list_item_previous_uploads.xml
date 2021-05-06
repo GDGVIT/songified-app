@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_list_item_previous_upload_song_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chayappattu"
+            android:textSize="16sp"
+
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/tag_processing"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="4dp"
+
+            >
+
+            <ImageView
+                android:id="@+id/img_list_item_status_previous_upload"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/semi_ring_blue"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_status_list_item_previous_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Status : Processing"
+
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#1AFFFFFF"
+        android:id="@+id/divider_previous_uploads"
+        />
+</LinearLayout>

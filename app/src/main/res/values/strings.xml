@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Songified</string>
+    <string name="title_activity_home">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="internet_error">Network called failed with message Unable to resolve host": No address associated with hostname</string>
+</resources>

@@ -1,0 +1,44 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Songified" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="android:windowBackground">@color/songified_black</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#760BFE</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#D8349B</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:textColorTertiary">#ffffff</item>
+        <item name="android:windowContentTransitions">true</item>
+
+    </style>
+
+    <style name="SearchViewStyle">
+
+
+        <item name="android:textColorHint">#B3FFFFFF</item>
+        <item name="android:editTextColor">#ffffff</item>
+
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">#FFFFFF</item>
+    </style>
+    <style name="OutlinedButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">#8CFFFFFF</item>
+    </style>
+
+    <style name="MyAlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/songified_card_color</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="colorPrimary">@color/songified_primary_300</item>
+        <item name="android:textColorPrimary">#ffffff</item>
+    </style>
+
+</resources>

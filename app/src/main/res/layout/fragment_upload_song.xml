@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    >
+
+    <Button
+        android:id="@+id/btn_upload_fragment_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/normal_button_bg"
+        android:text="Select File"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:drawableLeft="@drawable/ic_upload"
+        />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Previous Uploads"
+        app:layout_constraintStart_toStartOf="@id/btn_upload_fragment_upload"
+        android:layout_marginTop="32dp"
+
+        android:id="@+id/tv_uploads_rv_title"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/btn_upload_fragment_upload"
+        app:layout_constraintTop_toBottomOf="@id/btn_upload_fragment_upload"
+/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_uploads_rv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_uploads_rv_title"
+        android:layout_marginTop="16dp"
+        android:id="@+id/refresh_previous_uploads"
+
+        >
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:id="@+id/rv_previous_uploads"
+            android:nestedScrollingEnabled="false"
+
+            />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
