@@ -17,5 +17,9 @@ data class UpdateSongInSongbookRequest(
     @SerializedName("tempo")
     val tempo: Int,
     @SerializedName("artist")
-    val artist: String
+    val artist: String,
+    @SerializedName("timesig")
+    val timSig: String,
+    @SerializedName("imageurl")
+    val coverArt: String
 )

@@ -19,5 +19,9 @@ data class SingleSongbookSong(
     @SerializedName("tempo")
     val tempo: String,
     @SerializedName("artist")
-    val artist: String
+    val artist: String,
+    @SerializedName("timesig")
+    val timSig: String,
+    @SerializedName("imageurl")
+    val coverArt: String
 ) : Parcelable

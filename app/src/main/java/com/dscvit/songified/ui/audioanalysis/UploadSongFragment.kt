@@ -99,6 +99,7 @@ class UploadSongFragment : Fragment() {
         binding.rvPreviousUploads.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = uploadsAdapter
+            fixSwipeToRefresh(binding.refreshPreviousUploads)
         }
 
         previousUploadsProgressDialog =

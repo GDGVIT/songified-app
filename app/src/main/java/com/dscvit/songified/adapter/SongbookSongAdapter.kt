@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.ListItemSimpleSongbooksBinding
@@ -48,6 +49,11 @@ class SongbookSongAdapter : RecyclerView.Adapter<SongbookSongAdapter.SongViewHol
         fun bind(song: SingleSongbookSong) {
             binding.tvListItemSingleSongbookSongName.text = song.songTitle
             binding.tvListItemSingleSongbookArtistName.text = song.artist
+            Glide.with(binding.root.context)
+                .load(song.coverArt)
+                .fallback(R.drawable.fallback_cover_art)
+                .placeholder(R.drawable.fallback_cover_art)
+                .into(binding.imgListItemCoverSongbookSong)
         }
     }
 

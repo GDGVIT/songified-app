@@ -42,6 +42,7 @@ class SongbookSongDetailFragment : Fragment() {
         binding.tvArtistSongbookSongDetail.text = selectedSongbookSong.artist
         binding.tvScaleSongbookSongDetail.text = selectedSongbookSong.scale
         binding.tvTempoSongbookSongDetail.text = selectedSongbookSong.tempo
+        binding.tvTimeSigSongbookSongDetail.text=selectedSongbookSong.timSig
         binding.etNotesSongbookSongDetail.setText(selectedSongbookSong.songBody)
         val pbUpdateLoading =
             view.findViewById(R.id.pb_update_song_in_songbook) as LinearProgressIndicator
@@ -54,7 +55,9 @@ class SongbookSongDetailFragment : Fragment() {
                 songBody,
                 selectedSongbookSong.scale,
                 selectedSongbookSong.tempo.toInt(),
-                selectedSongbookSong.artist
+                selectedSongbookSong.artist,
+                selectedSongbookSong.timSig,
+                selectedSongbookSong.coverArt
             )
             pbUpdateLoading.visibility = View.VISIBLE
             songbookSongDetailViewModel.editSongbook(updateSongRequest).observe(viewLifecycleOwner,

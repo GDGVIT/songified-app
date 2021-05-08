@@ -16,8 +16,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dev.jeevanyohan.retrorecyclermvvm2.util.OnFocusLostListener
 import com.dscvit.songified.R
+import com.dscvit.songified.util.RecyclerViewSwipeToRefresh
 
 fun Context.shortToast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
@@ -97,7 +100,11 @@ fun createProgressDialog(context: Context, msg: String): Dialog {
     dialog.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent);
     return dialog
 }
-
+fun RecyclerView.fixSwipeToRefresh(refreshLayout: SwipeRefreshLayout): RecyclerViewSwipeToRefresh {
+    return RecyclerViewSwipeToRefresh(refreshLayout).also {
+        this.addOnScrollListener(it)
+    }
+}
 fun ContentResolver.getFileName(fileUri: Uri): String {
     var name = ""
     val returnCursor = this.query(fileUri, null, null, null, null)

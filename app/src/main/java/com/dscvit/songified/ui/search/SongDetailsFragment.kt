@@ -137,7 +137,9 @@ class SongDetailsFragment : Fragment() {
                             " ",
                             songDetail.keyOf,
                             songDetail.tempo.toFloat().roundToInt(),
-                            songDetail.artist.artist_title
+                            songDetail.artist.artist_title,
+                            songDetail.timeSig,
+                            songDetail.artist.img?:" "
 
                         )
                     Log.d(mTAG, songBookRequest.toString())
