@@ -58,7 +58,7 @@ class AudioAnalysisResultFragment : Fragment() {
             adapter = simpleGenreAdapter
         }
 
-        binding.rvMoodsAudioAnalyis.apply {
+        binding.rvMoodsAudioAnalysis.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = simpleMoodAdapter
@@ -87,31 +87,21 @@ class AudioAnalysisResultFragment : Fragment() {
                     is Result.Success -> {
                         Log.d(mTAG, it.data.toString())
                         if (it.data?.status == "Finished") {
+                            val audAnalysis =
+                                it.data.analysisData.audioAnalysisResponseData.audioAnalysis
                             Log.d(mTAG, "Analysis Status : Finished")
                             Log.d(mTAG, "Analysed Data loaded")
-                            val keysArray =
-                                it.data.analysisData.fullScaleAnalysis.scaleAnalysis.key.keys
-                            var keysString = ""
-                            for (keyIndex in keysArray.indices) {
-                                keysString += keysArray[keyIndex]
-                                if (keyIndex != keysArray.size - 1) {
-                                    keysString += " | "
-                                }
-                                binding.tvScaleAudioAnalysis.text = keysString
-                            }
-                            /* tvScale.text =
-                                 it.data?.analysisData?.fullScaleAnalysis?.scaleAnalysis?.key?.keys?.get(
-                                     0
-                                 )*/
+                            val key = audAnalysis.key
+                            binding.tvScaleAudioAnalysis.text = key
+
+
                             binding.tvTempoAudioAnalysis.text =
-                                it.data.analysisData.fullScaleAnalysis.scaleAnalysis.bpm.toFloat()
+                                audAnalysis.bpm.toFloat()
                                     .roundToInt().toString()
-                            simpleGenreAdapter.updateTagsList(it.data.analysisData.audioAnalysisResponseData.audioAnalysis.genreTags)
-                            simpleMoodAdapter.updateTagsList(it.data.analysisData.audioAnalysisResponseData.audioAnalysis.moodTags)
-                            binding.tvMusicalEraAudioAnalysis.text =
-                                it.data.analysisData.audioAnalysisResponseData.audioAnalysis.musicalEraTag
-                            val energy =
-                                it.data.analysisData.audioAnalysisResponseData.audioAnalysis.energy
+                            simpleGenreAdapter.updateTagsList(audAnalysis.genreTags)
+                            simpleMoodAdapter.updateTagsList(audAnalysis.moodTags)
+                            binding.tvMusicalEraAudioAnalysis.text = audAnalysis.musicalEraTag
+                            val energy = audAnalysis.energy
 
                             binding.tvEnergyAudioAnalysis.text =
                                 getString(R.string.energy_level_data, energy)
@@ -130,8 +120,7 @@ class AudioAnalysisResultFragment : Fragment() {
                                 }
                             }
 
-                            val emotionalProfile =
-                                it.data.analysisData.audioAnalysisResponseData.audioAnalysis.emotionalProfile
+                            val emotionalProfile = audAnalysis.emotionalProfile
                             binding.tvEmotionalAudioAnalysis.text =
                                 getString(R.string.emotional_profile_data, emotionalProfile)
 
@@ -151,12 +140,12 @@ class AudioAnalysisResultFragment : Fragment() {
                                 }
                             }
                             binding.layoutProcessingAudioAnalysis.visibility = View.GONE
-                            binding.layoutContentAudioAnalyis.visibility = View.VISIBLE
+                            binding.layoutContentAudioAnalysis.visibility = View.VISIBLE
 
                             audioAnalysisLoading.dismiss()
                         } else {
                             binding.layoutProcessingAudioAnalysis.visibility = View.VISIBLE
-                            binding.layoutContentAudioAnalyis.visibility = View.GONE
+                            binding.layoutContentAudioAnalysis.visibility = View.GONE
                             audioAnalysisLoading.dismiss()
 
 

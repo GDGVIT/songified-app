@@ -50,7 +50,7 @@
 
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
-
+            android:paddingBottom="100dp"
             />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

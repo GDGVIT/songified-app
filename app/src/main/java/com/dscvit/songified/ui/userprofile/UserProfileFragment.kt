@@ -67,6 +67,8 @@ class UserProfileFragment : Fragment() {
                     Glide.with(this)
                         .load(it.data?.userImg)
                         .into(binding.imgDpUserProfile)
+                    binding.shimmerDpUserProfile.hideShimmer()
+                    binding.shimmerInfoUserProfile.hideShimmer()
                 }
                 is Result.Error -> {
 
@@ -94,6 +96,7 @@ class UserProfileFragment : Fragment() {
                                 sharedPref[Constants.PREF_IS_AUTH] = false
                                 sharedPref[Constants.PREF_AUTH_TOKEN] = ""
                                 binding.tvSignOutUserProfile.visibility = View.GONE
+
                                 view.findNavController().navigate(R.id.navigation_search)
                             }
                             is Result.Error -> {

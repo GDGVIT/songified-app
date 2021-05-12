@@ -108,7 +108,7 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
             val account = completedTask.getResult(ApiException::class.java)
             var idToken: String
             val googleToken = account?.idToken
-
+            Log.d(mTAG,googleToken?:"")
             val credential = GoogleAuthProvider.getCredential(googleToken, null)
             auth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->

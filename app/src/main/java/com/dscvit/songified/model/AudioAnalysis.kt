@@ -13,8 +13,11 @@ data class AudioAnalysis(
     val emotionalProfile: String,
     @SerializedName("musicalEraTag")
     val musicalEraTag: String,
-    @SerializedName("data")
-    val analysisData: String,
+
     @SerializedName("energyLevel")
     val energy: String,
+    @SerializedName("bpm")
+    val bpm:String,
+    @SerializedName("key")
+    val key:String
 )
