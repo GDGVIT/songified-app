@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -24,6 +23,7 @@ import com.dscvit.songified.model.SingleSongbookRequest
 import com.dscvit.songified.model.SingleSongbookSong
 import com.dscvit.songified.model.SongbookSongDeleteRequest
 import org.koin.android.viewmodel.ext.android.getViewModel
+import java.util.*
 
 class SingleSongbookFragment : Fragment() {
     lateinit var songs: MutableList<SingleSongbookSong>
@@ -47,9 +47,10 @@ class SingleSongbookFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.backSingleSongbook.setOnClickListener {
+        binding.toolbarSingleSongbookFragment.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
+
 
 
         songbookSongAdapter = SongbookSongAdapter()
@@ -60,8 +61,9 @@ class SingleSongbookFragment : Fragment() {
         singleSongbookViewModel = getViewModel()
         val selectedSongBookId = arguments?.getString("selected_songbook_id").toString()
 
-        val tvTitle = view.findViewById(R.id.tv_songbook_name_single_songbook) as TextView
-        tvTitle.text = arguments?.getString("selected_songbook_name").toString()
+
+        binding.toolbarSingleSongbookFragment.title =
+            arguments?.getString("selected_songbook_name").toString().capitalize(Locale.getDefault())
         val singleSongbookRequest = SingleSongbookRequest(selectedSongBookId)
 
         getSongsInSongbook(singleSongbookRequest)

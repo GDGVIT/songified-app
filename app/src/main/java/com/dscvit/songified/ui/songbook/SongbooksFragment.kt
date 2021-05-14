@@ -28,6 +28,7 @@ import com.dscvit.songified.util.DialogDismissListener
 import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.get
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.android.viewmodel.ext.android.getViewModel
 
@@ -99,7 +100,7 @@ class SongbooksFragment : Fragment() {
                                 is Result.Success -> {
                                     addSongbookLoading.dismiss()
                                     Log.d(mTAG, "Songbook created")
-                                    shortToast("Songbook Created")
+                                    Snackbar.make(binding.root,"Songbook created",Snackbar.LENGTH_SHORT).show()
                                     dialog.dismiss()
                                     getSongbooks()
                                 }
@@ -212,6 +213,7 @@ class SongbooksFragment : Fragment() {
 
                                                 delSongbookLoading.dismiss()
                                                 Log.d(mTAG, "Songbook Deleted")
+                                                Snackbar.make(binding.root,"Songbook deleted",Snackbar.LENGTH_SHORT).show()
                                                 getSongbooks()
                                                 chooserDialog.dismiss()
                                             }
@@ -242,10 +244,10 @@ class SongbooksFragment : Fragment() {
             loginBottomSheet.dismissListener(object : DialogDismissListener {
                 override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
                     if (isSignedIn) {
-                        shortToast("Signed in")
+
                         findNavController().navigate(R.id.navigation_songbook)
                     } else {
-                        shortToast("Not signed in")
+
                         findNavController().navigate(R.id.navigation_search)
                     }
 

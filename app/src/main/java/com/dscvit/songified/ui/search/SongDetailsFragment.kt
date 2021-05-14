@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -48,7 +49,9 @@ class SongDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val songDetailsViewModel by viewModel<SongDetailsViewModel>()
         val songDetailsLoading = createProgressDialog(requireContext(), "Loading song details")
-
+        binding.backSongDetails.setOnClickListener {
+            it.findNavController().navigateUp()
+        }
         val selectedSongId = arguments?.getString("selected_song_id").toString()
         songDetailsLoading.show()
         songDetailsViewModel.getSongDetails(selectedSongId).observe(viewLifecycleOwner, {

@@ -14,12 +14,20 @@
         android:padding="20dp">
 
         <ImageView
+            android:id="@+id/back_songbook_song_details"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/back_button"
+            android:src="@drawable/ic_back" />
+
+        <ImageView
             android:id="@+id/img_cover_art_songbook_song_details"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:transitionName="@string/covert_art_transition"
-            android:contentDescription="@string/cover_art" />
+            android:layout_marginTop="56dp"
+            android:contentDescription="@string/cover_art"
+            android:transitionName="@string/covert_art_transition" />
 
         <TextView
             android:id="@+id/tv_songname_songbook_song_detail"

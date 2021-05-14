@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscvit.handly.util.*
@@ -66,6 +67,9 @@ class UploadSongFragment : Fragment() {
 
 
         uploadSongViewModel = getViewModel()
+        binding.toolbarUploadFragment.setNavigationOnClickListener {
+            it.findNavController().navigateUp()
+        }
 
         uploadProgressDialog =
             createDialog(requireContext(), false, R.layout.dialog_loading_with_progress)

@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentSongbookSongDetailsBinding
 import com.dscvit.songified.model.Result
@@ -38,12 +40,21 @@ class SongbookSongDetailFragment : Fragment() {
         val selectedSongbookId = arguments?.getString("selected_songbook_id") as String
 
 
+        binding.backSongbookSongDetails.setOnClickListener {
+            it.findNavController().navigateUp()
+        }
         binding.tvSongnameSongbookSongDetail.text = selectedSongbookSong.songTitle
         binding.tvArtistSongbookSongDetail.text = selectedSongbookSong.artist
         binding.tvScaleSongbookSongDetail.text = selectedSongbookSong.scale
         binding.tvTempoSongbookSongDetail.text = selectedSongbookSong.tempo
         binding.tvTimeSigSongbookSongDetail.text=selectedSongbookSong.timSig
         binding.etNotesSongbookSongDetail.setText(selectedSongbookSong.songBody)
+        Glide.with(this)
+            .load(selectedSongbookSong.coverArt)
+            .fallback(R.drawable.fallback_cover_art)
+            .placeholder(R.drawable.fallback_cover_art)
+            .into(binding.imgCoverArtSongbookSongDetails)
+
         val pbUpdateLoading =
             view.findViewById(R.id.pb_update_song_in_songbook) as LinearProgressIndicator
         binding.btnUpdateSongbookSong.setOnClickListener {

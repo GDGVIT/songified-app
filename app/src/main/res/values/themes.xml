@@ -45,4 +45,10 @@
         <item name="android:textColorPrimary">#ffffff</item>
     </style>
 
+    <style name="SongifiedToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="colorPrimary">#00FFFFFF</item>
+
+        <item name="colorOnPrimary">#ffffff</item>
+    </style>
+
 </resources>

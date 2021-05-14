@@ -44,6 +44,7 @@
     <string name="processing_msg">Your audio file is being processed.</string>
     <string name="tap_to_refresh">TAP TO REFRESH</string>
     <string name="audio_analysis">AUDIO ANALYSIS</string>
+    <string name="audio_analysis_title">Audio Analysis</string>
     <string name="keys">Keys</string>
     <string name="genres">Genres</string>
     <string name="moods">Moods</string>
@@ -63,4 +64,5 @@
     <string name="songbooks_count_data">%1$d books</string>
     <string name="comment_user_data">%1$s | Level %2$s</string>
     <string name="covert_art_transition">cover_art_transition</string>
+    <string name="no_search_result">Nothing found for \"%1$s\"</string>
 </resources>

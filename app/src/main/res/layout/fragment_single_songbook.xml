@@ -1,37 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/back_single_songbook"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/back_button"
-
-        android:src="@drawable/ic_back"
-        app:layout_constraintBottom_toBottomOf="@id/tv_songbook_name_single_songbook"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toTopOf="@id/tv_songbook_name_single_songbook" />
-
-    <TextView
-        android:id="@+id/tv_songbook_name_single_songbook"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/back_single_songbook"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/appbar_layout_single_songbook_fragment"
+        >
 
-        tools:text="SONGBOOK 1" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_back"
+            app:titleTextColor="#ffffff"
+            android:background="@color/songified_black"
+            android:id="@+id/toolbar_single_songbook_fragment"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
 
 
     <ImageView
@@ -65,6 +55,6 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_songbook_name_single_songbook" />
+        app:layout_constraintTop_toBottomOf="@id/appbar_layout_single_songbook_fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
