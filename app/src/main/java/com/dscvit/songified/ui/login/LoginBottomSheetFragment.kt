@@ -17,10 +17,7 @@ import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.DialogDismissListener
 import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.set
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -88,10 +85,10 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        if (requestCode == rcSignIn) {
+        if (requestCode == rcSignIn && resultCode != 0) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-
+            Log.d(mTAG, resultCode.toString())
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             this.isCancelable = false
             binding.googleSignInButtonBottomSheet.visibility = View.GONE
@@ -108,7 +105,7 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
             val account = completedTask.getResult(ApiException::class.java)
             var idToken: String
             val googleToken = account?.idToken
-            Log.d(mTAG,googleToken?:"")
+            Log.d(mTAG, googleToken ?: "")
             val credential = GoogleAuthProvider.getCredential(googleToken, null)
             auth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->

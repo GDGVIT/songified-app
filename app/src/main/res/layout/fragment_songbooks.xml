@@ -6,8 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -69,25 +68,24 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_songbooks_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_songbooks_count"
-
-            />
+            app:layout_constraintTop_toBottomOf="@id/tv_songbooks_count" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_new_songbook"
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/add_new_songbook"
-        android:src="@drawable/ic_add"
-        android:layout_gravity="bottom|end"
-         />
+        android:src="@drawable/ic_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

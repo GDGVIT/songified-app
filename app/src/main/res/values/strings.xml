@@ -18,7 +18,8 @@
     <string name="account_info">Account Info</string>
     <string name="points">POINTS</string>
     <string name="level">LEVEL</string>
-    <string name="songbooks">SONGBOOKS</string>
+    <string name="songbooks">Songbooks</string>
+
     <string name="sign_out">Sign Out</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
@@ -65,4 +66,7 @@
     <string name="comment_user_data">%1$s | Level %2$s</string>
     <string name="covert_art_transition">cover_art_transition</string>
     <string name="no_search_result">Nothing found for \"%1$s\"</string>
+    <string name="songs_count_data">%1$d songs</string>
+
+
 </resources>

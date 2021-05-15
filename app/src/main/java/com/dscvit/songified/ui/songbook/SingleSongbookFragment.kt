@@ -22,6 +22,7 @@ import com.dscvit.songified.model.Result
 import com.dscvit.songified.model.SingleSongbookRequest
 import com.dscvit.songified.model.SingleSongbookSong
 import com.dscvit.songified.model.SongbookSongDeleteRequest
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.getViewModel
 import java.util.*
 
@@ -63,7 +64,8 @@ class SingleSongbookFragment : Fragment() {
 
 
         binding.toolbarSingleSongbookFragment.title =
-            arguments?.getString("selected_songbook_name").toString().capitalize(Locale.getDefault())
+            arguments?.getString("selected_songbook_name").toString()
+                .capitalize(Locale.getDefault())
         val singleSongbookRequest = SingleSongbookRequest(selectedSongBookId)
 
         getSongsInSongbook(singleSongbookRequest)
@@ -97,6 +99,11 @@ class SingleSongbookFragment : Fragment() {
 
                                         Log.d(mTAG, "Response : ${it.data?.message}")
                                         deleteSongLoading.dismiss()
+                                        Snackbar.make(
+                                            binding.root,
+                                            "Deleted",
+                                            Snackbar.LENGTH_SHORT
+                                        ).show()
                                         getSongsInSongbook(singleSongbookRequest)
                                     }
                                     is Result.Error -> {
@@ -149,6 +156,8 @@ class SingleSongbookFragment : Fragment() {
                         } else {
                             binding.imgNoSongSingleSongbook.visibility = View.GONE
                             binding.tvNoSongsSingleSongbook.visibility = View.GONE
+                            binding.toolbarSingleSongbookFragment.subtitle =
+                                getString(R.string.songs_count_data, songbookSongAdapter.itemCount)
                         }
                     }
                     is Result.Error -> {

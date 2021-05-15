@@ -87,8 +87,8 @@ class UploadSongFragment : Fragment() {
                 .setAction(Intent.ACTION_GET_CONTENT)
 
             startActivityForResult(Intent.createChooser(intent, "Select a song"), rcPickAudio)
-            //val bundle = bundleOf("analyse_song_id" to "1311646")
-            //it.findNavController().navigate(R.id.action_search_to_audio_analysis_result, bundle)
+
+
         }
 
         binding.refreshPreviousUploads.setOnRefreshListener {

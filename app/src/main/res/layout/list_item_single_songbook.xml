@@ -7,10 +7,10 @@
     android:orientation="horizontal">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_list_item_cover_songbook_song"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:layout_marginStart="16dp"
         android:contentDescription="@string/cover_art"
         android:src="@drawable/ic_song"
@@ -41,6 +41,7 @@
                 android:id="@+id/tv_list_item_single_songbook_artist_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:textColor="#B3FFFFFF"
                 tools:text="Artist" />
 
@@ -51,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+
             android:background="#17FFFFFF" />
 
     </LinearLayout>

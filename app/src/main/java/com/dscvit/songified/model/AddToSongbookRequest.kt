@@ -13,7 +13,7 @@ data class AddToSongbookRequest(
     @SerializedName("scale")
     val scale: String,
     @SerializedName("tempo")
-    val tempo: Int,
+    val tempo: String,
     @SerializedName("artist")
     val artist: String,
     @SerializedName("timesig")

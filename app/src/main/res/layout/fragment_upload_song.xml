@@ -6,24 +6,25 @@
 
 
     >
-<com.google.android.material.appbar.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:id="@+id/appbar_layout_upload_fragment"
-    >
-    <com.google.android.material.appbar.MaterialToolbar
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout_upload_fragment"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="@string/audio_analysis_title"
-        app:navigationIcon="@drawable/ic_back"
-       app:titleTextColor="#ffffff"
-        android:background="@color/songified_black"
-        android:id="@+id/toolbar_upload_fragment"
-        />
-</com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_upload_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/songified_black"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/audio_analysis_title"
+            app:titleTextColor="#ffffff" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_upload_fragment_upload"
         android:layout_width="wrap_content"
@@ -31,8 +32,8 @@
         android:layout_marginTop="29dp"
         android:background="@drawable/normal_button_bg"
 
-        app:icon="@drawable/ic_upload"
         android:text="@string/select_file"
+        app:icon="@drawable/ic_upload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar_layout_upload_fragment" />
@@ -51,26 +52,29 @@
         app:layout_constraintStart_toStartOf="@id/btn_upload_fragment_upload"
         app:layout_constraintTop_toBottomOf="@id/btn_upload_fragment_upload" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refresh_previous_uploads"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_uploads_rv_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_uploads_rv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_uploads_rv_title">
 
-        >
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_previous_uploads"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_previous_uploads"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
 
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:paddingBottom="100dp"
-            />
+            >
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_previous_uploads"
+                android:layout_width="match_parent"
+
+                android:layout_height="0dp" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

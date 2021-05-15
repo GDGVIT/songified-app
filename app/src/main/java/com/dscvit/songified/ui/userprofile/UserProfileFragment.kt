@@ -13,7 +13,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.dscvit.handly.util.createProgressDialog
-import com.dscvit.handly.util.shortToast
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentUserProfileBinding
 import com.dscvit.songified.model.Result
@@ -70,6 +69,7 @@ class UserProfileFragment : Fragment() {
                         binding.tvIdUserProfile.text = it.data?.userName
                         binding.tvPointsUserProfile.text = it.data?.userPoints
                         binding.tvLevelUserProfile.text = it.data?.userLevel
+                        binding.tvEmailUserProfile.text = it.data?.userEmail
                         binding.tvSongbookCountUserProfile.text =
                             it.data?.songbooks?.size.toString()
                         Glide.with(this)
@@ -85,11 +85,11 @@ class UserProfileFragment : Fragment() {
             })
 
             if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
-                binding.tvSignOutUserProfile.visibility = View.VISIBLE
+                binding.btnSignOutUserProfile.visibility = View.VISIBLE
             } else {
-                binding.tvSignOutUserProfile.visibility = View.GONE
+                binding.btnSignOutUserProfile.visibility = View.GONE
             }
-            binding.tvSignOutUserProfile.setOnClickListener {
+            binding.btnSignOutUserProfile.setOnClickListener {
                 signOutLoadingDialog.show()
                 mGoogleSignInClient.signOut()
                     .addOnCompleteListener(requireActivity()) {
@@ -103,7 +103,7 @@ class UserProfileFragment : Fragment() {
                                     Log.d(mTAG, "Signed Out")
                                     sharedPref[Constants.PREF_IS_AUTH] = false
                                     sharedPref[Constants.PREF_AUTH_TOKEN] = ""
-                                    binding.tvSignOutUserProfile.visibility = View.GONE
+                                    binding.btnSignOutUserProfile.visibility = View.GONE
 
                                     view.findNavController().navigate(R.id.navigation_search)
                                 }
@@ -115,7 +115,7 @@ class UserProfileFragment : Fragment() {
                         })
                     }
             }
-        }else{
+        } else {
             val loginBottomSheet = LoginBottomSheetFragment()
 
 

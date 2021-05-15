@@ -13,13 +13,13 @@ data class SongDetail(
     @SerializedName("artist")
     val artist: Artist,
     @SerializedName("tempo")
-    val tempo: String,
+    val tempo: String?,
     @SerializedName("time_sig")
-    val timeSig: String,
+    val timeSig: String?,
     @SerializedName("key_of")
     val keyOf: String,
     @SerializedName("camelot")
-    val camelot: String,
+    val camelot: String?,
 
 
     )

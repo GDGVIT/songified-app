@@ -27,7 +27,7 @@ import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.DialogDismissListener
 import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.get
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.android.viewmodel.ext.android.getViewModel
@@ -75,8 +75,8 @@ class SongbooksFragment : Fragment() {
             songbookLoadingDialog.show()
             getSongbooks()
 
-            val fabNewSongbook = view.findViewById(R.id.fab_new_songbook) as FloatingActionButton
-            fabNewSongbook.setOnClickListener {
+
+            binding.fabNewSongbook.setOnClickListener {
                 val dialog = createDialog(requireContext(), false, R.layout.dialog_new_songbook)
 
 
@@ -100,9 +100,14 @@ class SongbooksFragment : Fragment() {
                                 is Result.Success -> {
                                     addSongbookLoading.dismiss()
                                     Log.d(mTAG, "Songbook created")
-                                    Snackbar.make(binding.root,"Songbook created",Snackbar.LENGTH_SHORT).show()
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Created ${newSongbookRequest.songbookName}",
+                                        Snackbar.LENGTH_SHORT
+                                    ).show()
                                     dialog.dismiss()
                                     getSongbooks()
+
                                 }
                                 is Result.Error -> {
 
@@ -170,6 +175,11 @@ class SongbooksFragment : Fragment() {
                                             is Result.Success -> {
                                                 editSongbookLoading.dismiss()
                                                 Log.d(mTAG, "Songbook Name updated")
+                                                Snackbar.make(
+                                                    binding.root,
+                                                    "Updated",
+                                                    Snackbar.LENGTH_SHORT
+                                                ).show()
                                                 editSongbookDialog.dismiss()
                                                 getSongbooks()
 
@@ -212,8 +222,12 @@ class SongbooksFragment : Fragment() {
                                             is Result.Success -> {
 
                                                 delSongbookLoading.dismiss()
-                                                Log.d(mTAG, "Songbook Deleted")
-                                                Snackbar.make(binding.root,"Songbook deleted",Snackbar.LENGTH_SHORT).show()
+                                                Log.d(mTAG, "Deleted ${songbooks[position].name}")
+                                                Snackbar.make(
+                                                    binding.root,
+                                                    "Deleted ${songbooks[position].name}",
+                                                    Snackbar.LENGTH_SHORT
+                                                ).show()
                                                 getSongbooks()
                                                 chooserDialog.dismiss()
                                             }

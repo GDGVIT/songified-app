@@ -1,5 +1,7 @@
 package com.dscvit.songified.ui.search
 
+import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,6 +25,11 @@ import com.dscvit.songified.adapter.SimpleSongbookAdapter
 import com.dscvit.songified.adapter.SongCommentsAdapter
 import com.dscvit.songified.databinding.FragmentSongDetailsBinding
 import com.dscvit.songified.model.*
+import com.dscvit.songified.ui.login.LoginBottomSheetFragment
+import com.dscvit.songified.util.Constants
+import com.dscvit.songified.util.DialogDismissListener
+import com.dscvit.songified.util.PrefHelper
+import com.dscvit.songified.util.PrefHelper.get
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -36,6 +44,7 @@ class SongDetailsFragment : Fragment() {
     lateinit var songDetail: SongDetail
     private var _binding: FragmentSongDetailsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sharedPref: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +56,7 @@ class SongDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPref = PrefHelper.customPrefs(requireContext(), Constants.PREF_NAME)
         val songDetailsViewModel by viewModel<SongDetailsViewModel>()
         val songDetailsLoading = createProgressDialog(requireContext(), "Loading song details")
         binding.backSongDetails.setOnClickListener {
@@ -92,96 +102,115 @@ class SongDetailsFragment : Fragment() {
             adapter = songCommentsAdapter
         }
 
-        val btnSave = view.findViewById<Button>(R.id.btn_save_song_details)
 
-        btnSave.setOnClickListener {
-
-
-            val saveSongDialog = createDialog(requireContext(), true, R.layout.dialog_save_song)
+        binding.btnSaveSongDetails.setOnClickListener {
+            if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
 
 
-            val rvSimpleSongbooks =
-                saveSongDialog.findViewById(R.id.rv_dialog_songbooks_save_song) as RecyclerView
-            val simpleSongbookAdapter = SimpleSongbookAdapter()
-            val pbSaveSong = saveSongDialog.findViewById(R.id.pb_save_song) as ProgressBar
-            rvSimpleSongbooks.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = simpleSongbookAdapter
-            }
-            songDetailsViewModel.getSongbooks().observe(viewLifecycleOwner, {
+                val saveSongDialog = createDialog(requireContext(), true, R.layout.dialog_save_song)
 
-                when (it) {
-                    is Result.Loading -> {
-                        Log.d(mTAG, "Loading songbooks")
-                    }
-                    is Result.Success -> {
-                        Log.d(mTAG, "Songbooks loaded")
 
-                        songbookList = it.data?.songbookList!!
-                        pbSaveSong.visibility = View.GONE
-                        simpleSongbookAdapter.updateSongbookList(songbookList)
-                        Log.d(mTAG, it.data.toString())
-
-                    }
-                    is Result.Error -> {
-
-                    }
+                val rvSimpleSongbooks =
+                    saveSongDialog.findViewById(R.id.rv_dialog_songbooks_save_song) as RecyclerView
+                val simpleSongbookAdapter = SimpleSongbookAdapter()
+                val pbSaveSong = saveSongDialog.findViewById(R.id.pb_save_song) as ProgressBar
+                rvSimpleSongbooks.apply {
+                    layoutManager = LinearLayoutManager(requireContext())
+                    adapter = simpleSongbookAdapter
                 }
-            })
+                songDetailsViewModel.getSongbooks().observe(viewLifecycleOwner, {
 
-            rvSimpleSongbooks.addOnItemClickListener(object : OnItemClickListener {
-                override fun onItemClicked(position: Int, view: View) {
-                    val selectedSongbookId = songbookList[position].id
-                    Log.d(mTAG, selectedSongId)
-                    val songBookRequest =
-                        AddToSongbookRequest(
-                            selectedSongbookId,
-                            songDetail.songTitle,
-                            " ",
-                            songDetail.keyOf,
-                            songDetail.tempo.toFloat().roundToInt(),
-                            songDetail.artist.artist_title,
-                            songDetail.timeSig,
-                            songDetail.artist.img?:" "
+                    when (it) {
+                        is Result.Loading -> {
+                            Log.d(mTAG, "Loading songbooks")
+                        }
+                        is Result.Success -> {
+                            Log.d(mTAG, "Songbooks loaded")
 
+                            songbookList = it.data?.songbookList!!
+                            pbSaveSong.visibility = View.GONE
+                            simpleSongbookAdapter.updateSongbookList(songbookList)
+                            Log.d(mTAG, it.data.toString())
+
+                        }
+                        is Result.Error -> {
+
+                        }
+                    }
+                })
+
+                rvSimpleSongbooks.addOnItemClickListener(object : OnItemClickListener {
+                    override fun onItemClicked(position: Int, view: View) {
+                        val selectedSongbookId = songbookList[position].id
+                        Log.d(mTAG, selectedSongId)
+                        Log.d(mTAG, "$songDetail")
+                        var mTempo = " "
+                        songDetail.tempo?.let {
+                            mTempo = it.toFloat().roundToInt().toString()
+                        }
+
+                        val songBookRequest =
+                            AddToSongbookRequest(
+                                selectedSongbookId,
+                                songDetail.songTitle,
+                                " ",
+                                songDetail.keyOf,
+                                mTempo,
+                                songDetail.artist.artist_title,
+                                songDetail.timeSig ?: " ",
+                                songDetail.artist.img ?: " "
+
+                            )
+                        Log.d(mTAG, songBookRequest.toString())
+                        val saveSongLoading = createProgressDialog(
+                            requireContext(),
+                            "Saving to ${songbookList[position].name}"
                         )
-                    Log.d(mTAG, songBookRequest.toString())
-                    val saveSongLoading = createProgressDialog(
-                        requireContext(),
-                        "Saving to ${songbookList[position].name}"
-                    )
-                    saveSongLoading.show()
-                    songDetailsViewModel.addToSongbook(songBookRequest)
-                        .observe(viewLifecycleOwner, {
+                        saveSongLoading.show()
+                        songDetailsViewModel.addToSongbook(songBookRequest)
+                            .observe(viewLifecycleOwner, {
 
-                            when (it) {
-                                is Result.Loading -> {
-                                    Log.d(mTAG, "Loading ...")
+                                when (it) {
+                                    is Result.Loading -> {
+                                        Log.d(mTAG, "Loading ...")
+                                    }
+
+                                    is Result.Success -> {
+                                        Log.d(mTAG, "Saved to songbook")
+                                        //shortToast("Saved to ${songbookList[position].name}")
+
+
+                                        saveSongDialog.dismiss()
+                                        saveSongLoading.dismiss()
+                                        Snackbar.make(
+                                            binding.root,
+                                            "Saved to ${songbookList[position].name}",
+                                            Snackbar.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    is Result.Error -> {
+
+                                    }
                                 }
+                            })
+                    }
 
-                                is Result.Success -> {
-                                    Log.d(mTAG, "Saved to songbook")
-                                    //shortToast("Saved to ${songbookList[position].name}")
+                })
+
+                saveSongDialog.show()
+            } else {
+                val loginBottomSheet = LoginBottomSheetFragment()
 
 
-                                    saveSongDialog.dismiss()
-                                    saveSongLoading.dismiss()
-                                    Snackbar.make(
-                                        btnSave,
-                                        "Saved to ${songbookList[position].name}",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
-                                is Result.Error -> {
+                loginBottomSheet.dismissListener(object : DialogDismissListener {
+                    override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
 
-                                }
-                            }
-                        })
-                }
 
-            })
+                    }
 
-            saveSongDialog.show()
+                })
+                loginBottomSheet.show(this.parentFragmentManager, "TAG")
+            }
 
         }
 
@@ -189,42 +218,58 @@ class SongDetailsFragment : Fragment() {
 
         val btnAddInfo = view.findViewById<Button>(R.id.btn_add_info_song_details)
         btnAddInfo.setOnClickListener {
-            val dialog = createDialog(requireContext(), false, R.layout.dialog_add_info)
+            if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
+                val dialog = createDialog(requireContext(), false, R.layout.dialog_add_info)
 
-            val tvSongTitle = dialog.findViewById(R.id.tv_dialog_song_info_title) as TextView
-            tvSongTitle.text = binding.tvSongNameSongDetails.text.toString()
-            val etSongInfo = dialog.findViewById(R.id.et_dialog_song_info) as TextInputEditText
-            val btnSubmitDialog = dialog.findViewById(R.id.btn_dialog_submit_song_info) as Button
-            val btnCancel = dialog.findViewById(R.id.btn_dialog_add_info_cancel) as Button
-            btnSubmitDialog.setOnClickListener {
-                val addSongInfoRequest = AddSongInfoRequest(songId, etSongInfo.text.toString())
-                songDetailsViewModel.uploadSongInfo(addSongInfoRequest).observe(viewLifecycleOwner,
-                    {
-                        when (it) {
-                            is Result.Loading -> {
-                                Log.d(mTAG, "Submitting song info")
-                            }
+                val tvSongTitle = dialog.findViewById(R.id.tv_dialog_song_info_title) as TextView
+                tvSongTitle.text = binding.tvSongNameSongDetails.text.toString()
+                val etSongInfo = dialog.findViewById(R.id.et_dialog_song_info) as TextInputEditText
+                val btnSubmitDialog =
+                    dialog.findViewById(R.id.btn_dialog_submit_song_info) as Button
+                val btnCancel = dialog.findViewById(R.id.btn_dialog_add_info_cancel) as Button
+                btnSubmitDialog.setOnClickListener {
+                    val addSongInfoRequest = AddSongInfoRequest(songId, etSongInfo.text.toString())
+                    songDetailsViewModel.uploadSongInfo(addSongInfoRequest)
+                        .observe(viewLifecycleOwner,
+                            {
+                                when (it) {
+                                    is Result.Loading -> {
+                                        Log.d(mTAG, "Submitting song info")
+                                    }
 
-                            is Result.Success -> {
-                                Log.d(mTAG, "Song Info submitted")
-                                val snack = Snackbar.make(
-                                    btnSubmitDialog,
-                                    "Song Info Submitted",
-                                    Snackbar.LENGTH_SHORT
-                                )
-                                snack.show()
-                                dialog.dismiss()
+                                    is Result.Success -> {
+                                        Log.d(mTAG, "Song Info submitted")
+                                        val snack = Snackbar.make(
+                                            btnSubmitDialog,
+                                            "Song Info Submitted",
+                                            Snackbar.LENGTH_SHORT
+                                        )
+                                        snack.show()
+                                        dialog.dismiss()
 
-                            }
-                            is Result.Error -> {
+                                    }
+                                    is Result.Error -> {
 
-                            }
-                        }
-                    })
+                                    }
+                                }
+                            })
+                }
+                btnCancel.setOnClickListener { dialog.dismiss() }
+
+                dialog.show()
+            } else {
+                val loginBottomSheet = LoginBottomSheetFragment()
+
+
+                loginBottomSheet.dismissListener(object : DialogDismissListener {
+                    override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
+
+
+                    }
+
+                })
+                loginBottomSheet.show(this.parentFragmentManager, "TAG")
             }
-            btnCancel.setOnClickListener { dialog.dismiss() }
-
-            dialog.show()
         }
 
         val songInfoRequest = SongInfoRequest(selectedSongId)
