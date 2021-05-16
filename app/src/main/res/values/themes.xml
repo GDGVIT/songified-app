@@ -25,6 +25,7 @@
 
         <item name="android:textColorHint">#B3FFFFFF</item>
         <item name="android:editTextColor">#ffffff</item>
+        <item name="android:fontFamily">@font/songified_font_family</item>
 
     </style>
 

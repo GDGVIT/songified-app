@@ -49,7 +49,7 @@ class SearchFragment : Fragment() {
         val loginBottomSheet = LoginBottomSheetFragment()
 
 
-
+/*
         if (!sharedPref[Constants.PREF_IS_AUTH, false]!!) {
 
             binding.googleSignInButton.visibility = View.VISIBLE
@@ -58,6 +58,8 @@ class SearchFragment : Fragment() {
             binding.googleSignInButton.visibility = View.GONE
 
         }
+
+
         binding.googleSignInButton.setOnClickListener {
             loginBottomSheet.dismissListener(object : DialogDismissListener {
                 override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
@@ -75,7 +77,7 @@ class SearchFragment : Fragment() {
             })
             loginBottomSheet.show(requireActivity().supportFragmentManager, "TAG")
         }
-
+*/
 
 
 
@@ -112,20 +114,14 @@ class SearchFragment : Fragment() {
 
                 loginBottomSheet.dismissListener(object : DialogDismissListener {
                     override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
-                        if (isSignedIn) {
 
-                            binding.googleSignInButton.visibility = View.GONE
-                        } else {
-                            binding.googleSignInButton.visibility = View.VISIBLE
-
-                        }
 
                     }
 
                 })
                 loginBottomSheet.show(this.parentFragmentManager, "TAG")
             } else {
-                binding.googleSignInButton.visibility = View.GONE
+
                 findNavController().navigate(R.id.action_search_to_upload_song)
             }
 

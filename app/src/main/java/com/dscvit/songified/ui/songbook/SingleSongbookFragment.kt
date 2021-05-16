@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscvit.handly.util.OnItemClickListener
 import com.dscvit.handly.util.addOnItemClickListener
@@ -35,12 +37,16 @@ class SingleSongbookFragment : Fragment() {
 
     private var _binding: FragmentSingleSongbookBinding? = null
     private val binding get() = _binding!!
+    private lateinit var selectedSongBookId:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSingleSongbookBinding.inflate(inflater, container, false)
+        if (savedInstanceState==null){
+            _binding = FragmentSingleSongbookBinding.inflate(inflater, container, false)
+        }
+
         return binding.root
     }
 
@@ -58,9 +64,14 @@ class SingleSongbookFragment : Fragment() {
         binding.rvSongsSongbook.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = songbookSongAdapter
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
         singleSongbookViewModel = getViewModel()
-        val selectedSongBookId = arguments?.getString("selected_songbook_id").toString()
+        selectedSongBookId = arguments?.getString("selected_songbook_id").toString()
 
 
         binding.toolbarSingleSongbookFragment.title =
@@ -129,9 +140,13 @@ class SingleSongbookFragment : Fragment() {
                 val bundle = bundleOf(
                     "selected_song" to selectedSong,
                     "selected_songbook_id" to selectedSongBookId
+
                 )
+                ViewCompat.setTransitionName(view,"song_name_transition_${selectedSong.songId}")
+                val extras =
+                    FragmentNavigatorExtras(view to "song_name_transition_${selectedSong.songId}")
                 view.findNavController()
-                    .navigate(R.id.action_single_songbook_to_song_detail, bundle)
+                    .navigate(R.id.action_single_songbook_to_song_detail, bundle,null,extras)
             }
         })
     }
@@ -148,7 +163,7 @@ class SingleSongbookFragment : Fragment() {
                     is Result.Success -> {
                         Log.d(mTAG, "Songs in songbook loaded")
                         songs = it.data?.data?.songbookSongs!!
-                        songbookSongAdapter.updateSongsList(songs)
+                        songbookSongAdapter.updateSongsList(songs,selectedSongBookId)
                         singleSongbookLoadingDialog.dismiss()
                         if (songbookSongAdapter.itemCount == 0) {
                             binding.imgNoSongSingleSongbook.visibility = View.VISIBLE

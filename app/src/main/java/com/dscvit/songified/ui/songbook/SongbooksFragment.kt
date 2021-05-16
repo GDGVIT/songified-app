@@ -274,6 +274,7 @@ class SongbooksFragment : Fragment() {
     }
 
     private fun getSongbooks() {
+
         songbookViewModel.getSongbooks().observe(viewLifecycleOwner, {
 
             when (it) {
@@ -286,15 +287,21 @@ class SongbooksFragment : Fragment() {
                     Log.d(mTAG, it.data.toString())
                     songbooks = it.data?.songbookList!!
                     songbookAdapter.updateSongbookList(songbooks)
-                    binding.tvSongbooksCount.text =
-                        getString(R.string.songbooks_count_data, songbookAdapter.itemCount)
-                    if (songbookAdapter.itemCount == 0) {
-                        binding.imgNoDataSongbooks.visibility = View.VISIBLE
-                        binding.tvNoDataSongbooks.visibility = View.VISIBLE
-                    } else {
-                        binding.imgNoDataSongbooks.visibility = View.GONE
-                        binding.tvNoDataSongbooks.visibility = View.GONE
-                    }
+                    val songbooksCount = songbookAdapter.itemCount
+                    binding.tvSongbooksCount.text = if (songbooksCount != 1) getString(
+                        R.string.songbooks_count_data_multiple,
+                        songbooksCount
+                    ) else getString(
+                        R.string.songbooks_count_data_single,
+                        songbooksCount)
+
+                        if (songbookAdapter.itemCount == 0) {
+                            binding.imgNoDataSongbooks.visibility = View.VISIBLE
+                            binding.tvNoDataSongbooks.visibility = View.VISIBLE
+                        } else {
+                            binding.imgNoDataSongbooks.visibility = View.GONE
+                            binding.tvNoDataSongbooks.visibility = View.GONE
+                        }
                     songbookLoadingDialog.dismiss()
                 }
                 is Result.Error -> {

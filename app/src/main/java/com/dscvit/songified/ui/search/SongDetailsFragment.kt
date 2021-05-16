@@ -32,6 +32,7 @@ import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.get
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
@@ -61,6 +62,14 @@ class SongDetailsFragment : Fragment() {
         val songDetailsLoading = createProgressDialog(requireContext(), "Loading song details")
         binding.backSongDetails.setOnClickListener {
             it.findNavController().navigateUp()
+        }
+        if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
+
+            binding.btnSaveSongDetails.visibility=View.VISIBLE
+            binding.btnAddInfoSongDetails.visibility=View.VISIBLE
+        }else{
+            binding.btnAddInfoSongDetails.visibility=View.INVISIBLE
+            binding.btnSaveSongDetails.visibility=View.INVISIBLE
         }
         val selectedSongId = arguments?.getString("selected_song_id").toString()
         songDetailsLoading.show()
@@ -277,12 +286,21 @@ class SongDetailsFragment : Fragment() {
             when (it) {
                 is Result.Loading -> {
                     Log.d(mTAG, "Loading user comments")
+                    binding.pbCommentsSongDetails.visibility=View.VISIBLE
+                    binding.tvNoCommentsSongDetails.visibility=View.GONE
                 }
                 is Result.Success -> {
                     Log.d(mTAG, "User comments loaded")
                     Log.d(mTAG, it.data?.songComments.toString())
                     songCommentsList = it.data?.songComments!!
                     songCommentsAdapter.updateSongCommentsList(songCommentsList)
+                    binding.pbCommentsSongDetails.visibility=View.GONE
+                    if (songCommentsAdapter.itemCount==0){
+                        binding.tvNoCommentsSongDetails.visibility=View.VISIBLE
+                    }else{
+                        binding.tvNoCommentsSongDetails.visibility=View.GONE
+                    }
+
                 }
                 is Result.Error -> {
 

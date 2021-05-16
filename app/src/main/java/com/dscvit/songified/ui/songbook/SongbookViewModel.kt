@@ -1,10 +1,9 @@
 package com.dscvit.songified.ui.songbook
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dscvit.songified.model.AddToSongbookRequest
-import com.dscvit.songified.model.NewSongbookRequest
-import com.dscvit.songified.model.SongbookDeleteRequest
-import com.dscvit.songified.model.UpdateSongbookNameReqeust
+import com.dscvit.songified.model.*
 import com.dscvit.songified.repository.AppRepo
 
 class SongbookViewModel(private val repo: AppRepo) : ViewModel() {
@@ -16,5 +15,7 @@ class SongbookViewModel(private val repo: AppRepo) : ViewModel() {
 
     fun deleteSongbook(songbookDeleteRequest: SongbookDeleteRequest) =
         repo.deleteSongbook(songbookDeleteRequest)
+
+
 
 }

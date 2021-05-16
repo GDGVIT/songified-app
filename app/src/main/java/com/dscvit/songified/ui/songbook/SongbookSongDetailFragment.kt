@@ -7,8 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentSongbookSongDetailsBinding
@@ -29,16 +31,24 @@ class SongbookSongDetailFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentSongbookSongDetailsBinding.inflate(inflater, container, false)
+        val selectedSongbookSong: SingleSongbookSong =
+            arguments?.get("selected_song") as SingleSongbookSong
+        ViewCompat.setTransitionName(binding.root,"song_name_transition_${selectedSongbookSong.songId}")
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(this.context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition =
+            TransitionInflater.from(this.context).inflateTransition(android.R.transition.move)
+
         val songbookSongDetailViewModel by viewModel<SongbookSongDetailViewModel>()
         val selectedSongbookSong: SingleSongbookSong =
             arguments?.get("selected_song") as SingleSongbookSong
         val selectedSongbookId = arguments?.getString("selected_songbook_id") as String
-
 
         binding.backSongbookSongDetails.setOnClickListener {
             it.findNavController().navigateUp()
@@ -47,7 +57,7 @@ class SongbookSongDetailFragment : Fragment() {
         binding.tvArtistSongbookSongDetail.text = selectedSongbookSong.artist
         binding.tvScaleSongbookSongDetail.text = selectedSongbookSong.scale
         binding.tvTempoSongbookSongDetail.text = selectedSongbookSong.tempo
-        binding.tvTimeSigSongbookSongDetail.text=selectedSongbookSong.timSig
+        binding.tvTimeSigSongbookSongDetail.text = selectedSongbookSong.timSig
         binding.etNotesSongbookSongDetail.setText(selectedSongbookSong.songBody)
         Glide.with(this)
             .load(selectedSongbookSong.coverArt)

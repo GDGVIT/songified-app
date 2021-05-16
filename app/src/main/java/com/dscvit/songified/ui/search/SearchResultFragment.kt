@@ -36,7 +36,10 @@ class SearchResultFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentSearchResultBinding.inflate(inflater, container, false)
+        if (_binding == null) {
+            _binding = FragmentSearchResultBinding.inflate(inflater, container, false)
+        }
+
         return binding.root
     }
 
@@ -78,8 +81,8 @@ class SearchResultFragment : Fragment() {
         binding.svSearchResultFragment.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-                binding.imgNoSearchResult.visibility=View.GONE
-                binding.tvNoSearchResult.visibility=View.GONE
+                binding.imgNoSearchResult.visibility = View.GONE
+                binding.tvNoSearchResult.visibility = View.GONE
                 return true
             }
 
@@ -110,9 +113,9 @@ class SearchResultFragment : Fragment() {
 
                     songs = it.data?.song!!
                     if (songs.isNotEmpty()) {
-                        binding.rvSongSearchResults.visibility=View.VISIBLE
-                        binding.imgNoSearchResult.visibility=View.GONE
-                        binding.tvNoSearchResult.visibility=View.GONE
+                        binding.rvSongSearchResults.visibility = View.VISIBLE
+                        binding.imgNoSearchResult.visibility = View.GONE
+                        binding.tvNoSearchResult.visibility = View.GONE
                         songListAdapter.updateSongsList(songs)
                         binding.pbLoadingSearchResult.visibility = View.GONE
                     } else {
@@ -122,11 +125,12 @@ class SearchResultFragment : Fragment() {
                 is Result.Error -> {
                     Log.d(mTAG, "Error")
                     if (!(it.message == getString(R.string.internet_error) || it.message == "404 Not Found")) {
-                        binding.rvSongSearchResults.visibility=View.GONE
-                        binding.imgNoSearchResult.visibility=View.VISIBLE
-                        binding.tvNoSearchResult.visibility=View.VISIBLE
-                        binding.tvNoSearchResult.text=getString(R.string.no_search_result,searchQuery)
-                        binding.pbLoadingSearchResult.visibility=View.GONE
+                        binding.rvSongSearchResults.visibility = View.GONE
+                        binding.imgNoSearchResult.visibility = View.VISIBLE
+                        binding.tvNoSearchResult.visibility = View.VISIBLE
+                        binding.tvNoSearchResult.text =
+                            getString(R.string.no_search_result, searchQuery)
+                        binding.pbLoadingSearchResult.visibility = View.GONE
                     }
 
                     Log.d("esh", it.message!!)

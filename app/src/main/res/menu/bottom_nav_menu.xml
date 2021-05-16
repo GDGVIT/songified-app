@@ -4,16 +4,19 @@
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search_grey"
-        android:title="Search" />
+        android:menuCategory="secondary"
+        android:title="@string/nav_title_search" />
 
     <item
         android:id="@+id/navigation_songbook"
         android:icon="@drawable/ic_book_grey"
-        android:title="Songbooks" />
+        android:menuCategory="secondary"
+        android:title="@string/nav_title_songbooks" />
 
     <item
         android:id="@+id/navigation_userprofile"
         android:icon="@drawable/ic_user_grey"
-        android:title="Profile" />
+        android:menuCategory="secondary"
+        android:title="@string/nav_title_profile" />
 
 </menu>

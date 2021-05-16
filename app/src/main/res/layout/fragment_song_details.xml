@@ -213,7 +213,23 @@
         android:text="@string/comments"
         android:textSize="20sp"
         android:textStyle="bold" />
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/no_comments"
+    android:layout_marginTop="12dp"
+    android:textColor="#BFFFFFFF"
+    android:id="@+id/tv_no_comments_song_details"
+    android:visibility="gone"
+    />
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:id="@+id/pb_comments_song_details"
+        android:visibility="gone"
+        android:layout_marginTop="8dp"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_song_info_song_details"
         android:layout_width="match_parent"

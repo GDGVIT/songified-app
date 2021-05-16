@@ -4,6 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -16,9 +20,11 @@ import com.dscvit.songified.model.SingleSongbookSong
 class SongbookSongAdapter : RecyclerView.Adapter<SongbookSongAdapter.SongViewHolder>() {
 
     var songsList: MutableList<SingleSongbookSong> = mutableListOf()
+    var selectedSongBookId=""
 
-    fun updateSongsList(newSongs: List<SingleSongbookSong>) {
+    fun updateSongsList(newSongs: List<SingleSongbookSong>,songbookId:String) {
         songsList = newSongs as MutableList<SingleSongbookSong>
+        selectedSongBookId=songbookId
         notifyDataSetChanged()
     }
 
@@ -54,7 +60,10 @@ class SongbookSongAdapter : RecyclerView.Adapter<SongbookSongAdapter.SongViewHol
                 .fallback(R.drawable.fallback_cover_art)
                 .placeholder(R.drawable.fallback_cover_art)
                 .into(binding.imgListItemCoverSongbookSong)
+
         }
     }
+
+
 
 }

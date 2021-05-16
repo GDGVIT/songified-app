@@ -52,7 +52,9 @@
         android:name="com.dscvit.songified.ui.search.SongDetailsFragment"
         android:label="Song Info"
         tools:layout="@layout/fragment_song_details">
-
+        <argument
+            android:name="song_id"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -80,7 +82,9 @@
 
         <action
             android:id="@+id/action_single_songbook_to_song_detail"
-            app:destination="@id/navigation_songbook_song_detail" />
+            app:destination="@id/navigation_songbook_song_detail"
+
+            />
     </fragment>
 
     <fragment
