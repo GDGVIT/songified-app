@@ -72,7 +72,7 @@ class SongbooksFragment : Fragment() {
                 adapter = songbookAdapter
             }
             songbookViewModel = getViewModel()
-            songbookLoadingDialog.show()
+
             getSongbooks()
 
 
@@ -280,6 +280,7 @@ class SongbooksFragment : Fragment() {
             when (it) {
                 is Result.Loading -> {
                     Log.d(mTAG, "Loading songbooks")
+                    songbookLoadingDialog.show()
                 }
                 is Result.Success -> {
 
