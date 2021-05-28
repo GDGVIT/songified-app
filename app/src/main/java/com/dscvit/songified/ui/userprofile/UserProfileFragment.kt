@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import com.dscvit.handly.util.createProgressDialog
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentUserProfileBinding
 import com.dscvit.songified.model.Result
+import com.dscvit.songified.model.SongbookDeleteRequest
 import com.dscvit.songified.ui.login.LoginBottomSheetFragment
 import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.DialogDismissListener
@@ -25,6 +27,7 @@ import com.dscvit.songified.util.PrefHelper.set
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserProfileFragment : Fragment() {
@@ -90,30 +93,46 @@ class UserProfileFragment : Fragment() {
                 binding.btnSignOutUserProfile.visibility = View.GONE
             }
             binding.btnSignOutUserProfile.setOnClickListener {
-                signOutLoadingDialog.show()
-                mGoogleSignInClient.signOut()
-                    .addOnCompleteListener(requireActivity()) {
-                        userProfileViewModel.logout().observe(viewLifecycleOwner, {
-                            when (it) {
-                                is Result.Loading -> {
-                                    Log.d(mTAG, "Signing out")
-                                }
-                                is Result.Success -> {
-                                    signOutLoadingDialog.dismiss()
-                                    Log.d(mTAG, "Signed Out")
-                                    sharedPref[Constants.PREF_IS_AUTH] = false
-                                    sharedPref[Constants.PREF_AUTH_TOKEN] = ""
-                                    binding.btnSignOutUserProfile.visibility = View.GONE
 
-                                    view.findNavController().navigate(R.id.navigation_search)
-                                }
-                                is Result.Error -> {
+                val alertDialogBuilder =
+                    AlertDialog.Builder(requireContext(), R.style.MyAlertDialog)
+                alertDialogBuilder.setTitle("Sign Out")
+                alertDialogBuilder.setMessage("Are you sure you want to sign out ?")
+
+                alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
+
+
+                    signOutLoadingDialog.show()
+                    mGoogleSignInClient.signOut()
+                        .addOnCompleteListener(requireActivity()) {
+                            userProfileViewModel.logout().observe(viewLifecycleOwner, {
+                                when (it) {
+                                    is Result.Loading -> {
+                                        Log.d(mTAG, "Signing out")
+                                    }
+                                    is Result.Success -> {
+                                        signOutLoadingDialog.dismiss()
+                                        Log.d(mTAG, "Signed Out")
+                                        sharedPref[Constants.PREF_IS_AUTH] = false
+                                        sharedPref[Constants.PREF_AUTH_TOKEN] = ""
+                                        binding.btnSignOutUserProfile.visibility = View.GONE
+
+                                        view.findNavController().navigate(R.id.navigation_search)
+                                    }
+                                    is Result.Error -> {
+                                        signOutLoadingDialog.dismiss()
+                                    }
 
                                 }
+                            })
+                        }
+                }
 
-                            }
-                        })
-                    }
+                alertDialogBuilder.setNegativeButton("No") { dialog, which ->
+                    dialog.dismiss()
+                }
+
+                alertDialogBuilder.show()
             }
         } else {
             val loginBottomSheet = LoginBottomSheetFragment()
