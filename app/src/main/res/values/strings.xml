@@ -12,7 +12,7 @@
     <string name="scale">Scale</string>
     <string name="tempo">Tempo</string>
     <string name="time_signature">Time Signature</string>
-    <string name="add_info">Add Info</string>
+    <string name="add_comment">Comment</string>
     <string name="save">Save</string>
     <string name="comments">Comments</string>
     <string name="account_info">Account Info</string>
@@ -57,10 +57,10 @@
     <string name="back_button">back button</string>
     <string name="no_songs">No songs in this songbook!</string>
     <string name="notes">Notes</string>
-    <string name="no_songbooks">No songbooks found!</string>
+    <string name="no_songbooks">No songbooks found! Search a song and add it here.</string>
     <string name="add_new_songbook">add new songbook</string>
     <string name="energy_level_data">Energy level : %1$s</string>
-    <string name="emotional_profile_data">Emotional proile : %1$s</string>
+    <string name="emotional_profile_data">Emotional profile : %1$s</string>
     <string name="uploading_file">Uploading file …</string>
     <string name="songbooks_count_data_multiple">%1$d books</string>
     <string name="songbooks_count_data_single">%1$d book</string>
@@ -72,6 +72,7 @@
     <string name="nav_title_songbooks">Songbooks</string>
     <string name="nav_title_profile">Profile</string>
     <string name="no_comments">No comments to show</string>
+    <string name="no_songbooks_found">No songbooks found</string>
 
 
 </resources>

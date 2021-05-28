@@ -65,11 +65,11 @@ class SongDetailsFragment : Fragment() {
         }
         if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
 
-            binding.btnSaveSongDetails.visibility=View.VISIBLE
-            binding.btnAddInfoSongDetails.visibility=View.VISIBLE
-        }else{
-            binding.btnAddInfoSongDetails.visibility=View.INVISIBLE
-            binding.btnSaveSongDetails.visibility=View.INVISIBLE
+            binding.btnSaveSongDetails.visibility = View.VISIBLE
+            binding.btnAddInfoSongDetails.visibility = View.VISIBLE
+        } else {
+            binding.btnAddInfoSongDetails.visibility = View.INVISIBLE
+            binding.btnSaveSongDetails.visibility = View.INVISIBLE
         }
         val selectedSongId = arguments?.getString("selected_song_id").toString()
         songDetailsLoading.show()
@@ -121,6 +121,8 @@ class SongDetailsFragment : Fragment() {
 
                 val rvSimpleSongbooks =
                     saveSongDialog.findViewById(R.id.rv_dialog_songbooks_save_song) as RecyclerView
+                val tvNoSongbooks =
+                    saveSongDialog.findViewById(R.id.tv_dialog_save_no_songbooks) as TextView
                 val simpleSongbookAdapter = SimpleSongbookAdapter()
                 val pbSaveSong = saveSongDialog.findViewById(R.id.pb_save_song) as ProgressBar
                 rvSimpleSongbooks.apply {
@@ -140,6 +142,11 @@ class SongDetailsFragment : Fragment() {
                             pbSaveSong.visibility = View.GONE
                             simpleSongbookAdapter.updateSongbookList(songbookList)
                             Log.d(mTAG, it.data.toString())
+                            if (simpleSongbookAdapter.itemCount == 0) {
+                                tvNoSongbooks.visibility = View.VISIBLE
+                            } else {
+                                tvNoSongbooks.visibility = View.GONE
+                            }
 
                         }
                         is Result.Error -> {
@@ -236,32 +243,53 @@ class SongDetailsFragment : Fragment() {
                 val btnSubmitDialog =
                     dialog.findViewById(R.id.btn_dialog_submit_song_info) as Button
                 val btnCancel = dialog.findViewById(R.id.btn_dialog_add_info_cancel) as Button
+                val addCommentLoading =
+                    createProgressDialog(requireContext(), "Submitting comment...")
                 btnSubmitDialog.setOnClickListener {
-                    val addSongInfoRequest = AddSongInfoRequest(songId, etSongInfo.text.toString())
-                    songDetailsViewModel.uploadSongInfo(addSongInfoRequest)
-                        .observe(viewLifecycleOwner,
-                            {
-                                when (it) {
-                                    is Result.Loading -> {
-                                        Log.d(mTAG, "Submitting song info")
-                                    }
+                    if (etSongInfo.text.toString().trim() != "") {
 
-                                    is Result.Success -> {
-                                        Log.d(mTAG, "Song Info submitted")
-                                        val snack = Snackbar.make(
-                                            btnSubmitDialog,
-                                            "Song Info Submitted",
-                                            Snackbar.LENGTH_SHORT
-                                        )
-                                        snack.show()
-                                        dialog.dismiss()
 
-                                    }
-                                    is Result.Error -> {
+                        val addSongInfoRequest = AddSongInfoRequest(
+                            songId,
+                            etSongInfo.text.toString(),
+                            binding.tvSongNameSongDetails.text.toString()
+                        )
+                        songDetailsViewModel.uploadSongInfo(addSongInfoRequest)
+                            .observe(viewLifecycleOwner,
+                                {
+                                    when (it) {
+                                        is Result.Loading -> {
+                                            addCommentLoading.show()
+                                            Log.d(mTAG, "Submitting song info")
+                                        }
 
+                                        is Result.Success -> {
+                                            addCommentLoading.dismiss()
+                                            Log.d(mTAG, "Song Info submitted")
+                                            Snackbar.make(
+                                                binding.root,
+                                                "Song Info Submitted",
+                                                Snackbar.LENGTH_SHORT
+                                            ).show()
+
+                                            dialog.dismiss()
+
+                                        }
+                                        is Result.Error -> {
+                                            addCommentLoading.dismiss()
+
+                                        }
                                     }
-                                }
-                            })
+                                })
+                    } else {
+                        Snackbar.make(
+                            dialog.findViewById(R.id.et_dialog_song_info),
+                            "Comment cannot be empty",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+
+
                 }
                 btnCancel.setOnClickListener { dialog.dismiss() }
 
@@ -286,19 +314,19 @@ class SongDetailsFragment : Fragment() {
             when (it) {
                 is Result.Loading -> {
                     Log.d(mTAG, "Loading user comments")
-                    binding.pbCommentsSongDetails.visibility=View.VISIBLE
-                    binding.tvNoCommentsSongDetails.visibility=View.GONE
+                    binding.pbCommentsSongDetails.visibility = View.VISIBLE
+                    binding.tvNoCommentsSongDetails.visibility = View.GONE
                 }
                 is Result.Success -> {
                     Log.d(mTAG, "User comments loaded")
                     Log.d(mTAG, it.data?.songComments.toString())
                     songCommentsList = it.data?.songComments!!
                     songCommentsAdapter.updateSongCommentsList(songCommentsList)
-                    binding.pbCommentsSongDetails.visibility=View.GONE
-                    if (songCommentsAdapter.itemCount==0){
-                        binding.tvNoCommentsSongDetails.visibility=View.VISIBLE
-                    }else{
-                        binding.tvNoCommentsSongDetails.visibility=View.GONE
+                    binding.pbCommentsSongDetails.visibility = View.GONE
+                    if (songCommentsAdapter.itemCount == 0) {
+                        binding.tvNoCommentsSongDetails.visibility = View.VISIBLE
+                    } else {
+                        binding.tvNoCommentsSongDetails.visibility = View.GONE
                     }
 
                 }

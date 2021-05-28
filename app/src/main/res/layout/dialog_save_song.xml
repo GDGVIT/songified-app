@@ -26,7 +26,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_songbooks_found"
+            android:layout_marginTop="12dp"
+            android:id="@+id/tv_dialog_save_no_songbooks"
+            android:textColor="#CCFFFFFF"
+            android:visibility="gone"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_dialog_songbooks_save_song"
             android:layout_width="match_parent"
