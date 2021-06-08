@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
@@ -31,6 +32,8 @@ class SearchResultFragment : Fragment() {
     private lateinit var songListAdapter: SongListAdapter
     private var _binding: FragmentSearchResultBinding? = null
     private val binding get() = _binding!!
+    private val searchResultViewModel: SearchResultViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -95,12 +98,7 @@ class SearchResultFragment : Fragment() {
                 return true
             }
         })
-
-
-    }
-
-    fun searchSong(searchQuery: String) {
-        searchViewModel.searchSong("song", searchQuery).observe(viewLifecycleOwner, {
+        searchResultViewModel.searchResults.observe(viewLifecycleOwner,{
             when (it) {
                 is Result.Loading -> {
 
@@ -129,15 +127,31 @@ class SearchResultFragment : Fragment() {
                         binding.imgNoSearchResult.visibility = View.VISIBLE
                         binding.tvNoSearchResult.visibility = View.VISIBLE
                         binding.tvNoSearchResult.text =
-                            getString(R.string.no_search_result, searchQuery)
+                            getString(R.string.no_search_result, " ")
                         binding.pbLoadingSearchResult.visibility = View.GONE
                     }
 
                     Log.d("esh", it.message!!)
                 }
+                else->{
+                    Log.d(mTAG,"NOthing is happening for livedata")
+                }
 
 
             }
+        })
+
+
+
+
+    }
+
+    fun searchSong(searchQuery: String) {
+        /*searchResultViewModel.searchSong("song", searchQuery).observe(viewLifecycleOwner,{
+            searchResultViewModel.searchResults.value=it
+        })*/
+        searchResultViewModel.searchSong("song",searchQuery).observe(viewLifecycleOwner,{
+            searchResultViewModel.searchResults.value=it
         })
     }
 

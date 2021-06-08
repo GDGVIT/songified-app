@@ -55,9 +55,9 @@
     <string name="search_song">Search song …</string>
     <string name="search_icon">Search icon</string>
     <string name="back_button">back button</string>
-    <string name="no_songs">No songs in this songbook!</string>
+    <string name="no_songs">No songs in this songbook! Search a song and add it here.</string>
     <string name="notes">Notes</string>
-    <string name="no_songbooks">No songbooks found! Search a song and add it here.</string>
+    <string name="no_songbooks">No songbooks found!</string>
     <string name="add_new_songbook">add new songbook</string>
     <string name="energy_level_data">Energy level : %1$s</string>
     <string name="emotional_profile_data">Emotional profile : %1$s</string>

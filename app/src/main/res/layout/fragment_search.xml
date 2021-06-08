@@ -32,14 +32,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/img_logo_search_fragment"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:id="@+id/layout_search_container_search_fragment"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
 
+    >
     <EditText
         android:id="@+id/sv_search_fragment"
         style="@style/SearchViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
+
         android:autofillHints=""
         android:background="@drawable/search_bg"
         android:hint="@string/search_song"
@@ -47,9 +56,10 @@
         android:textColor="#ffffff"
         android:textColorHint="#808080"
         android:theme="@style/SearchViewStyle"
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:transitionName="search_bar_transition"
-        app:layout_constraintTop_toBottomOf="@id/img_logo_search_fragment"
+        app:layout_constraintEnd_toStartOf="@id/btn_search_fragment"
         android:inputType="text" />
 
     <ImageView
@@ -60,10 +70,13 @@
         android:contentDescription="@string/search_icon"
         android:padding="8dp"
         android:src="@drawable/ic_search"
-        app:layout_constraintBottom_toBottomOf="@id/sv_search_fragment"
-        app:layout_constraintEnd_toEndOf="@id/sv_search_fragment"
-        app:layout_constraintStart_toEndOf="@id/sv_search_fragment"
-        app:layout_constraintTop_toTopOf="@id/sv_search_fragment" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btn_upload_search_fragment"
@@ -74,5 +87,5 @@
         android:text="@string/audio_analysis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sv_search_fragment" />
+        app:layout_constraintTop_toBottomOf="@id/layout_search_container_search_fragment" />
 </androidx.constraintlayout.widget.ConstraintLayout>
