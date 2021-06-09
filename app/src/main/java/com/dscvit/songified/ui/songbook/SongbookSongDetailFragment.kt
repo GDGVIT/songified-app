@@ -33,7 +33,10 @@ class SongbookSongDetailFragment : Fragment() {
         _binding = FragmentSongbookSongDetailsBinding.inflate(inflater, container, false)
         val selectedSongbookSong: SingleSongbookSong =
             arguments?.get("selected_song") as SingleSongbookSong
-        ViewCompat.setTransitionName(binding.root,"song_name_transition_${selectedSongbookSong.songId}")
+        ViewCompat.setTransitionName(
+            binding.root,
+            "song_name_transition_${selectedSongbookSong.songId}"
+        )
 
         return binding.root
     }
@@ -65,41 +68,59 @@ class SongbookSongDetailFragment : Fragment() {
             .placeholder(R.drawable.fallback_cover_art)
             .into(binding.imgCoverArtSongbookSongDetails)
 
-        val pbUpdateLoading =
-            view.findViewById(R.id.pb_update_song_in_songbook) as LinearProgressIndicator
-        binding.btnUpdateSongbookSong.setOnClickListener {
-            val songBody = binding.etNotesSongbookSongDetail.text.toString()
-            val updateSongRequest = UpdateSongInSongbookRequest(
-                selectedSongbookId,
-                selectedSongbookSong.songId,
-                selectedSongbookSong.songTitle,
-                songBody,
-                selectedSongbookSong.scale,
-                selectedSongbookSong.tempo.toInt(),
-                selectedSongbookSong.artist,
-                selectedSongbookSong.timSig,
-                selectedSongbookSong.coverArt
-            )
-            pbUpdateLoading.visibility = View.VISIBLE
-            songbookSongDetailViewModel.editSongbook(updateSongRequest).observe(viewLifecycleOwner,
-                {
-                    when (it) {
-                        is Result.Loading -> {
-                            binding.btnUpdateSongbookSong.isEnabled = false
-                            Log.d(mTAG, "Saving songbook")
-                        }
-                        is Result.Success -> {
-                            Log.d(mTAG, "Songbook updated")
-                            binding.btnUpdateSongbookSong.visibility = View.GONE
-                            pbUpdateLoading.visibility = View.GONE
-                            Snackbar.make(binding.root, "Song updated", Snackbar.LENGTH_SHORT)
-                                .show()
-                        }
-                        is Result.Error -> {
 
-                        }
-                    }
-                })
+        binding.btnUpdateSongbookSong.setOnClickListener {
+
+            if (binding.etNotesSongbookSongDetail.text.toString() != "") {
+                val songBody = binding.etNotesSongbookSongDetail.text.toString()
+                val updateSongRequest = UpdateSongInSongbookRequest(
+                    selectedSongbookId,
+                    selectedSongbookSong.songId,
+                    selectedSongbookSong.songTitle,
+                    songBody,
+                    selectedSongbookSong.scale,
+                    selectedSongbookSong.tempo.toInt(),
+                    selectedSongbookSong.artist,
+                    selectedSongbookSong.timSig,
+                    selectedSongbookSong.coverArt
+                )
+                binding.pbUpdateSongInSongbook.visibility = View.VISIBLE
+                songbookSongDetailViewModel.editSongbook(updateSongRequest)
+                    .observe(viewLifecycleOwner,
+                        {
+                            when (it) {
+                                is Result.Loading -> {
+                                    binding.btnUpdateSongbookSong.isEnabled = false
+                                    Log.d(mTAG, "Saving songbook")
+                                }
+                                is Result.Success -> {
+                                    Log.d(mTAG, "Songbook updated")
+                                    binding.btnUpdateSongbookSong.visibility = View.GONE
+                                    binding.pbUpdateSongInSongbook.visibility = View.GONE
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Song updated",
+                                        Snackbar.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+                                is Result.Error -> {
+
+                                    binding.pbUpdateSongInSongbook.visibility = View.GONE
+                                    binding.btnUpdateSongbookSong.isEnabled = true
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Some error occured",
+                                        Snackbar.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    Log.d(mTAG, it.message ?: "some error")
+
+                                }
+                            }
+                        })
+            }
+
         }
 
         binding.etNotesSongbookSongDetail.addTextChangedListener(object : TextWatcher {

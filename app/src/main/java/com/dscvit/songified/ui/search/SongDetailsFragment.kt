@@ -265,10 +265,10 @@ class SongDetailsFragment : Fragment() {
 
                                         is Result.Success -> {
                                             addCommentLoading.dismiss()
-                                            Log.d(mTAG, "Song Info submitted")
+                                            Log.d(mTAG, "Comment submitted")
                                             Snackbar.make(
                                                 binding.root,
-                                                "Song Info Submitted",
+                                                "Comment submitted",
                                                 Snackbar.LENGTH_SHORT
                                             ).show()
 

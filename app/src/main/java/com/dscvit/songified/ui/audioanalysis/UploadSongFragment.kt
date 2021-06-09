@@ -164,33 +164,43 @@ class UploadSongFragment : Fragment() {
 
 
                     btnUploadSubmit.setOnClickListener {
-                        val filePart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                            "songFile",
-                            audioFile.name,
-                            audioFile.asRequestBody("audio/*".toMediaTypeOrNull())
-                        )
-                        uploadProgressDialog.show()
-                        val uploadSongName = etFileName.text.toString().toRequestBody()
-                        uploadSongViewModel.uploadSong(uploadSongName, filePart)
-                            .observe(viewLifecycleOwner,
-                                {
-                                    when (it) {
-                                        is Result.Loading -> {
-                                            Log.d(mTAG, "Uploading Song")
-                                        }
-                                        is Result.Success -> {
-                                            Log.d(mTAG, "Song Uploaded${it.data?.songProcessId}")
-                                            uploadProgressDialog.dismiss()
-                                            uploadDialog.dismiss()
-                                            getPreviousUploads()
+
+                        if (etFileName.text.toString().trim() != "") {
 
 
-                                        }
-                                        is Result.Error -> {
+                            val filePart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                                "songFile",
+                                audioFile.name,
+                                audioFile.asRequestBody("audio/*".toMediaTypeOrNull())
+                            )
+                            uploadProgressDialog.show()
+                            val uploadSongName = etFileName.text.toString().toRequestBody()
+                            uploadSongViewModel.uploadSong(uploadSongName, filePart)
+                                .observe(viewLifecycleOwner,
+                                    {
+                                        when (it) {
+                                            is Result.Loading -> {
+                                                Log.d(mTAG, "Uploading Song")
+                                            }
+                                            is Result.Success -> {
+                                                Log.d(
+                                                    mTAG,
+                                                    "Song Uploaded${it.data?.songProcessId}"
+                                                )
+                                                uploadProgressDialog.dismiss()
+                                                uploadDialog.dismiss()
+                                                getPreviousUploads()
 
+
+                                            }
+                                            is Result.Error -> {
+
+                                            }
                                         }
-                                    }
-                                })
+                                    })
+                        }else{
+                            etFileName.error="required"
+                        }
                     }
 
                     btnCancel.setOnClickListener { uploadDialog.dismiss() }

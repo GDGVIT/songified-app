@@ -30,6 +30,7 @@ import com.dscvit.songified.util.PrefHelper.get
 
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class SongbooksFragment : Fragment() {
@@ -86,34 +87,42 @@ class SongbooksFragment : Fragment() {
                     dialog.findViewById(R.id.btn_dialog_create_new_songbook) as Button
 
                 btnCreateSongbook.setOnClickListener {
-                    val newSongbookRequest = NewSongbookRequest(etSongbookName.text.toString())
-                    addSongbookLoading =
-                        createProgressDialog(requireContext(), "Creating songbook ...")
-                    addSongbookLoading.show()
-                    songbookViewModel.newSongbook(newSongbookRequest).observe(viewLifecycleOwner,
-                        {
-                            when (it) {
-                                is Result.Loading -> {
-                                    Log.d(mTAG, "Creating new songbook")
-                                }
+                    if (etSongbookName.text.toString().trim() != "") {
 
-                                is Result.Success -> {
-                                    addSongbookLoading.dismiss()
-                                    Log.d(mTAG, "Songbook created")
-                                    Snackbar.make(
-                                        binding.root,
-                                        "Created ${newSongbookRequest.songbookName}",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                    dialog.dismiss()
-                                    getSongbooks()
 
-                                }
-                                is Result.Error -> {
+                        val newSongbookRequest = NewSongbookRequest(etSongbookName.text.toString())
+                        addSongbookLoading =
+                            createProgressDialog(requireContext(), "Creating songbook ...")
+                        addSongbookLoading.show()
+                        songbookViewModel.newSongbook(newSongbookRequest)
+                            .observe(viewLifecycleOwner,
+                                {
+                                    when (it) {
+                                        is Result.Loading -> {
+                                            Log.d(mTAG, "Creating new songbook")
+                                        }
 
-                                }
-                            }
-                        })
+                                        is Result.Success -> {
+                                            addSongbookLoading.dismiss()
+                                            Log.d(mTAG, "Songbook created")
+                                            Snackbar.make(
+                                                binding.root,
+                                                "Created ${newSongbookRequest.songbookName}",
+                                                Snackbar.LENGTH_SHORT
+                                            ).show()
+                                            dialog.dismiss()
+                                            getSongbooks()
+
+                                        }
+                                        is Result.Error -> {
+
+                                        }
+                                    }
+                                })
+
+                    } else {
+                        etSongbookName.error = "required"
+                    }
                 }
 
                 val btnCancel = dialog.findViewById(R.id.btn_dialog_cancel_new_songbook) as Button
@@ -157,38 +166,42 @@ class SongbooksFragment : Fragment() {
                         val btnUpdateSongbook =
                             editSongbookDialog.findViewById(R.id.btn_update_dialog_edit_songbook) as Button
                         btnUpdateSongbook.setOnClickListener {
-                            val updateSongbookNameRequest = UpdateSongbookNameReqeust(
-                                songbooks[position].id,
-                                etSongbookName.text.toString()
-                            )
-                            editSongbookLoading =
-                                createProgressDialog(requireContext(), "Updating songbook")
-                            editSongbookLoading.show()
-                            songbookViewModel.updateSongbookName(updateSongbookNameRequest)
-                                .observe(viewLifecycleOwner,
-                                    {
-                                        when (it) {
-                                            is Result.Loading -> {
-                                                Log.d(mTAG, "Updating songbook name")
-                                            }
+                            if (etSongbookName.text.toString().trim() != "") {
+                                val updateSongbookNameRequest = UpdateSongbookNameReqeust(
+                                    songbooks[position].id,
+                                    etSongbookName.text.toString()
+                                )
+                                editSongbookLoading =
+                                    createProgressDialog(requireContext(), "Updating songbook")
+                                editSongbookLoading.show()
+                                songbookViewModel.updateSongbookName(updateSongbookNameRequest)
+                                    .observe(viewLifecycleOwner,
+                                        {
+                                            when (it) {
+                                                is Result.Loading -> {
+                                                    Log.d(mTAG, "Updating songbook name")
+                                                }
 
-                                            is Result.Success -> {
-                                                editSongbookLoading.dismiss()
-                                                Log.d(mTAG, "Songbook Name updated")
-                                                Snackbar.make(
-                                                    binding.root,
-                                                    "Updated",
-                                                    Snackbar.LENGTH_SHORT
-                                                ).show()
-                                                editSongbookDialog.dismiss()
-                                                getSongbooks()
+                                                is Result.Success -> {
+                                                    editSongbookLoading.dismiss()
+                                                    Log.d(mTAG, "Songbook Name updated")
+                                                    Snackbar.make(
+                                                        binding.root,
+                                                        "Updated",
+                                                        Snackbar.LENGTH_SHORT
+                                                    ).show()
+                                                    editSongbookDialog.dismiss()
+                                                    getSongbooks()
 
-                                            }
-                                            is Result.Error -> {
+                                                }
+                                                is Result.Error -> {
 
+                                                }
                                             }
-                                        }
-                                    })
+                                        })
+                            }else{
+                                etSongbookName.error="required"
+                            }
                         }
                         val btnCancelEditSongbook =
                             editSongbookDialog.findViewById(R.id.btn_cancel_dialog_edit_songbook) as Button
@@ -294,15 +307,16 @@ class SongbooksFragment : Fragment() {
                         songbooksCount
                     ) else getString(
                         R.string.songbooks_count_data_single,
-                        songbooksCount)
+                        songbooksCount
+                    )
 
-                        if (songbookAdapter.itemCount == 0) {
-                            binding.imgNoDataSongbooks.visibility = View.VISIBLE
-                            binding.tvNoDataSongbooks.visibility = View.VISIBLE
-                        } else {
-                            binding.imgNoDataSongbooks.visibility = View.GONE
-                            binding.tvNoDataSongbooks.visibility = View.GONE
-                        }
+                    if (songbookAdapter.itemCount == 0) {
+                        binding.imgNoDataSongbooks.visibility = View.VISIBLE
+                        binding.tvNoDataSongbooks.visibility = View.VISIBLE
+                    } else {
+                        binding.imgNoDataSongbooks.visibility = View.GONE
+                        binding.tvNoDataSongbooks.visibility = View.GONE
+                    }
                     songbookLoadingDialog.dismiss()
                 }
                 is Result.Error -> {
@@ -311,7 +325,6 @@ class SongbooksFragment : Fragment() {
             }
         })
     }
-
 
 
     override fun onDestroyView() {
