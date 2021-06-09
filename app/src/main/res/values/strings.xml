@@ -73,6 +73,23 @@
     <string name="nav_title_profile">Profile</string>
     <string name="no_comments">No comments to show</string>
     <string name="no_songbooks_found">No songbooks found</string>
+    <string name="welcome_to_songified">Welcome to Songified</string>
+    <string name="intro_illustration">intro_illustration</string>
+    <string name="intro_1_descr">Explore info about a song by searching or even uploading any song on your device!</string>
+    <string name="how_to_level_up">How to level up?</string>
+    <string name="intro_2_descr">Add an interesting info about a song as a comment. Once your comment is approved points will be awarded to you</string>
+    <string name="next">next</string>
+    <string name="get_started">get started</string>
+    <string name="intro_3_descr">A one step sign in to enjoy all features of the app</string>
+    <string name="sign_in_to_explore">Sign In to Explore</string>
+    <string name="skip">SKIP</string>
+    <string name="not_now">NOT NOW</string>
+    <string name="gain_points_and_get_levelled_up">Gain points and get levelled up</string>
+    <string name="save_songs_to_songbook">Save songs to songbook</string>
+    <string name="upload_and_analyse_any_song">Upload and analyse any song</string>
+    <string name="get_points">Get points</string>
+    <string name="get_verified">Get verified</string>
+    <string name="add_comment_intro_2">Add comment</string>
 
 
 </resources>

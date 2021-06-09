@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/intro_navigation"
+    app:startDestination="@id/navigation_intro1"
+    >
+    <fragment
+        android:id="@+id/navigation_intro1"
+        android:name="com.dscvit.songified.ui.intro.IntroFragment1"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_intro_1">
+
+
+        <action
+            android:id="@+id/action_intro_1_to_2"
+            app:destination="@id/navigation_intro2" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_intro2"
+        android:name="com.dscvit.songified.ui.intro.IntroFragment2"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_intro_2">
+
+
+        <action
+            android:id="@+id/action_intro_2_to_3"
+            app:destination="@id/navigation_intro3" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_intro3"
+        android:name="com.dscvit.songified.ui.intro.IntroFragment3"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_intro_3">
+
+
+
+    </fragment>
+</navigation>

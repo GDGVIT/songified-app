@@ -1,6 +1,7 @@
 package com.dscvit.songified.ui.search
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentSearchBinding
+import com.dscvit.songified.ui.intro.FirstTimeIntroActivity
 import com.dscvit.songified.ui.login.LoginBottomSheetFragment
 import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.DialogDismissListener
@@ -42,9 +44,15 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         sharedPref = PrefHelper.customPrefs(requireContext(), Constants.PREF_NAME)
         Log.d(mTAG, sharedPref[Constants.PREF_IS_AUTH, false].toString())
 
+        if(sharedPref.get(Constants.PREF_IS_FIRST_TIME,true)==true){
+            val firstTimeIntroIntent= Intent(activity,FirstTimeIntroActivity::class.java)
+            startActivity(firstTimeIntroIntent)
+            activity?.finish()
+        }
 
         val loginBottomSheet = LoginBottomSheetFragment()
 
