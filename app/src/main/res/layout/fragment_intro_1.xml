@@ -14,19 +14,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="36dp">
-
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/ic_launcher_round"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/app_name"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/welcome_to_songified"
-                android:textSize="30sp"
+                android:text="@string/welcome_to"
+                android:visibility="gone"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="300dp"
                 android:contentDescription="@string/intro_illustration"
-                android:src="@drawable/intro_1_illus" />
+                android:src="@drawable/intro_1_illus"
+                 />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,24 +51,17 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_intro_1_skip"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:textColor="#99FFFFFF"
-            android:text="@string/skip" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_intro_1_next"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="36dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+
             android:text="@string/next" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.core.widget.NestedScrollView>

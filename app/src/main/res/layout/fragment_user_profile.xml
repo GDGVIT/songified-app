@@ -40,7 +40,7 @@
                     android:layout_height="100dp"
 
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/ic_semi_ring"
+                    android:background="@drawable/ic_ring_grad"
                     android:gravity="center"
                     android:padding="8dp">
 

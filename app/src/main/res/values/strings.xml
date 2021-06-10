@@ -77,7 +77,7 @@
     <string name="intro_illustration">intro_illustration</string>
     <string name="intro_1_descr">Explore info about a song by searching or even uploading any song on your device!</string>
     <string name="how_to_level_up">How to level up?</string>
-    <string name="intro_2_descr">Add an interesting info about a song as a comment. Once your comment is approved points will be awarded to you</string>
+    <string name="intro_2_descr">Add an interesting info about a song as a comment. Once your comment is approved, points will be awarded to you</string>
     <string name="next">next</string>
     <string name="get_started">get started</string>
     <string name="intro_3_descr">A one step sign in to enjoy all features of the app</string>
@@ -90,6 +90,7 @@
     <string name="get_points">Get points</string>
     <string name="get_verified">Get verified</string>
     <string name="add_comment_intro_2">Add comment</string>
+    <string name="welcome_to">Welcome to</string>
 
 
 </resources>
