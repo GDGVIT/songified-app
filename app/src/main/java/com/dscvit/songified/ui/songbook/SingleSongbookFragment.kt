@@ -37,13 +37,13 @@ class SingleSongbookFragment : Fragment() {
 
     private var _binding: FragmentSingleSongbookBinding? = null
     private val binding get() = _binding!!
-    private lateinit var selectedSongBookId:String
+    private lateinit var selectedSongBookId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (savedInstanceState==null){
+        if (savedInstanceState == null) {
             _binding = FragmentSingleSongbookBinding.inflate(inflater, container, false)
         }
 
@@ -137,16 +137,22 @@ class SingleSongbookFragment : Fragment() {
         binding.rvSongsSongbook.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
                 val selectedSong = songs[position]
-                val bundle = bundleOf(
-                    "selected_song" to selectedSong,
-                    "selected_songbook_id" to selectedSongBookId
-
-                )
-                ViewCompat.setTransitionName(view,"song_name_transition_${selectedSong.songId}")
+//                val bundle = bundleOf(
+//                    "selected_song" to selectedSong,
+//                    "selected_songbook_id" to selectedSongBookId
+//
+//                )
+                ViewCompat.setTransitionName(view, "song_name_transition_${selectedSong.songId}")
                 val extras =
                     FragmentNavigatorExtras(view to "song_name_transition_${selectedSong.songId}")
-                view.findNavController()
-                    .navigate(R.id.action_single_songbook_to_song_detail, bundle,null,extras)
+                view.findNavController().navigate(
+                    SingleSongbookFragmentDirections.actionSingleSongbookToSongDetail(
+                        selectedSong,
+                        selectedSongBookId
+                    ),extras
+                )
+//                view.findNavController()
+//                    .navigate(R.id.action_single_songbook_to_song_detail, bundle, null, extras)
             }
         })
     }
@@ -163,7 +169,7 @@ class SingleSongbookFragment : Fragment() {
                     is Result.Success -> {
                         Log.d(mTAG, "Songs in songbook loaded")
                         songs = it.data?.data?.songbookSongs!!
-                        songbookSongAdapter.updateSongsList(songs,selectedSongBookId)
+                        songbookSongAdapter.updateSongsList(songs, selectedSongBookId)
                         singleSongbookLoadingDialog.dismiss()
                         if (songbookSongAdapter.itemCount == 0) {
                             binding.imgNoSongSingleSongbook.visibility = View.VISIBLE

@@ -273,9 +273,11 @@ class SongbooksFragment : Fragment() {
                     if (isSignedIn) {
 
                         findNavController().navigate(R.id.navigation_songbook)
+
                     } else {
 
                         findNavController().navigate(R.id.navigation_search)
+                        findNavController().popBackStack(R.id.navigation_songbook,true)
                     }
 
                 }

@@ -118,6 +118,7 @@ class UserProfileFragment : Fragment() {
                                         binding.btnSignOutUserProfile.visibility = View.GONE
 
                                         view.findNavController().navigate(R.id.navigation_search)
+                                        findNavController().popBackStack(R.id.navigation_userprofile,true)
                                     }
                                     is Result.Error -> {
                                         signOutLoadingDialog.dismiss()
@@ -146,6 +147,8 @@ class UserProfileFragment : Fragment() {
                     } else {
 
                         findNavController().navigate(R.id.navigation_search)
+                        findNavController().popBackStack(R.id.navigation_userprofile,true)
+
                     }
 
                 }

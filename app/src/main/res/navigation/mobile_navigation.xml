@@ -78,6 +78,7 @@
         android:id="@+id/navigation_singlesongbook"
         android:name="com.dscvit.songified.ui.songbook.SingleSongbookFragment"
         android:label="Single Songbook"
+
         tools:layout="@layout/fragment_single_songbook">
 
         <action
@@ -95,6 +96,10 @@
         <argument
             android:name="selected_song"
             app:argType="com.dscvit.songified.model.SingleSongbookSong" />
+        <argument
+            android:name="selected_songbook_id"
+            app:argType="string"
+            />
     </fragment>
     <fragment
         android:id="@+id/navigation_userprofile"
