@@ -181,6 +181,7 @@ class UploadSongFragment : Fragment() {
                                         when (it) {
                                             is Result.Loading -> {
                                                 Log.d(mTAG, "Uploading Song")
+                                                createDialog(requireContext(),true,R.layout.dialog_server_maintenance).show();
                                             }
                                             is Result.Success -> {
                                                 Log.d(
@@ -194,6 +195,10 @@ class UploadSongFragment : Fragment() {
 
                                             }
                                             is Result.Error -> {
+                                                if(it.message?.contains("librarylimitreached")==true){
+                                                        createDialog(requireContext(),true,R.layout.dialog_server_maintenance).show();
+
+                                                }
 
                                             }
                                         }
@@ -231,6 +236,7 @@ class UploadSongFragment : Fragment() {
                     Log.d(mTAG, "Loading previous uploads")
                 }
                 is Result.Success -> {
+
                     previousUploadsProgressDialog.dismiss()
                     Log.d(mTAG, "Previous uploads loaded")
                     Log.d(mTAG, it.data.toString())

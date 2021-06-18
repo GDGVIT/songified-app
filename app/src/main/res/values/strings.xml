@@ -91,6 +91,8 @@
     <string name="get_verified">Get verified</string>
     <string name="add_comment_intro_2">Add comment</string>
     <string name="welcome_to">Welcome to</string>
+    <string name="server_under_maintenance">Server Under Maintenance</string>
+    <string name="server_maintenance_msg">This feature is currently under maintenance. We will be back soon.</string>
 
 
 </resources>
