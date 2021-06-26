@@ -181,7 +181,7 @@ class UploadSongFragment : Fragment() {
                                         when (it) {
                                             is Result.Loading -> {
                                                 Log.d(mTAG, "Uploading Song")
-                                                createDialog(requireContext(),true,R.layout.dialog_server_maintenance).show();
+
                                             }
                                             is Result.Success -> {
                                                 Log.d(
