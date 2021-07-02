@@ -174,6 +174,7 @@ class SingleSongbookFragment : Fragment() {
                         if (songbookSongAdapter.itemCount == 0) {
                             binding.imgNoSongSingleSongbook.visibility = View.VISIBLE
                             binding.tvNoSongsSingleSongbook.visibility = View.VISIBLE
+                            binding.toolbarSingleSongbookFragment.subtitle = ""
                         } else {
                             binding.imgNoSongSingleSongbook.visibility = View.GONE
                             binding.tvNoSongsSingleSongbook.visibility = View.GONE
