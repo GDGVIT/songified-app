@@ -31,17 +31,25 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/layout_no_songs"
+            android:visibility="gone"
+            android:gravity="center"
+            >
         <ImageView
             android:id="@+id/img_no_song_single_songbook"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
             android:contentDescription="@string/no_songs"
             android:src="@drawable/empty_book"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+             />
 
         <TextView
             android:id="@+id/tv_no_songs_single_songbook"
@@ -53,11 +61,8 @@
             android:textAlignment="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/img_no_song_single_songbook"
-            app:layout_constraintStart_toStartOf="@id/img_no_song_single_songbook"
-            app:layout_constraintTop_toBottomOf="@id/img_no_song_single_songbook" />
-
+          />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_songs_songbook"

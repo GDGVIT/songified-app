@@ -172,12 +172,12 @@ class SingleSongbookFragment : Fragment() {
                         songbookSongAdapter.updateSongsList(songs, selectedSongBookId)
                         singleSongbookLoadingDialog.dismiss()
                         if (songbookSongAdapter.itemCount == 0) {
-                            binding.imgNoSongSingleSongbook.visibility = View.VISIBLE
-                            binding.tvNoSongsSingleSongbook.visibility = View.VISIBLE
+
+                            binding.layoutNoSongs.visibility=View.VISIBLE
                             binding.toolbarSingleSongbookFragment.subtitle = ""
                         } else {
-                            binding.imgNoSongSingleSongbook.visibility = View.GONE
-                            binding.tvNoSongsSingleSongbook.visibility = View.GONE
+
+                            binding.layoutNoSongs.visibility=View.GONE
                             binding.toolbarSingleSongbookFragment.subtitle =
                                 getString(R.string.songs_count_data, songbookSongAdapter.itemCount)
                         }
