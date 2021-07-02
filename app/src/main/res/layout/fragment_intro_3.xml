@@ -2,8 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    >
+    android:fillViewport="true">
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -70,12 +69,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal">
 
-                <com.google.android.gms.common.SignInButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/google_sign_in_intro"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp" />
+                    android:layout_marginTop="20dp"
+                    android:drawableStart="@drawable/google"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:text="@string/sign_in"
+                    android:textAllCaps="false"
+                    android:textColor="#8A000000"
+                    android:textStyle="bold"
+                    app:backgroundTint="#ffffff"
+                    app:icon="@drawable/google"
+                    app:iconPadding="12dp"
+                    app:iconSize="20dp"
+                    app:iconTint="@null" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/pb_login_intro"

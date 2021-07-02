@@ -73,18 +73,17 @@
                     android:textSize="20sp"
                     app:drawableStartCompat="@drawable/ic_tick" />
             </LinearLayout>
+            <Button
+                android:id="@+id/btn_intro_2_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="20dp"
 
+                android:layout_marginBottom="20dp"
+                android:text="@string/next" />
         </LinearLayout>
-        <Button
-            android:id="@+id/btn_intro_2_next"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/next" />
+
 
 
 
