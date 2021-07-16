@@ -13,15 +13,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
-import com.dscvit.songified.util.OnItemClickListener
-import com.dscvit.songified.util.addOnItemClickListener
-import com.dscvit.songified.util.hideKeyboard
-import com.dscvit.songified.util.shortToast
 import com.dscvit.songified.R
 import com.dscvit.songified.adapter.SongListAdapter
 import com.dscvit.songified.databinding.FragmentSearchResultBinding
 import com.dscvit.songified.model.Result
 import com.dscvit.songified.model.Song
+import com.dscvit.songified.util.OnItemClickListener
+import com.dscvit.songified.util.addOnItemClickListener
+import com.dscvit.songified.util.hideKeyboard
+import com.dscvit.songified.util.shortToast
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class SearchResultFragment : Fragment() {

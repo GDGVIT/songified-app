@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.dscvit.songified.util.shortToast
 import com.dscvit.songified.HomeActivity
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentIntro3Binding
@@ -18,6 +17,7 @@ import com.dscvit.songified.ui.login.LoginViewModel
 import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.set
+import com.dscvit.songified.util.shortToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

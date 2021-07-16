@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.dscvit.songified.util.createProgressDialog
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentUserProfileBinding
 import com.dscvit.songified.model.Result
@@ -23,6 +22,7 @@ import com.dscvit.songified.util.DialogDismissListener
 import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.get
 import com.dscvit.songified.util.PrefHelper.set
+import com.dscvit.songified.util.createProgressDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dscvit.songified.util.createProgressDialog
 import com.dscvit.songified.R
 import com.dscvit.songified.adapter.SimpleTagAdapter
 import com.dscvit.songified.databinding.FragmentAudioAnalysisBinding
 import com.dscvit.songified.model.AnalysedDataRequest
 import com.dscvit.songified.model.Result
+import com.dscvit.songified.util.createProgressDialog
 import org.koin.android.viewmodel.ext.android.getViewModel
 import kotlin.math.roundToInt
 
