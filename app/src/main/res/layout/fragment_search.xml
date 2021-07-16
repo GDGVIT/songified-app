@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    >
+
+    <!--
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+-->
+
+    <ImageView
+        android:id="@+id/img_logo_search_fragment"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/songified_logo"
+        android:src="@drawable/songified_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/img_logo_search_fragment"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:id="@+id/layout_search_container_search_fragment"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:layout_marginTop="36dp"
+
+    >
+    <EditText
+        android:id="@+id/sv_search_fragment"
+        style="@style/SearchViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:autofillHints=""
+        android:background="@drawable/search_bg"
+        android:hint="@string/search_song"
+        android:padding="12dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#808080"
+        android:theme="@style/SearchViewStyle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:transitionName="search_bar_transition"
+        app:layout_constraintEnd_toStartOf="@id/btn_search_fragment"
+        android:inputType="text" />
+
+    <ImageView
+        android:id="@+id/btn_search_fragment"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_button_bg"
+        android:contentDescription="@string/search_icon"
+        android:padding="8dp"
+        android:src="@drawable/ic_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_upload_search_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/normal_button_bg"
+        android:text="@string/audio_analysis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_search_container_search_fragment" />
+</androidx.constraintlayout.widget.ConstraintLayout>

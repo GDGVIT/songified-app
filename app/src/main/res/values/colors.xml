@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="songified_black">#1D2022</color>
+    <!--<color name="songified_black">#181B22</color>-->
+    <color name="songified_primary">#760BFE</color>
+    <color name="songified_accent">#D8349B</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#A6FFFFFF</color>
+    <color name="songified_tag_bg1">#60760BFE</color>
+    <color name="songified_card_color">#272A3B</color>
+    <color name="songified_primary_400">#8e45ff</color>
+    <color name="songified_primary_300">#a56cff</color>
+    <color name="songified_primary_200">#c099ff</color>
+    <color name="songified_primary_100">#dac2fe</color>
+    <color name="songified_primary_50">#f1e6ff</color>
+
+    <color name="songified_accent_500">#d80087</color>
+    <color name="songified_accent_400">#d8349c</color>
+    <color name="songified_accent_300">#db5cb0</color>
+    <color name="songified_accent_200">#e18bc7</color>
+    <color name="songified_accent_100">#ebb9dd</color>
+    <color name="songified_accent_50">#f6e3f1</color>
+
+    <color name="songified_orange">#FF6584</color>
+    <color name="songified_orange_400">#fb4469</color>
+    <color name="songified_orange_200">#ff91a7</color>
+    <color name="songified_orange_100">#ffbdca</color>
+    <color name="songified_orange_50">#ffe5ea</color>
+
+    <color name="green">#44AF6A</color>
+    <color name="blue">#0887EA</color>
+</resources>

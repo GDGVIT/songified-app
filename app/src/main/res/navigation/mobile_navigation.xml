@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_search">
+    <!--
+        <fragment
+            android:id="@+id/navigation_home"
+            android:name="com.dscvit.songified.ui.home.HomeFragment"
+            android:label="@string/title_home"
+            tools:layout="@layout/fragment_home" />
+
+            -->
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.dscvit.songified.ui.search.SearchFragment"
+        android:label="Search Song"
+        tools:layout="@layout/fragment_search">
+
+
+        <action
+            android:id="@+id/action_search_to_search_result"
+            app:destination="@id/navigation_search_result" />
+        <action
+            android:id="@+id/action_search_to_upload_song"
+            app:destination="@id/navigation_upload_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_upload_fragment"
+        android:name="com.dscvit.songified.ui.audioanalysis.UploadSongFragment"
+        android:label="Upload Song"
+        tools:layout="@layout/fragment_upload_song">
+        <action
+            android:id="@+id/action_upload_to_analysis_result"
+            app:destination="@id/navigation_audio_analysis_result" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_search_result"
+        android:name="com.dscvit.songified.ui.search.SearchResultFragment"
+        android:label="Search Song"
+        tools:layout="@layout/fragment_search_result">
+        <action
+            android:id="@+id/action_search_result_to_song_details"
+            app:destination="@id/navigation_song_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_song_details"
+        android:name="com.dscvit.songified.ui.search.SongDetailsFragment"
+        android:label="Song Info"
+        tools:layout="@layout/fragment_song_details">
+        <argument
+            android:name="song_id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_audio_analysis_result"
+        android:name="com.dscvit.songified.ui.audioanalysis.AudioAnalysisResultFragment"
+        android:label="Audio Analysis"
+        tools:layout="@layout/fragment_audio_analysis">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_songbook"
+        android:name="com.dscvit.songified.ui.songbook.SongbooksFragment"
+        android:label="Songbook"
+        tools:layout="@layout/fragment_songbooks">
+        <action
+            android:id="@+id/action_songbooks_to_singlesongbook"
+            app:destination="@id/navigation_singlesongbook" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_singlesongbook"
+        android:name="com.dscvit.songified.ui.songbook.SingleSongbookFragment"
+        android:label="Single Songbook"
+
+        tools:layout="@layout/fragment_single_songbook">
+
+        <action
+            android:id="@+id/action_single_songbook_to_song_detail"
+            app:destination="@id/navigation_songbook_song_detail"
+
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_songbook_song_detail"
+        android:name="com.dscvit.songified.ui.songbook.SongbookSongDetailFragment"
+        android:label="User Profile"
+        tools:layout="@layout/fragment_song_details">
+        <argument
+            android:name="selected_song"
+            app:argType="com.dscvit.songified.model.SingleSongbookSong" />
+        <argument
+            android:name="selected_songbook_id"
+            app:argType="string"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_userprofile"
+        android:name="com.dscvit.songified.ui.userprofile.UserProfileFragment"
+        android:label="User Profile"
+        tools:layout="@layout/fragment_user_profile" />
+
+</navigation>
