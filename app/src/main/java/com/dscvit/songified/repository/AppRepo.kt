@@ -1,11 +1,19 @@
 package com.dscvit.songified.repository
 
-
-import com.dscvit.songified.model.*
+import com.dscvit.songified.model.AddSongInfoRequest
+import com.dscvit.songified.model.AddToSongbookRequest
+import com.dscvit.songified.model.AnalysedDataRequest
+import com.dscvit.songified.model.NewSongbookRequest
+import com.dscvit.songified.model.SignInRequest
+import com.dscvit.songified.model.SingleSongbookRequest
+import com.dscvit.songified.model.SongInfoRequest
+import com.dscvit.songified.model.SongbookDeleteRequest
+import com.dscvit.songified.model.SongbookSongDeleteRequest
+import com.dscvit.songified.model.UpdateSongInSongbookRequest
+import com.dscvit.songified.model.UpdateSongbookNameReqeust
 import com.dscvit.songified.network.ApiClient
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-
 
 class AppRepo(private val apiClient: ApiClient) : BaseRepo() {
 
@@ -61,7 +69,7 @@ class AppRepo(private val apiClient: ApiClient) : BaseRepo() {
     fun updateSongInSongbook(addToSongbookRequest: UpdateSongInSongbookRequest) =
         makeRequest { apiClient.updateSongInSongbook(addToSongbookRequest) }
 
-    //This is for getSongBPM api
+    // This is for getSongBPM api
     fun searchSong(type: String, lookup: String) = makeRequest {
         apiClient.searchSong(type, lookup)
     }

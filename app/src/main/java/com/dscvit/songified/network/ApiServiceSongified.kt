@@ -10,7 +10,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
 object ApiServiceSongified {
     fun createRetrofit(context: Context): ApiInterfaceSongified {
         val retrofit = Retrofit.Builder()
@@ -32,15 +31,15 @@ object ApiServiceSongified {
         } else {
             ""
         }
-        Log.d("ApiService",tokenStr)
+        Log.d("ApiService", tokenStr)
 
         httpClient.connectTimeout(25, TimeUnit.SECONDS)
         httpClient.readTimeout(25, TimeUnit.SECONDS)
-        httpClient.writeTimeout(30,TimeUnit.SECONDS)
+        httpClient.writeTimeout(30, TimeUnit.SECONDS)
         val logging = HttpLoggingInterceptor()
 // set your desired log level
 // set your desired log level
-        logging.level=HttpLoggingInterceptor.Level.NONE
+        logging.level = HttpLoggingInterceptor.Level.NONE
         httpClient.addInterceptor(logging)
         httpClient.addInterceptor { chain ->
             val original = chain.request()

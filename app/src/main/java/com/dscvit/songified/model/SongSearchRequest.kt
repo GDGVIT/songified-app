@@ -11,4 +11,4 @@ data class SongSearchRequest(
     @SerializedName("lookup")
     val lookup: String,
 
-    )
+)

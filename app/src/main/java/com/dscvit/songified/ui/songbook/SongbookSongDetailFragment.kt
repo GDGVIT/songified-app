@@ -17,7 +17,6 @@ import com.dscvit.songified.databinding.FragmentSongbookSongDetailsBinding
 import com.dscvit.songified.model.Result
 import com.dscvit.songified.model.SingleSongbookSong
 import com.dscvit.songified.model.UpdateSongInSongbookRequest
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -26,7 +25,8 @@ class SongbookSongDetailFragment : Fragment() {
     private var _binding: FragmentSongbookSongDetailsBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -68,7 +68,6 @@ class SongbookSongDetailFragment : Fragment() {
             .placeholder(R.drawable.fallback_cover_art)
             .into(binding.imgCoverArtSongbookSongDetails)
 
-
         binding.btnUpdateSongbookSong.setOnClickListener {
 
             if (binding.etNotesSongbookSongDetail.text.toString() != "") {
@@ -86,7 +85,8 @@ class SongbookSongDetailFragment : Fragment() {
                 )
                 binding.pbUpdateSongInSongbook.visibility = View.VISIBLE
                 songbookSongDetailViewModel.editSongbook(updateSongRequest)
-                    .observe(viewLifecycleOwner,
+                    .observe(
+                        viewLifecycleOwner,
                         {
                             when (it) {
                                 is Result.Loading -> {
@@ -115,12 +115,11 @@ class SongbookSongDetailFragment : Fragment() {
                                     )
                                         .show()
                                     Log.d(mTAG, it.message ?: "some error")
-
                                 }
                             }
-                        })
+                        }
+                    )
             }
-
         }
 
         binding.etNotesSongbookSongDetail.addTextChangedListener(object : TextWatcher {

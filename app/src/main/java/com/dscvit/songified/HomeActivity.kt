@@ -1,23 +1,12 @@
 package com.dscvit.songified
 
-import android.content.DialogInterface
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.dscvit.handly.util.shortToast
-import com.dscvit.songified.ui.login.LoginBottomSheetFragment
-import com.dscvit.songified.util.Constants
-import com.dscvit.songified.util.DialogDismissListener
-import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.get
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -37,8 +26,5 @@ class HomeActivity : AppCompatActivity() {
 //        )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-
     }
-
 }

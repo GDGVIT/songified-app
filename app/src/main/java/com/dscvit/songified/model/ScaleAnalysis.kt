@@ -8,4 +8,4 @@ data class ScaleAnalysis(
     @SerializedName("key")
     val key: Key,
 
-    )
+)

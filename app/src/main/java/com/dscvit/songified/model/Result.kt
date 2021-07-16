@@ -10,5 +10,4 @@ sealed class Result<out T> {
     data class Error<out T>(val message: String? = null) : Result<T>()
 
     class Loading<out T> : Result<T>()
-
 }

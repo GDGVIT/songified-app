@@ -15,12 +15,17 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dscvit.handly.util.*
 import com.dscvit.songified.R
 import com.dscvit.songified.adapter.UploadsAdapter
 import com.dscvit.songified.databinding.FragmentUploadSongBinding
 import com.dscvit.songified.model.Result
 import com.dscvit.songified.model.UploadedSong
+import com.dscvit.songified.util.OnItemClickListener
+import com.dscvit.songified.util.addOnItemClickListener
+import com.dscvit.songified.util.createDialog
+import com.dscvit.songified.util.createProgressDialog
+import com.dscvit.songified.util.fixSwipeToRefresh
+import com.dscvit.songified.util.getFileName
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -38,9 +43,7 @@ class UploadSongFragment : Fragment() {
 
     private val rcPickAudio = 102
 
-
     private var _binding: FragmentUploadSongBinding? = null
-
 
     private lateinit var uploadsList: MutableList<UploadedSong>
 
@@ -53,7 +56,8 @@ class UploadSongFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -63,8 +67,6 @@ class UploadSongFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
         uploadSongViewModel = getViewModel()
         binding.toolbarUploadFragment.setNavigationOnClickListener {
@@ -87,12 +89,9 @@ class UploadSongFragment : Fragment() {
                 .setAction(Intent.ACTION_GET_CONTENT)
 
             startActivityForResult(Intent.createChooser(intent, "Select a song"), rcPickAudio)
-
-
         }
 
         binding.refreshPreviousUploads.setOnRefreshListener {
-
 
             // This method performs the actual data-refresh operation.
             // The method calls setRefreshing(false) when it's finished.
@@ -111,8 +110,6 @@ class UploadSongFragment : Fragment() {
 
         getPreviousUploads()
 
-
-
         binding.rvPreviousUploads.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
                 val selectedUploadId = uploadsList[position].id
@@ -124,8 +121,6 @@ class UploadSongFragment : Fragment() {
                 findNavController().navigate(R.id.action_upload_to_analysis_result, bundle)
             }
         })
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -134,8 +129,7 @@ class UploadSongFragment : Fragment() {
                 Log.d(mTAG, "Pick audio file RESULT_OK")
                 val selectedFileUri = data?.data!!
 
-
-                //val audioFile = File(selectedFile.toString())
+                // val audioFile = File(selectedFile.toString())
 
                 val parcelFileDescriptor =
                     requireContext().contentResolver.openFileDescriptor(selectedFileUri, "r", null)
@@ -146,7 +140,6 @@ class UploadSongFragment : Fragment() {
                     requireContext().cacheDir,
                     requireContext().contentResolver.getFileName(selectedFileUri)
                 )
-
 
                 val outputStream = FileOutputStream(audioFile)
                 inputStream.copyTo(outputStream)
@@ -161,12 +154,9 @@ class UploadSongFragment : Fragment() {
                         uploadDialog.findViewById(R.id.btn_cancel_dialog_upload_song) as Button
                     etFileName.setText(requireContext().contentResolver.getFileName(selectedFileUri))
 
-
-
                     btnUploadSubmit.setOnClickListener {
 
                         if (etFileName.text.toString().trim() != "") {
-
 
                             val filePart: MultipartBody.Part = MultipartBody.Part.createFormData(
                                 "songFile",
@@ -176,12 +166,12 @@ class UploadSongFragment : Fragment() {
                             uploadProgressDialog.show()
                             val uploadSongName = etFileName.text.toString().toRequestBody()
                             uploadSongViewModel.uploadSong(uploadSongName, filePart)
-                                .observe(viewLifecycleOwner,
+                                .observe(
+                                    viewLifecycleOwner,
                                     {
                                         when (it) {
                                             is Result.Loading -> {
                                                 Log.d(mTAG, "Uploading Song")
-
                                             }
                                             is Result.Success -> {
                                                 Log.d(
@@ -191,20 +181,17 @@ class UploadSongFragment : Fragment() {
                                                 uploadProgressDialog.dismiss()
                                                 uploadDialog.dismiss()
                                                 getPreviousUploads()
-
-
                                             }
                                             is Result.Error -> {
-                                                if(it.message?.contains("librarylimitreached")==true){
-                                                        createDialog(requireContext(),true,R.layout.dialog_server_maintenance).show();
-
+                                                if (it.message?.contains("librarylimitreached") == true) {
+                                                    createDialog(requireContext(), true, R.layout.dialog_server_maintenance).show()
                                                 }
-
                                             }
                                         }
-                                    })
-                        }else{
-                            etFileName.error="required"
+                                    }
+                                )
+                        } else {
+                            etFileName.error = "required"
                         }
                     }
 
@@ -218,46 +205,40 @@ class UploadSongFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
-
-
             } else {
                 Log.d(mTAG, "Pick audio file result not ok")
             }
-
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun getPreviousUploads() {
         previousUploadsProgressDialog.show()
-        uploadSongViewModel.getPreviousUploads().observe(viewLifecycleOwner, {
-            when (it) {
-                is Result.Loading -> {
-                    Log.d(mTAG, "Loading previous uploads")
-                }
-                is Result.Success -> {
+        uploadSongViewModel.getPreviousUploads().observe(
+            viewLifecycleOwner,
+            {
+                when (it) {
+                    is Result.Loading -> {
+                        Log.d(mTAG, "Loading previous uploads")
+                    }
+                    is Result.Success -> {
 
-                    previousUploadsProgressDialog.dismiss()
-                    Log.d(mTAG, "Previous uploads loaded")
-                    Log.d(mTAG, it.data.toString())
-                    uploadsList = it.data?.songAnalysisResponse!!
-                    uploadsAdapter.updateUploads(uploadsList)
-                    binding.refreshPreviousUploads.isRefreshing = false
-
-                }
-                is Result.Error -> {
-
+                        previousUploadsProgressDialog.dismiss()
+                        Log.d(mTAG, "Previous uploads loaded")
+                        Log.d(mTAG, it.data.toString())
+                        uploadsList = it.data?.songAnalysisResponse!!
+                        uploadsAdapter.updateUploads(uploadsList)
+                        binding.refreshPreviousUploads.isRefreshing = false
+                    }
+                    is Result.Error -> {
+                    }
                 }
             }
-        })
-
-
+        )
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

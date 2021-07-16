@@ -1,6 +1,5 @@
 package com.dscvit.songified.di.modules
 
-
 import com.dscvit.songified.ui.audioanalysis.AudioAnalysisViewModel
 import com.dscvit.songified.ui.audioanalysis.UploadSongViewModel
 import com.dscvit.songified.ui.login.LoginViewModel
@@ -26,6 +25,4 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { UploadSongViewModel(get()) }
     viewModel { SongbookSongDetailViewModel(get()) }
-
-
 }

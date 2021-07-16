@@ -1,10 +1,10 @@
-package com.dev.jeevanyohan.retrorecyclermvvm2.util
+package com.dscvit.songified.util
 
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
-class OnFocusLostListener: View.OnFocusChangeListener {
+class OnFocusLostListener : View.OnFocusChangeListener {
     override fun onFocusChange(v: View, hasFocus: Boolean) {
         if (!hasFocus) {
             val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

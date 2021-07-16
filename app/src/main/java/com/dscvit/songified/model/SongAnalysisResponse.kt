@@ -13,5 +13,4 @@ data class SongAnalysisResponse(
     @SerializedName("data")
     val analysisData: AudioAnalysisResponse,
 
-
-    )
+)

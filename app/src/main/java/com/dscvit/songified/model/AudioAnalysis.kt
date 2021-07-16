@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class AudioAnalysis(
 
-
     @SerializedName("moodTags")
     val moodTags: ArrayList<String>,
     @SerializedName("genreTags")
@@ -17,7 +16,7 @@ data class AudioAnalysis(
     @SerializedName("energyLevel")
     val energy: String,
     @SerializedName("bpm")
-    val bpm:String,
+    val bpm: String,
     @SerializedName("key")
-    val key:String
+    val key: String
 )

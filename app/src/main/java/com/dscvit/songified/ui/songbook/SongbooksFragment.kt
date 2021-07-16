@@ -17,20 +17,26 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dscvit.handly.util.*
 import com.dscvit.songified.R
 import com.dscvit.songified.adapter.SongbookAdapter
 import com.dscvit.songified.databinding.FragmentSongbooksBinding
-import com.dscvit.songified.model.*
+import com.dscvit.songified.model.NewSongbookRequest
+import com.dscvit.songified.model.Result
+import com.dscvit.songified.model.Songbook
+import com.dscvit.songified.model.SongbookDeleteRequest
+import com.dscvit.songified.model.UpdateSongbookNameReqeust
 import com.dscvit.songified.ui.login.LoginBottomSheetFragment
 import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.DialogDismissListener
+import com.dscvit.songified.util.OnItemClickListener
 import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.get
-
+import com.dscvit.songified.util.addOnItemClickListener
+import com.dscvit.songified.util.addOnItemLongClickListener
+import com.dscvit.songified.util.createDialog
+import com.dscvit.songified.util.createProgressDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class SongbooksFragment : Fragment() {
@@ -49,7 +55,8 @@ class SongbooksFragment : Fragment() {
     private var _binding: FragmentSongbooksBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -63,9 +70,7 @@ class SongbooksFragment : Fragment() {
         sharedPref = PrefHelper.customPrefs(requireContext(), Constants.PREF_NAME)
         if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
 
-
             songbookLoadingDialog = createProgressDialog(requireContext(), "Loading songbooks ...")
-
 
             songbookAdapter = SongbookAdapter()
             binding.rvSongbooksFragment.apply {
@@ -76,10 +81,8 @@ class SongbooksFragment : Fragment() {
 
             getSongbooks()
 
-
             binding.fabNewSongbook.setOnClickListener {
                 val dialog = createDialog(requireContext(), false, R.layout.dialog_new_songbook)
-
 
                 val etSongbookName =
                     dialog.findViewById(R.id.et_dialog_new_songbook) as TextInputEditText
@@ -89,13 +92,13 @@ class SongbooksFragment : Fragment() {
                 btnCreateSongbook.setOnClickListener {
                     if (etSongbookName.text.toString().trim() != "") {
 
-
                         val newSongbookRequest = NewSongbookRequest(etSongbookName.text.toString())
                         addSongbookLoading =
                             createProgressDialog(requireContext(), "Creating songbook ...")
                         addSongbookLoading.show()
                         songbookViewModel.newSongbook(newSongbookRequest)
-                            .observe(viewLifecycleOwner,
+                            .observe(
+                                viewLifecycleOwner,
                                 {
                                     when (it) {
                                         is Result.Loading -> {
@@ -112,14 +115,12 @@ class SongbooksFragment : Fragment() {
                                             ).show()
                                             dialog.dismiss()
                                             getSongbooks()
-
                                         }
                                         is Result.Error -> {
-
                                         }
                                     }
-                                })
-
+                                }
+                            )
                     } else {
                         etSongbookName.error = "required"
                     }
@@ -142,24 +143,23 @@ class SongbooksFragment : Fragment() {
                     view.findNavController()
                         .navigate(R.id.action_songbooks_to_singlesongbook, bundle)
                 }
-
             })
 
             binding.rvSongbooksFragment.addOnItemLongClickListener(object : OnItemClickListener {
                 override fun onItemClicked(position: Int, view: View) {
                     val chooserDialog =
                         createDialog(requireContext(), true, R.layout.dialog_modify_chooser)
-                    //chooserDialog.setContentView(R.layout.dialog_modify_chooser)
+                    // chooserDialog.setContentView(R.layout.dialog_modify_chooser)
                     val tvEdit = chooserDialog.findViewById(R.id.tv_edit_dialog_chooser) as TextView
                     val tvDel =
                         chooserDialog.findViewById(R.id.tv_delete_dialog_chooser) as TextView
 
                     tvEdit.setOnClickListener {
-                        //TODO Update songbook api
+                        // TODO Update songbook api
                         chooserDialog.dismiss()
                         val editSongbookDialog =
                             createDialog(requireContext(), false, R.layout.dialog_update_songbook)
-                        //editSongbookDialog.setContentView(R.layout.dialog_update_songbook)
+                        // editSongbookDialog.setContentView(R.layout.dialog_update_songbook)
                         val etSongbookName =
                             editSongbookDialog.findViewById(R.id.et_dialog_name_edit_songbook) as EditText
                         etSongbookName.setText(songbooks[position].name)
@@ -175,7 +175,8 @@ class SongbooksFragment : Fragment() {
                                     createProgressDialog(requireContext(), "Updating songbook")
                                 editSongbookLoading.show()
                                 songbookViewModel.updateSongbookName(updateSongbookNameRequest)
-                                    .observe(viewLifecycleOwner,
+                                    .observe(
+                                        viewLifecycleOwner,
                                         {
                                             when (it) {
                                                 is Result.Loading -> {
@@ -192,15 +193,14 @@ class SongbooksFragment : Fragment() {
                                                     ).show()
                                                     editSongbookDialog.dismiss()
                                                     getSongbooks()
-
                                                 }
                                                 is Result.Error -> {
-
                                                 }
                                             }
-                                        })
-                            }else{
-                                etSongbookName.error="required"
+                                        }
+                                    )
+                            } else {
+                                etSongbookName.error = "required"
                             }
                         }
                         val btnCancelEditSongbook =
@@ -212,12 +212,12 @@ class SongbooksFragment : Fragment() {
                     }
 
                     tvDel.setOnClickListener {
-                        //TODO Delete songbook api
+                        // TODO Delete songbook api
                         val alertDialogBuilder =
                             AlertDialog.Builder(requireContext(), R.style.MyAlertDialog)
                         alertDialogBuilder.setTitle("Delete Songbook")
                         alertDialogBuilder.setMessage("Are you sure you want to delete ${songbooks[position].name} ?")
-//builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+// builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
                         alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
                             val songbookDeleteRequest =
@@ -226,7 +226,8 @@ class SongbooksFragment : Fragment() {
                                 createProgressDialog(requireContext(), "Deleting songbook ...")
                             delSongbookLoading.show()
                             songbookViewModel.deleteSongbook(songbookDeleteRequest)
-                                .observe(viewLifecycleOwner,
+                                .observe(
+                                    viewLifecycleOwner,
                                     {
                                         when (it) {
                                             is Result.Loading -> {
@@ -245,10 +246,10 @@ class SongbooksFragment : Fragment() {
                                                 chooserDialog.dismiss()
                                             }
                                             is Result.Error -> {
-
                                             }
                                         }
-                                    })
+                                    }
+                                )
                         }
 
                         alertDialogBuilder.setNegativeButton("No") { dialog, which ->
@@ -257,81 +258,73 @@ class SongbooksFragment : Fragment() {
                         }
 
                         alertDialogBuilder.show()
-
-
                     }
                     chooserDialog.show()
                 }
-
             })
         } else {
             val loginBottomSheet = LoginBottomSheetFragment()
-
 
             loginBottomSheet.dismissListener(object : DialogDismissListener {
                 override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
                     if (isSignedIn) {
 
                         findNavController().navigate(R.id.navigation_songbook)
-
                     } else {
 
                         findNavController().navigate(R.id.navigation_search)
-                        findNavController().popBackStack(R.id.navigation_songbook,true)
+                        findNavController().popBackStack(R.id.navigation_songbook, true)
                     }
-
                 }
-
             })
             loginBottomSheet.show(this.parentFragmentManager, "TAG")
         }
-
     }
 
     private fun getSongbooks() {
 
-        songbookViewModel.getSongbooks().observe(viewLifecycleOwner, {
+        songbookViewModel.getSongbooks().observe(
+            viewLifecycleOwner,
+            {
 
-            when (it) {
-                is Result.Loading -> {
-                    Log.d(mTAG, "Loading songbooks")
-                    songbookLoadingDialog.show()
-                }
-                is Result.Success -> {
-
-                    Log.d(mTAG, "Songbooks loaded")
-                    Log.d(mTAG, it.data.toString())
-                    songbooks = it.data?.songbookList!!
-                    songbookAdapter.updateSongbookList(songbooks)
-                    val songbooksCount = songbookAdapter.itemCount
-                    binding.tvSongbooksCount.text = if (songbooksCount != 1) getString(
-                        R.string.songbooks_count_data_multiple,
-                        songbooksCount
-                    ) else getString(
-                        R.string.songbooks_count_data_single,
-                        songbooksCount
-                    )
-
-                    if (songbookAdapter.itemCount == 0) {
-                        binding.imgNoDataSongbooks.visibility = View.VISIBLE
-                        binding.tvNoDataSongbooks.visibility = View.VISIBLE
-                    } else {
-                        binding.imgNoDataSongbooks.visibility = View.GONE
-                        binding.tvNoDataSongbooks.visibility = View.GONE
+                when (it) {
+                    is Result.Loading -> {
+                        Log.d(mTAG, "Loading songbooks")
+                        songbookLoadingDialog.show()
                     }
-                    songbookLoadingDialog.dismiss()
-                }
-                is Result.Error -> {
+                    is Result.Success -> {
 
+                        Log.d(mTAG, "Songbooks loaded")
+                        Log.d(mTAG, it.data.toString())
+                        songbooks = it.data?.songbookList!!
+                        songbookAdapter.updateSongbookList(songbooks)
+                        val songbooksCount = songbookAdapter.itemCount
+                        binding.tvSongbooksCount.text = if (songbooksCount != 1) getString(
+                            R.string.songbooks_count_data_multiple,
+                            songbooksCount
+                        ) else getString(
+                            R.string.songbooks_count_data_single,
+                            songbooksCount
+                        )
+
+                        if (songbookAdapter.itemCount == 0) {
+                            binding.imgNoDataSongbooks.visibility = View.VISIBLE
+                            binding.tvNoDataSongbooks.visibility = View.VISIBLE
+                        } else {
+                            binding.imgNoDataSongbooks.visibility = View.GONE
+                            binding.tvNoDataSongbooks.visibility = View.GONE
+                        }
+                        songbookLoadingDialog.dismiss()
+                    }
+                    is Result.Error -> {
+                    }
                 }
             }
-        })
+        )
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

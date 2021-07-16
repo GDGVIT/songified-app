@@ -1,19 +1,13 @@
 package com.dscvit.songified.adapter
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.ListItemPreviousUploadsBinding
-import com.dscvit.songified.databinding.ListItemSimpleSongbooksBinding
-import com.dscvit.songified.model.Songbook
 import com.dscvit.songified.model.UploadedSong
 
-class UploadsAdapter: RecyclerView.Adapter<UploadsAdapter.UploadsViewHolder>() {
+class UploadsAdapter : RecyclerView.Adapter<UploadsAdapter.UploadsViewHolder>() {
 
     var uploadsList: MutableList<UploadedSong> = mutableListOf()
 
@@ -46,23 +40,18 @@ class UploadsAdapter: RecyclerView.Adapter<UploadsAdapter.UploadsViewHolder>() {
         fun bind(uploadedSong: UploadedSong) {
 
             binding.tvListItemPreviousUploadSongName.text = uploadedSong.name
-            binding.tvStatusListItemPreviousUpload.text="Status : ${uploadedSong.status}"
+            binding.tvStatusListItemPreviousUpload.text = "Status : ${uploadedSong.status}"
 
-            when(uploadedSong.status){
-                "Finished"->{
+            when (uploadedSong.status) {
+                "Finished" -> {
 
                     binding.imgListItemStatusPreviousUpload.setImageResource(R.drawable.semi_ring_green)
                 }
-                "Processing"->{
+                "Processing" -> {
 
                     binding.imgListItemStatusPreviousUpload.setImageResource(R.drawable.semi_ring_blue)
                 }
-
             }
-
-
-
         }
     }
-
 }

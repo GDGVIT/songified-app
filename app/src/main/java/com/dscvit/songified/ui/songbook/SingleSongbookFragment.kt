@@ -7,16 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dscvit.handly.util.OnItemClickListener
-import com.dscvit.handly.util.addOnItemClickListener
-import com.dscvit.handly.util.addOnItemLongClickListener
-import com.dscvit.handly.util.createProgressDialog
 import com.dscvit.songified.R
 import com.dscvit.songified.adapter.SongbookSongAdapter
 import com.dscvit.songified.databinding.FragmentSingleSongbookBinding
@@ -24,9 +19,13 @@ import com.dscvit.songified.model.Result
 import com.dscvit.songified.model.SingleSongbookRequest
 import com.dscvit.songified.model.SingleSongbookSong
 import com.dscvit.songified.model.SongbookSongDeleteRequest
+import com.dscvit.songified.util.OnItemClickListener
+import com.dscvit.songified.util.addOnItemClickListener
+import com.dscvit.songified.util.addOnItemLongClickListener
+import com.dscvit.songified.util.createProgressDialog
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.getViewModel
-import java.util.*
+import java.util.Locale
 
 class SingleSongbookFragment : Fragment() {
     lateinit var songs: MutableList<SingleSongbookSong>
@@ -40,7 +39,8 @@ class SingleSongbookFragment : Fragment() {
     private lateinit var selectedSongBookId: String
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         if (savedInstanceState == null) {
@@ -53,12 +53,9 @@ class SingleSongbookFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.toolbarSingleSongbookFragment.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
-
-
 
         songbookSongAdapter = SongbookSongAdapter()
         binding.rvSongsSongbook.apply {
@@ -73,14 +70,12 @@ class SingleSongbookFragment : Fragment() {
         singleSongbookViewModel = getViewModel()
         selectedSongBookId = arguments?.getString("selected_songbook_id").toString()
 
-
         binding.toolbarSingleSongbookFragment.title =
             arguments?.getString("selected_songbook_name").toString()
                 .capitalize(Locale.getDefault())
         val singleSongbookRequest = SingleSongbookRequest(selectedSongBookId)
 
         getSongsInSongbook(singleSongbookRequest)
-
 
         binding.rvSongsSongbook.addOnItemLongClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
@@ -90,7 +85,7 @@ class SingleSongbookFragment : Fragment() {
                     AlertDialog.Builder(requireContext(), R.style.MyAlertDialog)
                 alertDialogBuilder.setTitle("Delete Song")
                 alertDialogBuilder.setMessage("Are you sure you want to delete ${songs[position].songTitle} ?")
-//builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+// builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
                 alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
                     val deleteSongLoading = createProgressDialog(
@@ -99,7 +94,8 @@ class SingleSongbookFragment : Fragment() {
                     )
                     deleteSongLoading.show()
                     singleSongbookViewModel.deleteSong(deleteSongRequest)
-                        .observe(viewLifecycleOwner,
+                        .observe(
+                            viewLifecycleOwner,
                             {
                                 when (it) {
                                     is Result.Loading -> {
@@ -118,10 +114,10 @@ class SingleSongbookFragment : Fragment() {
                                         getSongsInSongbook(singleSongbookRequest)
                                     }
                                     is Result.Error -> {
-
                                     }
                                 }
-                            })
+                            }
+                        )
                 }
 
                 alertDialogBuilder.setNegativeButton("No") { dialog, which ->
@@ -129,10 +125,8 @@ class SingleSongbookFragment : Fragment() {
                 }
 
                 alertDialogBuilder.show()
-
             }
         })
-
 
         binding.rvSongsSongbook.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
@@ -149,7 +143,8 @@ class SingleSongbookFragment : Fragment() {
                     SingleSongbookFragmentDirections.actionSingleSongbookToSongDetail(
                         selectedSong,
                         selectedSongBookId
-                    ),extras
+                    ),
+                    extras
                 )
 //                view.findNavController()
 //                    .navigate(R.id.action_single_songbook_to_song_detail, bundle, null, extras)
@@ -160,7 +155,8 @@ class SingleSongbookFragment : Fragment() {
     private fun getSongsInSongbook(singleSongbookRequest: SingleSongbookRequest) {
         singleSongbookLoadingDialog = createProgressDialog(requireContext(), "Loading songs ...")
         singleSongbookLoadingDialog.show()
-        singleSongbookViewModel.getSingleSongbook(singleSongbookRequest).observe(viewLifecycleOwner,
+        singleSongbookViewModel.getSingleSongbook(singleSongbookRequest).observe(
+            viewLifecycleOwner,
             {
                 when (it) {
                     is Result.Loading -> {
@@ -173,26 +169,24 @@ class SingleSongbookFragment : Fragment() {
                         singleSongbookLoadingDialog.dismiss()
                         if (songbookSongAdapter.itemCount == 0) {
 
-                            binding.layoutNoSongs.visibility=View.VISIBLE
+                            binding.layoutNoSongs.visibility = View.VISIBLE
                             binding.toolbarSingleSongbookFragment.subtitle = ""
                         } else {
 
-                            binding.layoutNoSongs.visibility=View.GONE
+                            binding.layoutNoSongs.visibility = View.GONE
                             binding.toolbarSingleSongbookFragment.subtitle =
                                 getString(R.string.songs_count_data, songbookSongAdapter.itemCount)
                         }
                     }
                     is Result.Error -> {
-
                     }
                 }
-            })
+            }
+        )
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

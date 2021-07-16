@@ -21,5 +21,4 @@ data class AddToSongbookRequest(
     @SerializedName("imageurl")
     val coverArt: String
 
-
 )

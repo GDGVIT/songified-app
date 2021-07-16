@@ -1,12 +1,37 @@
 package com.dscvit.songified.network
 
-
-import com.dscvit.songified.model.*
+import com.dscvit.songified.model.AddSongInfoRequest
+import com.dscvit.songified.model.AddToSongbookRequest
+import com.dscvit.songified.model.AddToSongbookResponse
+import com.dscvit.songified.model.AnalysedDataRequest
+import com.dscvit.songified.model.GeneralPostResponse
+import com.dscvit.songified.model.GetSongBpmResponse
+import com.dscvit.songified.model.NewSongbookRequest
+import com.dscvit.songified.model.PreviousUploadsResponse
+import com.dscvit.songified.model.SignInRequest
+import com.dscvit.songified.model.SignInResult
+import com.dscvit.songified.model.SingleSongbookRequest
+import com.dscvit.songified.model.SingleSongbookResponse
+import com.dscvit.songified.model.SongAnalysisResponse
+import com.dscvit.songified.model.SongInfoRequest
+import com.dscvit.songified.model.SongInfoResponse
+import com.dscvit.songified.model.SongbookDeleteRequest
+import com.dscvit.songified.model.SongbookResponse
+import com.dscvit.songified.model.SongbookSongDeleteRequest
+import com.dscvit.songified.model.UpdateSongInSongbookRequest
+import com.dscvit.songified.model.UpdateSongbookNameReqeust
+import com.dscvit.songified.model.UploadSongResponse
+import com.dscvit.songified.model.UserInfo
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.*
-
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.HTTP
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Query
 
 interface ApiInterfaceSongified {
 
@@ -35,13 +60,11 @@ interface ApiInterfaceSongified {
     @GET("userInfo")
     suspend fun getUserInfo(): Response<UserInfo>
 
-
     @POST("songbook")
     suspend fun getSongsInSongbook(@Body getSingleSongbookRequest: SingleSongbookRequest): Response<SingleSongbookResponse>
 
     @POST("songbook/create")
     suspend fun newSongbook(@Body newSongbookRequest: NewSongbookRequest): Response<GeneralPostResponse>
-
 
     @Multipart
     @POST("upload/song")
@@ -74,5 +97,4 @@ interface ApiInterfaceSongified {
 
     @HTTP(method = "PATCH", path = "songbook/updateSong", hasBody = true)
     suspend fun updateSongInSongbook(@Body addToSongbookRequest: UpdateSongInSongbookRequest): Response<GeneralPostResponse>
-
 }

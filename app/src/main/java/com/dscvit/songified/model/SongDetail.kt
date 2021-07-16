@@ -21,5 +21,4 @@ data class SongDetail(
     @SerializedName("camelot")
     val camelot: String?,
 
-
-    )
+)

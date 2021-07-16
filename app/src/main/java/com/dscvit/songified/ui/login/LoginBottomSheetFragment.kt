@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dscvit.handly.util.shortToast
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.BottomSheetLoginBinding
 import com.dscvit.songified.model.Result
@@ -17,7 +16,11 @@ import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.DialogDismissListener
 import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.set
-import com.google.android.gms.auth.api.signin.*
+import com.dscvit.songified.util.shortToast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -37,7 +40,6 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var closeListener: DialogDismissListener
     private var isSignedIn = false
 
-
     private var _binding: BottomSheetLoginBinding? = null
 
     // This property is only valid between onCreateView and
@@ -56,11 +58,7 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         sharedPref = PrefHelper.customPrefs(requireContext(), Constants.PREF_NAME)
-
-
 
         auth = Firebase.auth
 
@@ -69,8 +67,6 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
-
-
 
         binding.googleSignInButtonBottomSheet.setOnClickListener {
 
@@ -94,11 +90,8 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
             binding.googleSignInButtonBottomSheet.visibility = View.GONE
             binding.pbLogin.visibility = View.VISIBLE
             handleSignInResult(task, auth)
-
-
         }
     }
-
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>, auth: FirebaseAuth) {
         try {
@@ -123,7 +116,6 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
                                     {
                                         when (it) {
                                             is Result.Loading -> {
-
                                             }
 
                                             is Result.Success -> {
@@ -139,11 +131,10 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
                                                 this.dismiss()
                                             }
                                             is Result.Error -> {
-
                                             }
                                         }
-
-                                    })
+                                    }
+                                )
                                 // Send token to your backend via HTTPS
                                 // ...
                             } else {
@@ -151,23 +142,17 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
                                 shortToast("Some error occurred")
                             }
                         }
-
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(mTAG, "signInWithCredential:failure", task.exception)
-
                     }
                 }
 
-
             // Signed in successfully, show authenticated UI.
-
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("SearchViewModel", "signInResult:failed code=" + e.statusCode)
-
-
         }
     }
 
@@ -175,8 +160,6 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
 
         closeListener.handleDialogClose(dialog, isSignedIn)
         super.onDismiss(dialog)
-
-
     }
 
     override fun onDestroyView() {

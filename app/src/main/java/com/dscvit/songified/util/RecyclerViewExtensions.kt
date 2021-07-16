@@ -1,4 +1,4 @@
-package com.dscvit.handly.util
+package com.dscvit.songified.util
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -8,13 +8,13 @@ interface OnItemClickListener {
 }
 
 fun RecyclerView.addOnItemClickListener(onClickListener: OnItemClickListener) {
-    this.addOnChildAttachStateChangeListener(object: RecyclerView.OnChildAttachStateChangeListener {
+    this.addOnChildAttachStateChangeListener(object : RecyclerView.OnChildAttachStateChangeListener {
         override fun onChildViewDetachedFromWindow(view: View) {
             view.setOnClickListener(null)
         }
 
         override fun onChildViewAttachedToWindow(view: View) {
-            view.setOnClickListener{
+            view.setOnClickListener {
                 val holder = getChildViewHolder(view)
                 onClickListener.onItemClicked(holder.adapterPosition, view)
             }
@@ -23,13 +23,13 @@ fun RecyclerView.addOnItemClickListener(onClickListener: OnItemClickListener) {
 }
 
 fun RecyclerView.addOnItemLongClickListener(onClickListener: OnItemClickListener) {
-    this.addOnChildAttachStateChangeListener(object: RecyclerView.OnChildAttachStateChangeListener {
+    this.addOnChildAttachStateChangeListener(object : RecyclerView.OnChildAttachStateChangeListener {
         override fun onChildViewDetachedFromWindow(view: View) {
             view.setOnClickListener(null)
         }
 
         override fun onChildViewAttachedToWindow(view: View) {
-            view.setOnLongClickListener{
+            view.setOnLongClickListener {
                 val holder = getChildViewHolder(view)
                 onClickListener.onItemClicked(holder.adapterPosition, view)
                 true

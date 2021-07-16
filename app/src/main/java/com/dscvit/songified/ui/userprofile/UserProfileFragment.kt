@@ -13,11 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.dscvit.handly.util.createProgressDialog
+import com.dscvit.songified.util.createProgressDialog
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentUserProfileBinding
 import com.dscvit.songified.model.Result
-import com.dscvit.songified.model.SongbookDeleteRequest
 import com.dscvit.songified.ui.login.LoginBottomSheetFragment
 import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.DialogDismissListener
@@ -27,7 +26,6 @@ import com.dscvit.songified.util.PrefHelper.set
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserProfileFragment : Fragment() {
@@ -39,7 +37,8 @@ class UserProfileFragment : Fragment() {
     private var _binding: FragmentUserProfileBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -53,7 +52,6 @@ class UserProfileFragment : Fragment() {
 
         if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
 
-
             val userProfileViewModel by viewModel<UserProfileViewModel>()
             signOutLoadingDialog = createProgressDialog(requireContext(), "Signing Out")
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -62,30 +60,32 @@ class UserProfileFragment : Fragment() {
                 .build()
             mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
-            userProfileViewModel.getUserInfo().observe(viewLifecycleOwner, {
-                when (it) {
-                    is Result.Loading -> {
-                        Log.d(mTAG, "Loading user profile")
-                    }
-                    is Result.Success -> {
-                        Log.d(mTAG, "User profile loaded")
-                        binding.tvIdUserProfile.text = it.data?.userName
-                        binding.tvPointsUserProfile.text = it.data?.userPoints
-                        binding.tvLevelUserProfile.text = it.data?.userLevel
-                        binding.tvEmailUserProfile.text = it.data?.userEmail
-                        binding.tvSongbookCountUserProfile.text =
-                            it.data?.songbooks?.size.toString()
-                        Glide.with(this)
-                            .load(it.data?.userImg)
-                            .into(binding.imgDpUserProfile)
-                        binding.shimmerDpUserProfile.hideShimmer()
-                        binding.shimmerInfoUserProfile.hideShimmer()
-                    }
-                    is Result.Error -> {
-
+            userProfileViewModel.getUserInfo().observe(
+                viewLifecycleOwner,
+                {
+                    when (it) {
+                        is Result.Loading -> {
+                            Log.d(mTAG, "Loading user profile")
+                        }
+                        is Result.Success -> {
+                            Log.d(mTAG, "User profile loaded")
+                            binding.tvIdUserProfile.text = it.data?.userName
+                            binding.tvPointsUserProfile.text = it.data?.userPoints
+                            binding.tvLevelUserProfile.text = it.data?.userLevel
+                            binding.tvEmailUserProfile.text = it.data?.userEmail
+                            binding.tvSongbookCountUserProfile.text =
+                                it.data?.songbooks?.size.toString()
+                            Glide.with(this)
+                                .load(it.data?.userImg)
+                                .into(binding.imgDpUserProfile)
+                            binding.shimmerDpUserProfile.hideShimmer()
+                            binding.shimmerInfoUserProfile.hideShimmer()
+                        }
+                        is Result.Error -> {
+                        }
                     }
                 }
-            })
+            )
 
             if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
                 binding.btnSignOutUserProfile.visibility = View.VISIBLE
@@ -101,31 +101,32 @@ class UserProfileFragment : Fragment() {
 
                 alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
 
-
                     signOutLoadingDialog.show()
                     mGoogleSignInClient.signOut()
                         .addOnCompleteListener(requireActivity()) {
-                            userProfileViewModel.logout().observe(viewLifecycleOwner, {
-                                when (it) {
-                                    is Result.Loading -> {
-                                        Log.d(mTAG, "Signing out")
-                                    }
-                                    is Result.Success -> {
-                                        signOutLoadingDialog.dismiss()
-                                        Log.d(mTAG, "Signed Out")
-                                        sharedPref[Constants.PREF_IS_AUTH] = false
-                                        sharedPref[Constants.PREF_AUTH_TOKEN] = ""
-                                        binding.btnSignOutUserProfile.visibility = View.GONE
+                            userProfileViewModel.logout().observe(
+                                viewLifecycleOwner,
+                                {
+                                    when (it) {
+                                        is Result.Loading -> {
+                                            Log.d(mTAG, "Signing out")
+                                        }
+                                        is Result.Success -> {
+                                            signOutLoadingDialog.dismiss()
+                                            Log.d(mTAG, "Signed Out")
+                                            sharedPref[Constants.PREF_IS_AUTH] = false
+                                            sharedPref[Constants.PREF_AUTH_TOKEN] = ""
+                                            binding.btnSignOutUserProfile.visibility = View.GONE
 
-                                        view.findNavController().navigate(R.id.navigation_search)
-                                        findNavController().popBackStack(R.id.navigation_userprofile,true)
+                                            view.findNavController().navigate(R.id.navigation_search)
+                                            findNavController().popBackStack(R.id.navigation_userprofile, true)
+                                        }
+                                        is Result.Error -> {
+                                            signOutLoadingDialog.dismiss()
+                                        }
                                     }
-                                    is Result.Error -> {
-                                        signOutLoadingDialog.dismiss()
-                                    }
-
                                 }
-                            })
+                            )
                         }
                 }
 
@@ -138,7 +139,6 @@ class UserProfileFragment : Fragment() {
         } else {
             val loginBottomSheet = LoginBottomSheetFragment()
 
-
             loginBottomSheet.dismissListener(object : DialogDismissListener {
                 override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
                     if (isSignedIn) {
@@ -147,12 +147,9 @@ class UserProfileFragment : Fragment() {
                     } else {
 
                         findNavController().navigate(R.id.navigation_search)
-                        findNavController().popBackStack(R.id.navigation_userprofile,true)
-
+                        findNavController().popBackStack(R.id.navigation_userprofile, true)
                     }
-
                 }
-
             })
             loginBottomSheet.show(this.parentFragmentManager, "TAG")
         }
@@ -162,6 +159,4 @@ class UserProfileFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

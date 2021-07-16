@@ -34,7 +34,8 @@ class SearchFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -48,14 +49,13 @@ class SearchFragment : Fragment() {
         sharedPref = PrefHelper.customPrefs(requireContext(), Constants.PREF_NAME)
         Log.d(mTAG, sharedPref[Constants.PREF_IS_AUTH, false].toString())
 
-        if(sharedPref.get(Constants.PREF_IS_FIRST_TIME,true)==true){
-            val firstTimeIntroIntent= Intent(activity,FirstTimeIntroActivity::class.java)
+        if (sharedPref.get(Constants.PREF_IS_FIRST_TIME, true) == true) {
+            val firstTimeIntroIntent = Intent(activity, FirstTimeIntroActivity::class.java)
             startActivity(firstTimeIntroIntent)
             activity?.finish()
         }
 
         val loginBottomSheet = LoginBottomSheetFragment()
-
 
 /*
         if (!sharedPref[Constants.PREF_IS_AUTH, false]!!) {
@@ -87,11 +87,6 @@ class SearchFragment : Fragment() {
         }
 */
 
-
-
-
-
-
         binding.svSearchFragment.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 val bundle = bundleOf("search_query" to "searchString")
@@ -101,11 +96,7 @@ class SearchFragment : Fragment() {
                 v.findNavController()
                     .navigate(R.id.action_search_to_search_result, bundle, null, extras)
             }
-
-
         }
-
-
 
         binding.btnSearchFragment.setOnClickListener {
             val bundle = bundleOf("search_query" to "searchString")
@@ -122,26 +113,18 @@ class SearchFragment : Fragment() {
 
                 loginBottomSheet.dismissListener(object : DialogDismissListener {
                     override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
-
-
                     }
-
                 })
                 loginBottomSheet.show(this.parentFragmentManager, "TAG")
             } else {
 
                 findNavController().navigate(R.id.action_search_to_upload_song)
             }
-
         }
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

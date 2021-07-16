@@ -14,7 +14,8 @@ class IntroFragment1 : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -27,13 +28,10 @@ class IntroFragment1 : Fragment() {
         binding.btnIntro1Next.setOnClickListener {
             it.findNavController().navigate(R.id.action_intro_1_to_2)
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

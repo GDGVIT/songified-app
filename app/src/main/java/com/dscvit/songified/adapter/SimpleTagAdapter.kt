@@ -1,15 +1,11 @@
 package com.dscvit.songified.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.dscvit.songified.R
-import com.dscvit.songified.databinding.ListItemSimpleSongbooksBinding
 import com.dscvit.songified.databinding.ListItemSimpleTagBinding
 
-class SimpleTagAdapter: RecyclerView.Adapter<SimpleTagAdapter.SimpleTageViewHolder>() {
+class SimpleTagAdapter : RecyclerView.Adapter<SimpleTagAdapter.SimpleTageViewHolder>() {
 
     var tagList: MutableList<String> = mutableListOf()
 
@@ -39,13 +35,11 @@ class SimpleTagAdapter: RecyclerView.Adapter<SimpleTagAdapter.SimpleTageViewHold
 
     class SimpleTageViewHolder(val binding: ListItemSimpleTagBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        //val bgArray= arrayOf(R.drawable.simple_tag_bg_3,R.drawable.simple_tag_bg_1,R.drawable.simple_tag_bg_2)
+        // val bgArray= arrayOf(R.drawable.simple_tag_bg_3,R.drawable.simple_tag_bg_1,R.drawable.simple_tag_bg_2)
 
         fun bind(tag: String) {
             binding.textSimpleTag.text = tag
-           // tvTagName.setBackgroundResource(bgArray.random())
-
+            // tvTagName.setBackgroundResource(bgArray.random())
         }
     }
-
 }

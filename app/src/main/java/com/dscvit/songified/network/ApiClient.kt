@@ -1,10 +1,19 @@
 package com.dscvit.songified.network
 
-import com.dscvit.songified.model.*
+import com.dscvit.songified.model.AddSongInfoRequest
+import com.dscvit.songified.model.AddToSongbookRequest
+import com.dscvit.songified.model.AnalysedDataRequest
+import com.dscvit.songified.model.NewSongbookRequest
+import com.dscvit.songified.model.SignInRequest
+import com.dscvit.songified.model.SingleSongbookRequest
+import com.dscvit.songified.model.SongInfoRequest
+import com.dscvit.songified.model.SongbookDeleteRequest
+import com.dscvit.songified.model.SongbookSongDeleteRequest
+import com.dscvit.songified.model.UpdateSongInSongbookRequest
+import com.dscvit.songified.model.UpdateSongbookNameReqeust
 import com.dscvit.songified.util.Constants
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-
 
 class ApiClient(
     private val apiSongified: ApiInterfaceSongified,
@@ -64,7 +73,7 @@ class ApiClient(
     suspend fun updateSongInSongbook(addToSongbookRequest: UpdateSongInSongbookRequest) =
         getResult { apiSongified.updateSongInSongbook(addToSongbookRequest) }
 
-    //This is for getSongBPM api
+    // This is for getSongBPM api
     suspend fun searchSong(type: String, lookup: String) = getResult {
         apiGSB.searchSong(type, lookup, Constants.API_KEY)
     }
@@ -72,5 +81,4 @@ class ApiClient(
     suspend fun getSongInfo(id: String) = getResult {
         apiGSB.getSongDetails(id, Constants.API_KEY)
     }
-
 }

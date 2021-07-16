@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.dscvit.handly.util.shortToast
+import com.dscvit.songified.util.shortToast
 import com.dscvit.songified.HomeActivity
 import com.dscvit.songified.R
 import com.dscvit.songified.databinding.FragmentIntro3Binding
@@ -40,7 +40,8 @@ class IntroFragment3 : Fragment() {
     private val rcSignIn = 101
     private val mTAG = "IntroFragment3"
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -81,8 +82,6 @@ class IntroFragment3 : Fragment() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
 
             handleSignInResult(task, auth)
-
-
         }
     }
 
@@ -112,7 +111,6 @@ class IntroFragment3 : Fragment() {
                                                 binding.googleSignInIntro.visibility = View.GONE
                                                 binding.pbLoginIntro.visibility = View.VISIBLE
                                                 binding.tvNotNowIntro.visibility = View.GONE
-
                                             }
 
                                             is Result.Success -> {
@@ -131,8 +129,6 @@ class IntroFragment3 : Fragment() {
                                                 startActivity(intent)
 
                                                 activity?.finish()
-
-
                                             }
                                             is Result.Error -> {
                                                 binding.googleSignInIntro.visibility = View.VISIBLE
@@ -143,11 +139,10 @@ class IntroFragment3 : Fragment() {
                                                     "Some error occurred",
                                                     Snackbar.LENGTH_SHORT
                                                 ).show()
-
                                             }
                                         }
-
-                                    })
+                                    }
+                                )
                                 // Send token to your backend via HTTPS
                                 // ...
                             } else {
@@ -155,23 +150,17 @@ class IntroFragment3 : Fragment() {
                                 shortToast("Some error occurred")
                             }
                         }
-
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(mTAG, "signInWithCredential:failure", task.exception)
-
                     }
                 }
 
-
             // Signed in successfully, show authenticated UI.
-
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("SearchViewModel", "signInResult:failed code=" + e.statusCode)
-
-
         }
     }
 

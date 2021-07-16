@@ -7,7 +7,7 @@ data class AddSongInfoRequest(
     @SerializedName("songId")
     val songId: String,
     @SerializedName("songName")
-    val sonName:String,
+    val sonName: String,
     @SerializedName("detail")
     val songDetails: String
 )

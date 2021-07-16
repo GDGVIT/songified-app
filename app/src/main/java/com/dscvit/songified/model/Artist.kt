@@ -13,5 +13,4 @@ data class Artist(
     @SerializedName("img")
     val img: String
 
-
 )

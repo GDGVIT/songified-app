@@ -16,5 +16,4 @@ data class CommentOwner(
     @SerializedName("points")
     val userPoints: String
 
-
 )

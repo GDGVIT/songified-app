@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dscvit.handly.util.createProgressDialog
+import com.dscvit.songified.util.createProgressDialog
 import com.dscvit.songified.R
 import com.dscvit.songified.adapter.SimpleTagAdapter
 import com.dscvit.songified.databinding.FragmentAudioAnalysisBinding
@@ -16,7 +16,6 @@ import com.dscvit.songified.model.AnalysedDataRequest
 import com.dscvit.songified.model.Result
 import org.koin.android.viewmodel.ext.android.getViewModel
 import kotlin.math.roundToInt
-
 
 class AudioAnalysisResultFragment : Fragment() {
     private val mTAG = "UserProfileFragment"
@@ -31,7 +30,8 @@ class AudioAnalysisResultFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -46,8 +46,6 @@ class AudioAnalysisResultFragment : Fragment() {
             requireContext(),
             "Getting analysed song data"
         )
-
-
 
         simpleGenreAdapter = SimpleTagAdapter()
         simpleMoodAdapter = SimpleTagAdapter()
@@ -71,12 +69,12 @@ class AudioAnalysisResultFragment : Fragment() {
         binding.tvRefreshAudioAnalysis.setOnClickListener {
             loadAnalysedData(analyseSongId)
         }
-
     }
 
     private fun loadAnalysedData(analyseSongId: String) {
         val analysedDataRequest = AnalysedDataRequest(analyseSongId)
-        audioAnalysisViewModel.getAnalysedData(analysedDataRequest).observe(viewLifecycleOwner,
+        audioAnalysisViewModel.getAnalysedData(analysedDataRequest).observe(
+            viewLifecycleOwner,
             {
                 when (it) {
                     is Result.Loading -> {
@@ -93,7 +91,6 @@ class AudioAnalysisResultFragment : Fragment() {
                             Log.d(mTAG, "Analysed Data loaded")
                             val key = audAnalysis.key
                             binding.tvScaleAudioAnalysis.text = key
-
 
                             binding.tvTempoAudioAnalysis.text =
                                 audAnalysis.bpm.toFloat()
@@ -148,16 +145,14 @@ class AudioAnalysisResultFragment : Fragment() {
                             binding.layoutContentAudioAnalysis.visibility = View.GONE
                             audioAnalysisLoading.dismiss()
 
-
                             Log.d(mTAG, "AnalysisStatus: ${it.data?.status}")
                         }
-
                     }
                     is Result.Error -> {
-
                     }
                 }
-            })
+            }
+        )
     }
 
     override fun onDestroyView() {

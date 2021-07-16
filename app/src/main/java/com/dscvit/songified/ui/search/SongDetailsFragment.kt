@@ -12,27 +12,31 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dscvit.handly.util.OnItemClickListener
-import com.dscvit.handly.util.addOnItemClickListener
-import com.dscvit.handly.util.createDialog
-import com.dscvit.handly.util.createProgressDialog
 import com.dscvit.songified.R
 import com.dscvit.songified.adapter.SimpleSongbookAdapter
 import com.dscvit.songified.adapter.SongCommentsAdapter
 import com.dscvit.songified.databinding.FragmentSongDetailsBinding
-import com.dscvit.songified.model.*
+import com.dscvit.songified.model.AddSongInfoRequest
+import com.dscvit.songified.model.AddToSongbookRequest
+import com.dscvit.songified.model.Result
+import com.dscvit.songified.model.SongComment
+import com.dscvit.songified.model.SongDetail
+import com.dscvit.songified.model.SongInfoRequest
+import com.dscvit.songified.model.Songbook
 import com.dscvit.songified.ui.login.LoginBottomSheetFragment
 import com.dscvit.songified.util.Constants
 import com.dscvit.songified.util.DialogDismissListener
+import com.dscvit.songified.util.OnItemClickListener
 import com.dscvit.songified.util.PrefHelper
 import com.dscvit.songified.util.PrefHelper.get
+import com.dscvit.songified.util.addOnItemClickListener
+import com.dscvit.songified.util.createDialog
+import com.dscvit.songified.util.createProgressDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
@@ -47,7 +51,8 @@ class SongDetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var sharedPref: SharedPreferences
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -73,36 +78,35 @@ class SongDetailsFragment : Fragment() {
         }
         val selectedSongId = arguments?.getString("selected_song_id").toString()
         songDetailsLoading.show()
-        songDetailsViewModel.getSongDetails(selectedSongId).observe(viewLifecycleOwner, {
-            when (it) {
-                is Result.Loading -> {
-                    Log.d(mTAG, "Loading...")
+        songDetailsViewModel.getSongDetails(selectedSongId).observe(
+            viewLifecycleOwner,
+            {
+                when (it) {
+                    is Result.Loading -> {
+                        Log.d(mTAG, "Loading...")
+                    }
+                    is Result.Success -> {
+                        Log.d(mTAG, "Success")
+                        songDetail = it.data?.song!!
+                        binding.tvSongNameSongDetails.text = songDetail.songTitle
+                        binding.tvArtistNameSongDetails.text = songDetail.artist.artist_title
+
+                        binding.tvScaleSongDetails.text = songDetail.keyOf
+                        binding.tvTempoSongDetails.text = songDetail.tempo
+                        binding.tvTimsigSongDetails.text = songDetail.timeSig
+                        songId = songDetail.songId
+                        Glide.with(this)
+                            .load(songDetail.artist.img)
+                            .fallback(R.drawable.fallback_cover_art)
+                            .into(binding.imgCoverSongDetails)
+                        songDetailsLoading.dismiss()
+                    }
+                    is Result.Error -> {
+                    }
                 }
-                is Result.Success -> {
-                    Log.d(mTAG, "Success")
-                    songDetail = it.data?.song!!
-                    binding.tvSongNameSongDetails.text = songDetail.songTitle
-                    binding.tvArtistNameSongDetails.text = songDetail.artist.artist_title
-
-
-                    binding.tvScaleSongDetails.text = songDetail.keyOf
-                    binding.tvTempoSongDetails.text = songDetail.tempo
-                    binding.tvTimsigSongDetails.text = songDetail.timeSig
-                    songId = songDetail.songId
-                    Glide.with(this)
-                        .load(songDetail.artist.img)
-                        .fallback(R.drawable.fallback_cover_art)
-                        .into(binding.imgCoverSongDetails)
-                    songDetailsLoading.dismiss()
-                }
-                is Result.Error -> {
-
-                }
-
             }
-
-        })
-        //Song Info
+        )
+        // Song Info
 
         val rvSongInfo = view.findViewById(R.id.rv_song_info_song_details) as RecyclerView
         val songCommentsAdapter = SongCommentsAdapter()
@@ -111,13 +115,10 @@ class SongDetailsFragment : Fragment() {
             adapter = songCommentsAdapter
         }
 
-
         binding.btnSaveSongDetails.setOnClickListener {
             if (sharedPref[Constants.PREF_IS_AUTH, false]!!) {
 
-
                 val saveSongDialog = createDialog(requireContext(), true, R.layout.dialog_save_song)
-
 
                 val rvSimpleSongbooks =
                     saveSongDialog.findViewById(R.id.rv_dialog_songbooks_save_song) as RecyclerView
@@ -129,31 +130,32 @@ class SongDetailsFragment : Fragment() {
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = simpleSongbookAdapter
                 }
-                songDetailsViewModel.getSongbooks().observe(viewLifecycleOwner, {
+                songDetailsViewModel.getSongbooks().observe(
+                    viewLifecycleOwner,
+                    {
 
-                    when (it) {
-                        is Result.Loading -> {
-                            Log.d(mTAG, "Loading songbooks")
-                        }
-                        is Result.Success -> {
-                            Log.d(mTAG, "Songbooks loaded")
-
-                            songbookList = it.data?.songbookList!!
-                            pbSaveSong.visibility = View.GONE
-                            simpleSongbookAdapter.updateSongbookList(songbookList)
-                            Log.d(mTAG, it.data.toString())
-                            if (simpleSongbookAdapter.itemCount == 0) {
-                                tvNoSongbooks.visibility = View.VISIBLE
-                            } else {
-                                tvNoSongbooks.visibility = View.GONE
+                        when (it) {
+                            is Result.Loading -> {
+                                Log.d(mTAG, "Loading songbooks")
                             }
+                            is Result.Success -> {
+                                Log.d(mTAG, "Songbooks loaded")
 
-                        }
-                        is Result.Error -> {
-
+                                songbookList = it.data?.songbookList!!
+                                pbSaveSong.visibility = View.GONE
+                                simpleSongbookAdapter.updateSongbookList(songbookList)
+                                Log.d(mTAG, it.data.toString())
+                                if (simpleSongbookAdapter.itemCount == 0) {
+                                    tvNoSongbooks.visibility = View.VISIBLE
+                                } else {
+                                    tvNoSongbooks.visibility = View.GONE
+                                }
+                            }
+                            is Result.Error -> {
+                            }
                         }
                     }
-                })
+                )
 
                 rvSimpleSongbooks.addOnItemClickListener(object : OnItemClickListener {
                     override fun onItemClicked(position: Int, view: View) {
@@ -184,53 +186,48 @@ class SongDetailsFragment : Fragment() {
                         )
                         saveSongLoading.show()
                         songDetailsViewModel.addToSongbook(songBookRequest)
-                            .observe(viewLifecycleOwner, {
+                            .observe(
+                                viewLifecycleOwner,
+                                {
 
-                                when (it) {
-                                    is Result.Loading -> {
-                                        Log.d(mTAG, "Loading ...")
-                                    }
+                                    when (it) {
+                                        is Result.Loading -> {
+                                            Log.d(mTAG, "Loading ...")
+                                        }
 
-                                    is Result.Success -> {
-                                        Log.d(mTAG, "Saved to songbook")
-                                        //shortToast("Saved to ${songbookList[position].name}")
+                                        is Result.Success -> {
+                                            Log.d(mTAG, "Saved to songbook")
+                                            // shortToast("Saved to ${songbookList[position].name}")
 
-
-                                        saveSongDialog.dismiss()
-                                        saveSongLoading.dismiss()
-                                        Snackbar.make(
-                                            binding.root,
-                                            "Saved to ${songbookList[position].name}",
-                                            Snackbar.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                    is Result.Error -> {
-
+                                            saveSongDialog.dismiss()
+                                            saveSongLoading.dismiss()
+                                            Snackbar.make(
+                                                binding.root,
+                                                "Saved to ${songbookList[position].name}",
+                                                Snackbar.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                        is Result.Error -> {
+                                        }
                                     }
                                 }
-                            })
+                            )
                     }
-
                 })
 
                 saveSongDialog.show()
             } else {
                 val loginBottomSheet = LoginBottomSheetFragment()
 
-
                 loginBottomSheet.dismissListener(object : DialogDismissListener {
                     override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
-
-
                     }
-
                 })
                 loginBottomSheet.show(this.parentFragmentManager, "TAG")
             }
-
         }
 
-        //Adding Song Info
+        // Adding Song Info
 
         val btnAddInfo = view.findViewById<Button>(R.id.btn_add_info_song_details)
         btnAddInfo.setOnClickListener {
@@ -248,14 +245,14 @@ class SongDetailsFragment : Fragment() {
                 btnSubmitDialog.setOnClickListener {
                     if (etSongInfo.text.toString().trim() != "") {
 
-
                         val addSongInfoRequest = AddSongInfoRequest(
                             songId,
                             etSongInfo.text.toString(),
                             binding.tvSongNameSongDetails.text.toString()
                         )
                         songDetailsViewModel.uploadSongInfo(addSongInfoRequest)
-                            .observe(viewLifecycleOwner,
+                            .observe(
+                                viewLifecycleOwner,
                                 {
                                     when (it) {
                                         is Result.Loading -> {
@@ -273,14 +270,13 @@ class SongDetailsFragment : Fragment() {
                                             ).show()
 
                                             dialog.dismiss()
-
                                         }
                                         is Result.Error -> {
                                             addCommentLoading.dismiss()
-
                                         }
                                     }
-                                })
+                                }
+                            )
                     } else {
                         Snackbar.make(
                             dialog.findViewById(R.id.et_dialog_song_info),
@@ -288,8 +284,6 @@ class SongDetailsFragment : Fragment() {
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }
-
-
                 }
                 btnCancel.setOnClickListener { dialog.dismiss() }
 
@@ -297,44 +291,41 @@ class SongDetailsFragment : Fragment() {
             } else {
                 val loginBottomSheet = LoginBottomSheetFragment()
 
-
                 loginBottomSheet.dismissListener(object : DialogDismissListener {
                     override fun handleDialogClose(dialog: DialogInterface, isSignedIn: Boolean) {
-
-
                     }
-
                 })
                 loginBottomSheet.show(this.parentFragmentManager, "TAG")
             }
         }
 
         val songInfoRequest = SongInfoRequest(selectedSongId)
-        songDetailsViewModel.getSongComments(songInfoRequest).observe(viewLifecycleOwner, {
-            when (it) {
-                is Result.Loading -> {
-                    Log.d(mTAG, "Loading user comments")
-                    binding.pbCommentsSongDetails.visibility = View.VISIBLE
-                    binding.tvNoCommentsSongDetails.visibility = View.GONE
-                }
-                is Result.Success -> {
-                    Log.d(mTAG, "User comments loaded")
-                    Log.d(mTAG, it.data?.songComments.toString())
-                    songCommentsList = it.data?.songComments!!
-                    songCommentsAdapter.updateSongCommentsList(songCommentsList)
-                    binding.pbCommentsSongDetails.visibility = View.GONE
-                    if (songCommentsAdapter.itemCount == 0) {
-                        binding.tvNoCommentsSongDetails.visibility = View.VISIBLE
-                    } else {
+        songDetailsViewModel.getSongComments(songInfoRequest).observe(
+            viewLifecycleOwner,
+            {
+                when (it) {
+                    is Result.Loading -> {
+                        Log.d(mTAG, "Loading user comments")
+                        binding.pbCommentsSongDetails.visibility = View.VISIBLE
                         binding.tvNoCommentsSongDetails.visibility = View.GONE
                     }
-
-                }
-                is Result.Error -> {
-
+                    is Result.Success -> {
+                        Log.d(mTAG, "User comments loaded")
+                        Log.d(mTAG, it.data?.songComments.toString())
+                        songCommentsList = it.data?.songComments!!
+                        songCommentsAdapter.updateSongCommentsList(songCommentsList)
+                        binding.pbCommentsSongDetails.visibility = View.GONE
+                        if (songCommentsAdapter.itemCount == 0) {
+                            binding.tvNoCommentsSongDetails.visibility = View.VISIBLE
+                        } else {
+                            binding.tvNoCommentsSongDetails.visibility = View.GONE
+                        }
+                    }
+                    is Result.Error -> {
+                    }
                 }
             }
-        })
+        )
     }
 
     override fun onDestroyView() {

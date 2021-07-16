@@ -1,16 +1,10 @@
 package com.dscvit.songified.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
-import com.dscvit.songified.R
-import com.dscvit.songified.databinding.ListItemSimpleSongbooksBinding
 import com.dscvit.songified.databinding.ListItemSongSearchResultBinding
 import com.dscvit.songified.model.Song
-
 
 class SongListAdapter : RecyclerView.Adapter<SongListAdapter.SongViewHolder>() {
 
@@ -42,12 +36,9 @@ class SongListAdapter : RecyclerView.Adapter<SongListAdapter.SongViewHolder>() {
 
     class SongViewHolder(val binding: ListItemSongSearchResultBinding) : RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(song: Song) {
             binding.tvListItemSearchResultSongName.text = song.song_title
-            binding.tvListItemSearchResultSongArtistName.text=song.artist.artist_title
-
+            binding.tvListItemSearchResultSongArtistName.text = song.artist.artist_title
         }
     }
-
 }
