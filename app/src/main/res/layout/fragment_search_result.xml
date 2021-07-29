@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/back_search_result"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/back_button"
+
+        android:src="@drawable/ic_back"
+
+        app:layout_constraintBottom_toBottomOf="@id/sv_search_result_fragment"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="@id/sv_search_result_fragment" />
+
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_search_result_fragment"
+        style="@style/SearchViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/search_bg"
+        android:focusable="true"
+
+        android:focusableInTouchMode="true"
+        android:padding="4dp"
+        android:textColor="#ffffff"
+
+        android:textColorHint="#808080"
+        android:theme="@style/SearchViewStyle"
+        android:transitionName="search_bar_transition"
+
+        app:closeIcon="@drawable/ic_close"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_search_result"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Search song ..."
+        app:searchIcon="@drawable/ic_search"
+
+        />
+
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/pb_loading_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/songified_accent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sv_search_result_fragment" />
+
+    <ImageView
+        android:id="@+id/img_no_search_result"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/no_songbooks"
+        android:src="@drawable/not_found"
+
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_no_search_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/no_search_result"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/img_no_search_result"
+        app:layout_constraintStart_toStartOf="@+id/img_no_search_result"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/img_no_search_result" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_song_search_results"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/pb_loading_search_result"
+        app:layout_constraintTop_toBottomOf="@id/pb_loading_search_result" />
+</androidx.constraintlayout.widget.ConstraintLayout>
